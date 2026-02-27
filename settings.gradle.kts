@@ -1,5 +1,3 @@
-//settings.gradle
-
 pluginManagement {
     repositories {
         google {
@@ -18,12 +16,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
-
-
 rootProject.name = "NETI Client"
-include ':app'
-include ':neticore'
+include(":app")
+include(":neticore")

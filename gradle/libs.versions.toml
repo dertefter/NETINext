@@ -30,6 +30,8 @@ retrofit = "3.0.0"
 shapemorphview = "0.0.4"
 transitionKtx = "1.6.0"
 workRuntimeKtx = "2.11.0"
+navigationFragmentKtxVersion = "2.9.7"
+navigationUiKtx = "2.9.7"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -69,5 +71,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 shapemorphview = { module = "io.github.dertefter:shapemorphview", version.ref = "shapemorphview" }
 transition-ktx = { module = "androidx.transition:transition-ktx", version.ref = "transitionKtx" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
 [plugins]
