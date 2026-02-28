@@ -21,5 +21,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "NETI Client"
+include(":core:data")
 include(":app")
-include(":neticore")
+include(":feature:auth")
+include(":core:design")

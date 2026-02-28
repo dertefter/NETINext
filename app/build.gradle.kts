@@ -1,96 +1,71 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-parcelize")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
-    id("kotlinx-serialization")
-    id("androidx.navigation.safeargs")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
     namespace = "com.dertefter.neticlient"
     compileSdk = 36
+
     defaultConfig {
         applicationId = "com.dertefter.neticlient"
         minSdk = 28
         targetSdk = 36
-        versionCode = 34
-        versionName = "4.0.0"
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
-
     buildFeatures {
-        viewBinding = true
+        compose = true
     }
 }
 
 dependencies {
-    implementation(libs.shapemorphview)
-    implementation(libs.custom.qr.generator)
-    implementation(libs.kavehcolorpicker)
-    implementation(libs.edittext.picker)
+    implementation(project(":core:data"))
+    implementation(project(":core:design"))
 
-    implementation(libs.transition.ktx)
-    implementation(libs.fragment.ktx)
-    implementation(libs.activity.ktx)
-    implementation(libs.appcompat)
+    implementation(project(":feature:auth"))
+
     implementation(libs.core.ktx)
-    implementation(libs.constraintlayout)
-    implementation(libs.cardview)
-    implementation(libs.recyclerview)
-
-    implementation(libs.core.splashscreen)
-    implementation(libs.material)
-
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okio)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    implementation(libs.jsoup)
-    implementation(libs.okhttp.urlconnection)
-    implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.picasso)
-
-    implementation(libs.datastore.preferences)
-    implementation(libs.datastore)
-
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
-    implementation(libs.annotation)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    
+    // Hilt
     implementation(libs.hilt.android)
-    implementation(libs.hilt.common)
-    implementation(libs.work.runtime.ktx)
-
-    implementation(libs.palette.ktx)
-
-    implementation(project(":neticore"))
-    implementation(libs.gridlayout)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-
     kapt(libs.hilt.compiler)
-}
+    implementation(libs.hilt.navigation.compose)
 
-kapt {
-    correctErrorTypes = true
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
