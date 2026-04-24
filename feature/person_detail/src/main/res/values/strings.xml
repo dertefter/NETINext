@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profiles">Profiles</string>
+    <string name="subjects">Subjects Taught</string>
+    <string name="contact_info">Contact Info</string>
+</resources>
