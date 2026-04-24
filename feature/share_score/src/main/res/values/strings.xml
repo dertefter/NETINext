@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="copy">Copy</string>
+    <string name="new_link">Regenerate link</string>
+    <string name="info">Show this QR code or send the link to anyone you want to share your grades with</string>
+    <string name="share_score">Share Grades</string>
+    <string name="update_link">Update link</string>
+    <string name="share_score_label">Share Grades Link</string>
+</resources>
