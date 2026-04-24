@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <string name="app_name">NETI Client</string>
+    <string name="auth_loading">Подключаемся к НГТУ НЭТИ</string>
+    <string name="auth_error">Не удалось подключиться</string>
+    <string name="auth_success">Вы подключены!</string>
+    <string name="auth_retry">Попробовать ещё раз</string>
+    <string name="close_card">Закрыть карточку</string>
+
+    <string name="pretty_date_today">Сегодня</string>
+    <string name="pretty_date_tomorrow">Завтра</string>
+    <string name="pretty_date_after_tomorrow">Послезавтра</string>
+
+    <plurals name="pretty_date_days">
+        <item quantity="one">Через %d день</item>
+        <item quantity="few">Через %d дня</item>
+        <item quantity="many">Через %d дней</item>
+    </plurals>
+
+    <string name="will_start">Начнётся</string>
+    <string name="ended">Закончилось</string>
+    <string name="going_now">Идёт сейчас</string>
+    <string name="in_what">в</string>
+
+    <string name="no_group">Нет группы</string>
+    <string name="select_group_in_app">Выберите группу в приложении</string>
+    <string name="loading">Загрузка…</string>
+    <string name="loading_schedule_for_group">Загружаем расписание для группы %s</string>
+    <string name="no_lessons">Нет занятий</string>
+    <string name="no_lessons_near_time">На ближайшее время занятий нет</string>
+    <string name="lesson_placeholder">Занятие</string>
+
+</resources>

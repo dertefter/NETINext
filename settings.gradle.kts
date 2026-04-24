@@ -11,6 +11,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -21,7 +24,35 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "NETI Client"
-include(":core:data")
+
 include(":app")
-include(":feature:auth")
+
+include(":core:data")
 include(":core:design")
+include(":core:navigation")
+
+include(":feature:auth")
+include(":feature:profile")
+include(":feature:contact_info")
+include(":feature:home")
+include(":feature:news_detail")
+include(":feature:search_group")
+include(":feature:calendar")
+include(":feature:image_viewer")
+include(":feature:lesson_detail")
+include(":feature:sessia_results")
+include(":feature:share_score")
+
+include(":feature:messages")
+include(":feature:messages_detail")
+
+include(":feature:search_person")
+include(":feature:person_detail")
+include(":feature:person_gallery")
+
+
+include(":feature:settings")
+include(":feature:settings_account")
+include(":feature:settings_labs")
+include(":feature:settings_theme")
+include(":feature:settings_notifications")
