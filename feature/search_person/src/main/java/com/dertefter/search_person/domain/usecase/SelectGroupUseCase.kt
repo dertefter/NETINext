@@ -1,0 +1,14 @@
+package com.dertefter.search_person.domain.usecase
+
+import com.dertefter.data.dto.schedule.GroupDto
+import com.dertefter.data.repository.GroupsRepository
+import javax.inject.Inject
+
+class SelectGroupUseCase @Inject constructor(
+
+    private val groupsRepository: GroupsRepository
+) {
+    suspend operator fun invoke(groupDto: GroupDto){
+        groupsRepository.setCurrentGroup(groupDto)
+    }
+}
