@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score">Score</string>
+    <string name="ects" translatable="false">ECTS</string>
+    <string name="mark">Mark</string>
+    <string name="semester_format">%1$s semester</string>
+    <string name="no_results">No session results found</string>
+    <string name="no_results_in_semester">No results for this semester</string>
+    <string name="no_data">No data available</string>
+    <string name="sessia_results">Exam Results</string>
+</resources>

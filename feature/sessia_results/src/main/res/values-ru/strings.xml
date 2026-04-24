@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score">Баллы</string>
+    <string name="mark">Оценка</string>
+    <string name="semester_format">%1$s семестр</string>
+    <string name="no_results">Результаты сессии не найдены</string>
+    <string name="no_results_in_semester">В этом семестре результатов нет</string>
+    <string name="no_data">Нет данных</string>
+    <string name="sessia_results">Результаты сессии</string>
+</resources>
