@@ -1,6 +1,7 @@
 package com.dertefter.data.datasource.remote
 
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
@@ -74,6 +75,10 @@ interface RemoteDataSource  {
 
 
     suspend fun getPromo(): Result<List<PromoItem>>
+
+    suspend fun getMoneyForYear(year: String): Result<List<MoneyItemDto>>
+
+    suspend fun getYears(): Result<List<String>>
 
 
 }

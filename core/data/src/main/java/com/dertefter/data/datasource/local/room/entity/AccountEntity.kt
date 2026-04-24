@@ -19,5 +19,6 @@ data class AccountEntity(
     val weekBounds: List<WeekBoundsDto>? = null,
     val sessiaResults: List<SessiaResultDto>? = null,
     val groupHistory: List<GroupDto> = emptyList(),
-    val shareScoreLink: String? = null
+    val shareScoreLink: String? = null,
+    val moneyYears: List<String>? = null
 )

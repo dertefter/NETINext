@@ -26,6 +26,10 @@ sealed interface Routes {
     @Serializable
     data object Auth : Routes
 
+
+    @Serializable
+    data object Money : Routes
+
     @Serializable
     data object ContactInfo : Routes
 

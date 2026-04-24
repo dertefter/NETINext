@@ -2,4 +2,5 @@
 <resources>
     <string name="person_search">Поиск сотрудников</string>
     <string name="sessia_results">Результаты сессии</string>
+    <string name="money">Стипендии и выплаты</string>
 </resources>

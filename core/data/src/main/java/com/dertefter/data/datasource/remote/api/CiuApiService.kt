@@ -3,6 +3,7 @@ package com.dertefter.data.datasource.remote.api
 import com.dertefter.data.dto.share_score.ShareScoreResponse
 import okhttp3.ResponseBody
 import retrofit2.http.Field
+import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -109,6 +110,16 @@ interface CiuApiService {
 
     @GET("student_study/student_info/link_progress")
     suspend fun getShareScoreLink(): ResponseBody
+
+    @FormUrlEncoded
+    @POST("student_study/personal/money")
+    suspend fun getMoneyForYear(
+        @Field("year") year: String,
+        @Field("month") month: Int = 0
+    ): ResponseBody
+
+    @GET("student_study/personal/money")
+    suspend fun getMoneyYears(): ResponseBody
 
 
 

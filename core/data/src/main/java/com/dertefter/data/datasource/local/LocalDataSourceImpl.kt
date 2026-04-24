@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
+import com.dertefter.data.datasource.local.room.entity.MoneyEntity
 import com.dertefter.data.datasource.local.room.entity.NewsEntity
 import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.local.room.entity.toEntity
@@ -35,6 +36,7 @@ import androidx.room.withTransaction
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.datasource.local.room.dao.NewsDao
 import com.dertefter.data.datasource.local.room.dao.NewsRemoteKeyDao
+import com.dertefter.data.dto.money.MoneyItemDto
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -48,6 +50,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val globalConfigDao = appDatabase.globalConfigDao()
     private val newsDao = appDatabase.newsDao()
     private val newsRemoteKeyDao = appDatabase.newsRemoteKeyDao()
+    private val moneyDao = appDatabase.moneyDao()
 
     override fun getNewsPagingSource(): PagingSource<Int, NewsEntity> {
         return newsDao.getNews()
@@ -305,5 +308,28 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun savePromo(promoList: List<PromoItem>) {
         val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
         globalConfigDao.insertConfig(currentConfig.copy(promoList = promoList))
+    }
+
+    override fun getMoneyForYear(year: String): Flow<List<MoneyItemDto>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            moneyDao.getMoney(login ?: GUEST_LOGIN, year).map { it?.moneyItems }
+        }
+    }
+
+    override fun getMoneyYears(): Flow<List<String>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            accountDao.getAccount(login ?: GUEST_LOGIN).map { it?.moneyYears }
+        }
+    }
+
+    override suspend fun saveMoneyForYear(year: String, money: List<MoneyItemDto>) {
+        val login = getCurrentLoginValue()
+        moneyDao.insertMoney(MoneyEntity(login, year, money))
+    }
+
+    override suspend fun saveMoneyYears(years: List<String>) {
+        val login = getCurrentLoginValue()
+        val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
+        accountDao.insertAccount(account.copy(moneyYears = years))
     }
 }

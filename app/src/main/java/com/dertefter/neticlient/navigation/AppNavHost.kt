@@ -18,6 +18,7 @@ import com.dertefter.image_viewer.ImageViewerRoute
 import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.messages.MessagesRoute
 import com.dertefter.messages_detail.MessagesDetailRoute
+import com.dertefter.money.MoneyRoute
 import com.dertefter.navigation.Routes
 import com.dertefter.news_detail.NewsDetailRoute
 import com.dertefter.person_detail.PersonDetailRoute
@@ -100,7 +101,7 @@ fun RouteContent(route: Routes) {
             date = route.getDate()
         )
         is Routes.SessiaResults -> SessiaResultsRoute()
-
+        is Routes.Money -> MoneyRoute()
         is Routes.ShareScore -> ShareScoreRoute()
         is Routes.SettingsLabs -> SettingsLabsRoute()
         is Routes.ImageViewer -> ImageViewerRoute(
@@ -148,6 +149,10 @@ fun NavGraphBuilder.graph() {
 
     composable<Routes.Calendar> {
         RouteContent(Routes.Calendar)
+    }
+
+    composable<Routes.Money> {
+        RouteContent(Routes.Money)
     }
 
     composable<Routes.Messages> {

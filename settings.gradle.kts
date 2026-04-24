@@ -42,7 +42,7 @@ include(":feature:image_viewer")
 include(":feature:lesson_detail")
 include(":feature:sessia_results")
 include(":feature:share_score")
-
+include(":feature:money")
 include(":feature:messages")
 include(":feature:messages_detail")
 

@@ -30,11 +30,13 @@ fun RoutesListMenu(
             val icon = when (route){
                 Routes.SearchPerson -> Icons.PersonSearch
                 Routes.SessiaResults -> Icons.School
+                Routes.Money -> Icons.Payments
                 else -> Icons.ArrowDropUp
             }
             val text = when (route){
                 Routes.SearchPerson -> stringResource(R.string.person_search)
                 Routes.SessiaResults -> stringResource(R.string.sessia_results)
+                Routes.Money -> stringResource(R.string.money)
                 else -> ""
             }
 

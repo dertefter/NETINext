@@ -3,6 +3,7 @@ package com.dertefter.data.datasource.local.room.converter
 import androidx.room.TypeConverter
 import com.dertefter.data.dto.auth.AuthCreditions
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.data.dto.schedule.GroupDto
@@ -110,6 +111,24 @@ class Converters {
     @TypeConverter
     fun toPromoItemList(value: String?): List<PromoItem>? {
         val type = object : TypeToken<List<PromoItem>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromMoneyItemDtoList(value: List<MoneyItemDto>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toMoneyItemDtoList(value: String?): List<MoneyItemDto>? {
+        val type = object : TypeToken<List<MoneyItemDto>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromStringList(value: List<String>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toStringList(value: String?): List<String>? {
+        val type = object : TypeToken<List<String>>() {}.type
         return gson.fromJson(value, type)
     }
 }

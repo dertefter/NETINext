@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:news_detail"))
     implementation(project(":feature:search_group"))
+    implementation(project(":feature:money"))
     implementation(project(":feature:calendar"))
     implementation(project(":feature:settings"))
     implementation(project(":feature:settings_account"))

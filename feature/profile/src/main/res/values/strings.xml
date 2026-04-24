@@ -2,4 +2,5 @@
 <resources>
     <string name="person_search">Person search</string>
     <string name="sessia_results">Exam Results</string>
+    <string name="money">Scholarships and Payments</string>
 </resources>

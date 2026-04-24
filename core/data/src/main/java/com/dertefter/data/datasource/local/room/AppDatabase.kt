@@ -11,9 +11,11 @@ import com.dertefter.data.datasource.local.room.dao.NewsDao
 import com.dertefter.data.datasource.local.room.dao.NewsRemoteKeyDao
 import com.dertefter.data.datasource.local.room.dao.PersonDao
 import com.dertefter.data.datasource.local.room.dao.ScheduleDao
+import com.dertefter.data.datasource.local.room.dao.MoneyDao
 import com.dertefter.data.datasource.local.room.entity.AccountEntity
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
 import com.dertefter.data.datasource.local.room.entity.MessageEntity
+import com.dertefter.data.datasource.local.room.entity.MoneyEntity
 import com.dertefter.data.datasource.local.room.entity.NewsEntity
 import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.local.room.entity.PersonEntity
@@ -27,9 +29,10 @@ import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
         GlobalConfigEntity::class,
         PersonEntity::class,
         NewsEntity::class,
-        NewsRemoteKey::class
+        NewsRemoteKey::class,
+        MoneyEntity::class
     ],
-    version = 10,
+    version = 12,
     exportSchema = false
 )
 
@@ -43,4 +46,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun personDao(): PersonDao
     abstract fun newsDao(): NewsDao
     abstract fun newsRemoteKeyDao(): NewsRemoteKeyDao
+    abstract fun moneyDao(): MoneyDao
 }

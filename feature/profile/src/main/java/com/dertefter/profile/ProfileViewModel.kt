@@ -36,7 +36,7 @@ class ProfileViewModel @Inject constructor(
     private val _yourNetiAuthStatus = authRepository.yourNetiAuthStatus
     private val _userInfoState = MutableStateFlow(UserInfoState())
 
-    val routesMenu = listOf(Routes.SessiaResults, Routes.SearchPerson)
+    val routesMenu = listOf(Routes.SessiaResults, Routes.SearchPerson, Routes.Money)
 
     init {
         viewModelScope.launch {

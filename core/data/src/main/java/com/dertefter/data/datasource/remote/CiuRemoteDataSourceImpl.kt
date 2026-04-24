@@ -15,12 +15,15 @@ import com.dertefter.data.datasource.remote.api.parsers.parsePersonShorts
 import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
+import com.dertefter.data.datasource.remote.api.parsers.parseMoneyItems
+import com.dertefter.data.datasource.remote.api.parsers.parseMoneyYearList
 import com.dertefter.data.datasource.remote.api.parsers.parsePromo
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaResults
 import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
 import com.dertefter.data.dto.auth.Login2FormParams
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
@@ -192,6 +195,20 @@ class CiuRemoteDataSourceImpl @Inject constructor(
         return runCatching {
             val response = baseApiService.getBasePage()
             parsePromo(response.string())
+        }
+    }
+
+    override suspend fun getMoneyForYear(year: String): Result<List<MoneyItemDto>> {
+        return runCatching {
+            val response = ciuApiService.getMoneyForYear(year = year)
+            parseMoneyItems(response.string())
+        }
+    }
+
+    override suspend fun getYears(): Result<List<String>> {
+        return runCatching {
+            val response = ciuApiService.getMoneyYears()
+            parseMoneyYearList(response.string())
         }
     }
 

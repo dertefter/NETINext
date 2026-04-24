@@ -5,6 +5,7 @@ import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.auth.AuthCreditions
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
@@ -115,5 +116,13 @@ interface LocalDataSource {
     fun getPromo(): Flow<List<PromoItem>?>
 
     suspend fun savePromo(promoList: List<PromoItem>)
+
+    fun getMoneyForYear(year: String): Flow<List<MoneyItemDto>?>
+
+    fun getMoneyYears(): Flow<List<String>?>
+
+    suspend fun saveMoneyForYear(year: String, money: List<MoneyItemDto>)
+
+    suspend fun saveMoneyYears(years: List<String>)
 
 }

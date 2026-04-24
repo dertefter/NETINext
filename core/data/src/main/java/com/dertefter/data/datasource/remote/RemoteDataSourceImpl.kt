@@ -1,6 +1,7 @@
 package com.dertefter.data.datasource.remote
 
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
@@ -196,6 +197,14 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getPromo(): Result<List<PromoItem>> {
         return ciuRemoteDataSource.getPromo()
+    }
+
+    override suspend fun getMoneyForYear(year: String): Result<List<MoneyItemDto>> {
+        return ciuRemoteDataSource.getMoneyForYear(year)
+    }
+
+    override suspend fun getYears(): Result<List<String>> {
+        return ciuRemoteDataSource.getYears()
     }
 
 
