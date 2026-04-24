@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 import com.dertefter.search_group.R
 
@@ -37,7 +38,7 @@ fun GroupHistoryItem(
 
     Row(
         modifier = Modifier
-            .clip(CircleShape)
+            .clip(MaterialTheme.circleShape())
             .background(MaterialTheme.colorScheme.secondaryContainer),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -1,7 +1,6 @@
 package com.dertefter.search_group.presentation
 
 import com.dertefter.data.common.AppError
-import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.schedule.GroupDto
 
 data class UiState(

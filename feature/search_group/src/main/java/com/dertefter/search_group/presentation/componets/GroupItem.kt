@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -33,7 +34,7 @@ fun GroupItem(
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(CircleShape)
+            .clip(MaterialTheme.circleShape())
             .clickable(onClick = onClick)
             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .padding(MaterialTheme.spacing.large),

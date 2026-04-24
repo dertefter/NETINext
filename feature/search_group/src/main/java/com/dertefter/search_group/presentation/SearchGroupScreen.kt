@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,6 +39,7 @@ import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.design.components.common.ErrorLarge
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 import com.dertefter.search_group.R
 import com.dertefter.search_group.presentation.componets.GroupHistoryItem
@@ -109,7 +109,7 @@ fun SearchGroupScreen(
                         }
                     },
                     singleLine = true,
-                    shape = CircleShape,
+                    shape = MaterialTheme.shapes.large,
                     isError = uiState.error != null,
                     colors = OutlinedTextFieldDefaults.colors().copy(
                         focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -132,7 +132,7 @@ fun SearchGroupScreen(
                                 imageVector = Icons.History,
                                 contentDescription = stringResource(R.string.history),
                                 modifier = Modifier
-                                    .clip(CircleShape)
+                                    .clip(MaterialTheme.circleShape())
                                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
                                     .padding(MaterialTheme.spacing.medium)
                             )
@@ -217,7 +217,9 @@ fun SearchGroupScreen(
 @Composable
 @Preview(showBackground = true)
 fun SearchGroupScreenPreview() {
-    AppTheme {
+    AppTheme (
+        isCut = true
+    ) {
 
         val l = listOf(
             GroupDto("ПММ-51"),

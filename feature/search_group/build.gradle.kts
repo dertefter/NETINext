@@ -15,7 +15,7 @@ plugins {
 
 android {
     namespace = "com.dertefter.search_group"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 26
