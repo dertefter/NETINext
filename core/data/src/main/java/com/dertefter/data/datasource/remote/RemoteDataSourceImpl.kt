@@ -1,0 +1,202 @@
+package com.dertefter.data.datasource.remote
+
+import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.news.NewsDetailDto
+import com.dertefter.data.dto.news.NewsItem
+import com.dertefter.data.dto.news.PromoItem
+import com.dertefter.data.dto.person.PersonDetailDto
+import com.dertefter.data.dto.person.PersonShortDto
+import com.dertefter.data.dto.schedule.GroupDto
+import com.dertefter.data.dto.schedule.ScheduleDto
+import com.dertefter.data.dto.sessia_results.SessiaResultDto
+import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.UserInfoDto
+import javax.inject.Inject
+
+class RemoteDataSourceImpl @Inject constructor(
+    private val ciuRemoteDataSource: CiuRemoteDataSource,
+    private val yourNetiRemoteDataSource: YourNetiRemoteDataSource
+) : RemoteDataSource {
+
+    companion object {
+        const val TAG = "RemoteDataSourceImpl"
+    }
+
+    override var preferredRemoteSource: PreferredRemoteSource = PreferredRemoteSource.AUTO
+
+
+
+    override suspend fun authorizeCiu(login: String, password: String): Result<Unit> {
+        return ciuRemoteDataSource.authorizeCiu(login, password)
+
+    }
+
+    override suspend fun authorizeYourNeti(login: String, password: String): Result<Unit> {
+        return yourNetiRemoteDataSource.authorizeYourNeti(login, password)
+
+    }
+
+    override fun logout() {
+        ciuRemoteDataSource.logout()
+        yourNetiRemoteDataSource.logout()
+    }
+
+
+    override suspend fun getUserInfo(): Result<UserInfoDto> {
+        return if (preferredRemoteSource == PreferredRemoteSource.CIU){
+            ciuRemoteDataSource.getUserInfo()
+        } else {
+            yourNetiRemoteDataSource.getUserInfo()
+
+        }
+    }
+
+    override suspend fun getContactInfo(): Result<ContactInfoDto> {
+
+        return if (preferredRemoteSource == PreferredRemoteSource.YOURNETI){
+            yourNetiRemoteDataSource.getContactInfo()
+        } else {
+            ciuRemoteDataSource.getContactInfo()
+
+        }
+
+
+    }
+
+    override suspend fun saveContactInfo(
+        email: String,
+        address: String,
+        phone: String,
+        snils: String,
+        oms: String,
+        vk: String,
+        tg: String,
+        leader: String,
+    ): Result<ContactInfoDto> {
+        return ciuRemoteDataSource.saveContactInfo(
+            email = email,
+            address = address,
+            phone = phone,
+            snils = snils,
+            oms = oms,
+            vk = vk,
+            tg = tg,
+            leader = leader
+        )
+    }
+
+    override suspend fun checkAuth(): Result<Unit> {
+        return ciuRemoteDataSource.checkAuth()
+    }
+
+    override suspend fun getNewsForPage(page: Int): Result<List<NewsItem>> {
+        return ciuRemoteDataSource.getNewsForPage(page)
+    }
+
+    override suspend fun getNewsDetail(id: String): Result<NewsDetailDto> {
+        return ciuRemoteDataSource.getNewsDetail(id)
+    }
+
+    override suspend fun getSchedule(group: GroupDto): Result<ScheduleDto> {
+        return ciuRemoteDataSource.getSchedule(group)
+    }
+
+    override suspend fun getSearchGroupResults(query: String): Result<List<GroupDto>> {
+        return ciuRemoteDataSource.getSearchGroupResults(query)
+    }
+
+    override suspend fun getMessages(): Result<List<MessageDto>> {
+        if (preferredRemoteSource == PreferredRemoteSource.CIU){
+            return ciuRemoteDataSource.getMessages()
+        } else {
+            return yourNetiRemoteDataSource.getMessages()
+        }
+    }
+
+
+    override suspend fun readMessage(
+        idStudent: Long?,
+        idMessage: Long
+    ): Result<Unit> {
+        if (idStudent == null || preferredRemoteSource == PreferredRemoteSource.CIU){
+            return ciuRemoteDataSource.readMessage(idMessage)
+        } else {
+            return yourNetiRemoteDataSource.readMessage(idStudent, idMessage)
+        }
+    }
+
+    override suspend fun unreadMessage(
+        idStudent: Long?,
+        idMessage: Long
+    ): Result<Unit> {
+        if (idStudent == null){
+            return Result.failure(Exception())
+            //todo
+        }else{
+            return yourNetiRemoteDataSource.unreadMessage(idStudent, idMessage)
+        }
+    }
+
+    override suspend fun moveMessageToTrash(
+        idStudent: Long?,
+        idMessage: Long
+    ): Result<Unit> {
+        if (idStudent == null || preferredRemoteSource == PreferredRemoteSource.CIU){
+            return ciuRemoteDataSource.moveMessageToTrash(idMessage)
+        }else {
+            return yourNetiRemoteDataSource.moveMessageToTrash(idStudent, idMessage)
+        }
+
+    }
+
+    override suspend fun removeMessageFromTrash(
+        idStudent: Long?,
+        idMessage: Long
+    ): Result<Unit> {
+        if (idStudent == null || preferredRemoteSource == PreferredRemoteSource.CIU){
+            return ciuRemoteDataSource.removeMessageToTrash(idMessage)
+        } else {
+            return yourNetiRemoteDataSource.removeMessageFromTrash(idStudent, idMessage)
+        }
+    }
+
+    override suspend fun deleteMessageForever(
+        idStudent: Long?,
+        idMessage: Long
+    ): Result<Unit> {
+        if (idStudent == null || preferredRemoteSource == PreferredRemoteSource.CIU){
+            return ciuRemoteDataSource.deleteMessageForever(idMessage)
+        } else {
+            //TODO найти эндпоинт yourneti
+            //fallback до ciu
+            return ciuRemoteDataSource.deleteMessageForever(idMessage)
+        }
+    }
+
+    override suspend fun getPersonById(id: Long): Result<PersonDetailDto> {
+        return ciuRemoteDataSource.getPersonById(id)
+    }
+
+    override suspend fun getSearchPersonResults(q: String): Result<List<PersonShortDto>> {
+        return ciuRemoteDataSource.getSearchPersonResults(q)
+    }
+
+    override suspend fun getSessiaResults(): Result<List<SessiaResultDto>> {
+        if (preferredRemoteSource == PreferredRemoteSource.YOURNETI){
+            return yourNetiRemoteDataSource.getSessiaResults()
+        } else {
+            return ciuRemoteDataSource.getSessiaResults()
+        }
+
+    }
+
+    override suspend fun updateShareScoreLink(generateNew: Boolean): Result<String> {
+        return ciuRemoteDataSource.updateShareScoreLink(generateNew)
+    }
+
+    override suspend fun getPromo(): Result<List<PromoItem>> {
+        return ciuRemoteDataSource.getPromo()
+    }
+
+
+}
