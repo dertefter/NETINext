@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="move_to_archive">Move to archive</string>
+    <string name="delete">Delete forever</string>
+    <string name="restore">Restore from archive</string>
+</resources>

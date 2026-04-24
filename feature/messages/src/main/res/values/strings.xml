@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="teachers">Teachers</string>
+    <string name="services">Services</string>
+    <string name="tutor">Tutor</string>
+    <string name="decan">Dean\'s office</string>
+    <string name="other">Other</string>
+    <string name="archive">Archive</string>
+    <string name="unread">Unread</string>
+    <string name="all">All</string>
+    <string name="messages">Messages</string>
+    <string name="teacher_and_services">Teachers and services</string>
+    <string name="move_to_archive">Move to archive</string>
+    <string name="delete">Delete</string>
+    <string name="restore">Restore from archive</string>
+    <string name="empty">Nothing here</string>
+</resources>

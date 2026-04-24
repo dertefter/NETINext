@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="move_to_archive">Отпрпавить в архив</string>
+    <string name="delete">Удалить навсегда</string>
+    <string name="restore">Вернуть из архива</string>
+</resources>
