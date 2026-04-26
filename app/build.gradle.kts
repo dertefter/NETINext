@@ -88,6 +88,10 @@ dependencies {
     implementation(libs.androidx.compose.adaptive.layout)
     implementation(libs.androidx.compose.adaptive.navigation)
 
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.appwidget.preview)
+    implementation(libs.androidx.glance.preview)
+    implementation(libs.androidx.glance.material3)
 
     implementation(libs.kotlinx.serialization.json)
 

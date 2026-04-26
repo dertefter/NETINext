@@ -6,6 +6,7 @@ import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
@@ -120,6 +121,15 @@ class Converters {
     @TypeConverter
     fun toMoneyItemDtoList(value: String?): List<MoneyItemDto>? {
         val type = object : TypeToken<List<MoneyItemDto>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromEventDtoList(value: List<EventDto>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toEventDtoList(value: String?): List<EventDto>? {
+        val type = object : TypeToken<List<EventDto>>() {}.type
         return gson.fromJson(value, type)
     }
 

@@ -5,13 +5,20 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -34,6 +41,7 @@ import com.dertefter.calendar.presentation.componets.calendar.CalendarState
 import com.dertefter.design.components.adaptive.PanelsLayout
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.spacing
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -68,6 +76,9 @@ fun CalendarScreenFold(
         }
     }
 
+    var isScheduleShowed by remember { mutableStateOf(true) }
+    var isEventsShowed by remember { mutableStateOf(true) }
+
     LaunchedEffect(calendarState.selectedDate) {
         val date = calendarState.selectedDate ?: LocalDate.now()
         val targetPage = date.toEpochDay().toInt()
@@ -78,25 +89,83 @@ fun CalendarScreenFold(
         }
     }
 
+    LaunchedEffect(calendarState.selectedDate?.year, calendarState.selectedDate?.monthValue) {
+        calendarState.selectedDate?.let {
+            onEvent(Event.OnUpdateEvents(it.year.toString(), it.monthValue.toString()))
+        }
+    }
+
     PanelsLayout(
         modifier = Modifier.fillMaxSize(),
         contentLeft = {
             Scaffold()
             { contentPadding ->
-                CalendarTopBar(
-                    uiState = uiState,
-                    calendarState = calendarState.copy(isExpanded = true),
-                    onCalendarStateChange = { calendarState = it },
-                    isWeekSelectionVisible = isWeekSelectionVisible,
-                    onWeekSelectionVisibilityChange = { isWeekSelectionVisible = it },
-                    onEvent = onEvent,
-                    modifier = Modifier
-                        .padding(contentPadding)
-                )
+                Column() {
+                    CalendarTopBar(
+                        uiState = uiState,
+                        calendarState = calendarState.copy(isExpanded = true),
+                        onCalendarStateChange = { calendarState = it },
+                        isWeekSelectionVisible = isWeekSelectionVisible,
+                        onWeekSelectionVisibilityChange = { isWeekSelectionVisible = it },
+                        onEvent = onEvent,
+                        modifier = Modifier
+                            .padding(contentPadding)
+                    )
+                }
             }
         },
         contentRight = {
             Scaffold(
+                topBar = {
+                    LazyRow(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.defaultScreenPadding),
+                        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                    )
+                    {
+                        if (uiState.sessiaTimeSlots.isNotEmpty()){
+                            item {
+                                FilterChip(
+                                    onClick = {
+                                        uiState.sessiaTimeSlots.firstOrNull()?.getDate()?.let { date ->
+                                            calendarState = calendarState.copy(selectedDate = date)
+                                        }
+                                    },
+                                    colors = FilterChipDefaults.filterChipColors().copy(
+                                        selectedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                        selectedLabelColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                    ),
+                                    label = {
+                                        Text("Расписание сессии")
+                                    },
+                                    selected = true,
+                                )
+                            }
+                        }
+
+                        item {
+                            FilterChip(
+                                onClick = { isScheduleShowed = !isScheduleShowed },
+                                label = {
+                                    Text("Расписание занятий")
+                                },
+                                selected = isScheduleShowed,
+                            )
+                        }
+
+                        item {
+                            FilterChip(
+                                onClick = { isEventsShowed = !isEventsShowed },
+                                label = {
+                                    Text("События")
+                                },
+                                selected = isEventsShowed,
+                            )
+                        }
+
+                    }
+                },
                 floatingActionButton = {
                     val today = remember { LocalDate.now() }
                     AnimatedVisibility(
@@ -112,7 +181,6 @@ fun CalendarScreenFold(
                             onClick = { calendarState = calendarState.copy(selectedDate = today) },
                             icon = { Icon(Icons.OpenInNew, null) },
                             text = { Text(stringResource(R.string.to_today)) },
-                            shape = MaterialTheme.shapes.medium
                         )
                     }
                 }
@@ -128,12 +196,16 @@ fun CalendarScreenFold(
 
                     ScheduleDayList(
                         timeSlots = uiState.timeSlots.filter { it.dateString == date.toString() },
+                        sessiaTimeSlots = uiState.sessiaTimeSlots.filter { it.dateString == date.toString() },
                         isGroupSelected = uiState.group != null,
                         isError = uiState.isError,
                         contentPadding = contentPadding,
                         onStateCreated = { listStates[page] = it },
                         onStateDisposed = { listStates.remove(page) },
-                        onEvent = onEvent
+                        isScheduleShowed = isScheduleShowed,
+                        isEventsShowed = isEventsShowed,
+                        onEvent = onEvent,
+                        events = uiState.events.filter { it.getDate() == date }
                     )
                 }
             }

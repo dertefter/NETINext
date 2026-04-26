@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.remote.api.parsers
 
+import android.util.Log
 import com.dertefter.data.dto.person.PersonShortDto
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.ScheduleDto
@@ -122,6 +123,77 @@ fun parseSchedule(
 
     return ScheduleDto(timeSlots, weekBounds)
 
+}
+
+fun parseSessiaSchedule(html: String): List<TimeSlotDto> {
+
+
+    fun formatDate(input: String): String {
+        val formatterIn = DateTimeFormatter.ofPattern("dd.MM.yy")
+        val formatterOut = DateTimeFormatter.ISO_LOCAL_DATE
+        return LocalDate.parse(input, formatterIn).format(formatterOut)
+    }
+
+    val result = mutableListOf<TimeSlotDto>()
+    val doc = Jsoup.parse(html)
+
+    val rows = doc.select(".schedule__session-body > .schedule__session-row")
+
+    for (row in rows) {
+        val date = row.selectFirst(".schedule__session-day")?.text()?.trim()
+            ?: continue
+
+        // время (может отсутствовать)
+        val timeText = row.selectFirst(".schedule__session-time")?.text()?.trim()
+        val startTime = if (!timeText.isNullOrBlank()) {
+            LocalTime.parse(timeText)
+        } else {
+            LocalTime.of(8, 30)
+        }
+
+        val endTime = startTime.plusHours(1).plusMinutes(30)
+
+        // предмет
+        val itemBlock = row.selectFirst(".schedule__session-item")
+        val name = itemBlock?.ownText()?.trim().orEmpty()
+
+        // преподаватели
+        val persons = itemBlock
+            ?.select("a")
+            ?.map {
+                PersonShortDto(
+                    personId = it.attr("href")
+                        .substringAfterLast("/")
+                        .toLongOrNull() ?: 0L,
+                    name = it.text(),
+                    avatarUrl = null
+                )
+            }
+
+        // аудитория
+        val aud = row.selectFirst(".schedule__session-class")?.text()?.trim()
+
+        // тип (экзамен / консультация)
+        val type = row.selectFirst(".schedule__session-label")?.text()?.trim()
+
+        val lesson = LessonDto(
+            name = name,
+            type = type,
+            aud = aud,
+            persons = persons
+        )
+
+        result.add(
+            TimeSlotDto(
+                dateString = formatDate(date),
+                startTimeString = startTime.toString(),
+                endTimeString = endTime.toString(),
+                lessons = listOf(lesson)
+            )
+        )
+    }
+
+    return result
 }
 
 

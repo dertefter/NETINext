@@ -11,6 +11,7 @@ import com.dertefter.data.datasource.local.room.dao.NewsDao
 import com.dertefter.data.datasource.local.room.dao.NewsRemoteKeyDao
 import com.dertefter.data.datasource.local.room.dao.PersonDao
 import com.dertefter.data.datasource.local.room.dao.ScheduleDao
+import com.dertefter.data.datasource.local.room.dao.SessiaScheduleDao
 import com.dertefter.data.datasource.local.room.dao.MoneyDao
 import com.dertefter.data.datasource.local.room.entity.AccountEntity
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
@@ -20,6 +21,7 @@ import com.dertefter.data.datasource.local.room.entity.NewsEntity
 import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.local.room.entity.PersonEntity
 import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
+import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
 
 @Database(
     entities = [
@@ -30,9 +32,10 @@ import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
         PersonEntity::class,
         NewsEntity::class,
         NewsRemoteKey::class,
-        MoneyEntity::class
+        MoneyEntity::class,
+        SessiaScheduleEntity::class
     ],
-    version = 12,
+    version = 14,
     exportSchema = false
 )
 
@@ -42,6 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun messageDao(): MessageDao
     abstract fun scheduleDao(): ScheduleDao
+    abstract fun sessiaScheduleDao(): SessiaScheduleDao
     abstract fun globalConfigDao(): GlobalConfigDao
     abstract fun personDao(): PersonDao
     abstract fun newsDao(): NewsDao

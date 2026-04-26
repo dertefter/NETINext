@@ -15,10 +15,12 @@ import com.dertefter.data.datasource.remote.api.parsers.parsePersonShorts
 import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
+import com.dertefter.data.datasource.remote.api.parsers.parseEvents
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyItems
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyYearList
 import com.dertefter.data.datasource.remote.api.parsers.parsePromo
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaResults
+import com.dertefter.data.datasource.remote.api.parsers.parseSessiaSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
 import com.dertefter.data.dto.auth.Login2FormParams
@@ -29,8 +31,10 @@ import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.data.dto.person.PersonShortDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.ScheduleDto
+import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.UserInfoDto
@@ -153,6 +157,24 @@ class CiuRemoteDataSourceImpl @Inject constructor(
             schedule
         }.onFailure { e ->
             Log.e(TAG, e.stackTraceToString())
+        }
+    }
+
+    override suspend fun getSessiaSchedule(group: GroupDto): Result<List<TimeSlotDto>> {
+        return runCatching {
+            val sessiaScheduleHtml = baseApiService.getSessiaSchedule(group = group.name)
+            parseSessiaSchedule(sessiaScheduleHtml.string())
+        }
+    }
+
+    override suspend fun getEvents(
+        year: String,
+        month: String
+    ): Result<List<EventDto>> {
+        return runCatching {
+            val html = baseApiService.getEvents(year = year, month = month).string()
+            parseEvents(html)
+
         }
     }
 

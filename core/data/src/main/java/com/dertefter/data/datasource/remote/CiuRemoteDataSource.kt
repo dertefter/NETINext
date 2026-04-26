@@ -7,6 +7,7 @@ import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.data.dto.person.PersonShortDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
@@ -45,6 +46,13 @@ interface CiuRemoteDataSource  {
     suspend fun getNewsDetail(id: String): Result<NewsDetailDto>
 
     suspend fun getSchedule(group: GroupDto): Result<ScheduleDto>
+
+    suspend fun getSessiaSchedule(group: GroupDto): Result<List<TimeSlotDto>>
+
+    suspend fun getEvents(
+        year: String,
+        month: String
+    ): Result<List<EventDto>>
 
     suspend fun getSearchGroupResults(query: String): Result<List<GroupDto>>
 

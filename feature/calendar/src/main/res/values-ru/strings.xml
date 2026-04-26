@@ -9,4 +9,6 @@
     <string name="week_number">Номер учебной недели</string>
     <string name="calendar">Календарь</string>
     <string name="to_today">К текущей дате</string>
+    <string name="schedule">Занятия</string>
+    <string name="session">Сессия</string>
 </resources>

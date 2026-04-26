@@ -7,10 +7,12 @@ import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
 import com.dertefter.data.datasource.local.room.entity.MessageEntity
 import com.dertefter.data.datasource.local.room.entity.PersonEntity
 import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
+import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
 import com.dertefter.data.dto.auth.AuthCreditions
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
@@ -47,6 +49,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val accountDao = appDatabase.accountDao()
     private val messageDao = appDatabase.messageDao()
     private val scheduleDao = appDatabase.scheduleDao()
+    private val sessiaScheduleDao = appDatabase.sessiaScheduleDao()
     private val globalConfigDao = appDatabase.globalConfigDao()
     private val newsDao = appDatabase.newsDao()
     private val newsRemoteKeyDao = appDatabase.newsRemoteKeyDao()
@@ -146,6 +149,17 @@ class LocalDataSourceImpl @Inject constructor(
     override fun getTimeSlotsForGroup(groupDto: GroupDto): Flow<List<TimeSlotDto>?> {
         return getCurrentLogin().flatMapLatest { login ->
             scheduleDao.getSchedule(login ?: GUEST_LOGIN, groupDto.asLowercase().name).map { it?.timeSlots }
+        }
+    }
+
+    override suspend fun saveSessiaSchedule(groupDto: GroupDto, timeSlots: List<TimeSlotDto>) {
+        val login = getCurrentLoginValue()
+        sessiaScheduleDao.insertSessiaSchedule(SessiaScheduleEntity(login, groupDto.asLowercase().name, timeSlots))
+    }
+
+    override fun getSessiaSchedule(groupDto: GroupDto): Flow<List<TimeSlotDto>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            sessiaScheduleDao.getSessiaSchedule(login ?: GUEST_LOGIN, groupDto.asLowercase().name).map { it?.timeSlots }
         }
     }
 
@@ -308,6 +322,15 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun savePromo(promoList: List<PromoItem>) {
         val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
         globalConfigDao.insertConfig(currentConfig.copy(promoList = promoList))
+    }
+
+    override fun getEvents(): Flow<List<EventDto>?> {
+        return globalConfigDao.getEvents().map { it?.eventList }
+    }
+
+    override suspend fun saveEvents(eventList: List<EventDto>) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(eventList = eventList))
     }
 
     override fun getMoneyForYear(year: String): Flow<List<MoneyItemDto>?> {

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.news.PromoItem
+import com.dertefter.data.dto.schedule.EventDto
 
 @Entity(tableName = "global_config")
 data class GlobalConfigEntity(
@@ -14,5 +15,6 @@ data class GlobalConfigEntity(
     val themeColor: Long? = null,
     val isShapeCut: Boolean? = null,
     val isNotificationEnabled: Boolean? = null,
-    val promoList: List<PromoItem>? = null
+    val promoList: List<PromoItem>? = null,
+    val eventList: List<EventDto>? = null
 )

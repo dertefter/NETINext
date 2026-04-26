@@ -1,28 +1,33 @@
 package com.dertefter.neticlient.presentation.content
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.dertefter.data.dto.auth.AuthStatus
-import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.neticlient.navigation.AppNavHost
 import com.dertefter.neticlient.navigation.AppNavigationItem
@@ -32,19 +37,32 @@ import com.dertefter.neticlient.presentation.components.MainBottomBar
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
 import dev.chrisbanes.haze.rememberHazeState
+import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalHazeMaterialsApi::class)
+@OptIn(ExperimentalHazeMaterialsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun PhoneUi(
     navController: NavHostController,
     currentDestination: NavDestination?,
     navigationItems: List<AppNavigationItem> = emptyList(),
     onEvent: (Event) -> Unit,
-    authStatusNotify: AuthStatus?,
+    authStatusCiu: AuthStatus,
+    authStatusYourNeti: AuthStatus
 ){
 
 
     val hazeState = rememberHazeState()
+
+    var isAuthNotifyVisible by rememberSaveable(authStatusCiu.toString(), authStatusYourNeti.toString()) {
+        mutableStateOf(authStatusCiu !is AuthStatus.Unauthorized)
+    }
+
+    LaunchedEffect(authStatusCiu, authStatusYourNeti) {
+        if (authStatusCiu !is AuthStatus.Unauthorized && isAuthNotifyVisible) {
+            delay(4000)
+            isAuthNotifyVisible = false
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -73,26 +91,32 @@ fun PhoneUi(
                 navigationItems
             )
 
-            AnimatedContent(
-                targetState = authStatusNotify,
-                transitionSpec = {
-                    (slideInVertically { it } + fadeIn()).togetherWith(
-                        slideOutVertically { it } + fadeOut()
-                    )
-                },
+            AnimatedVisibility (
+                visible = isAuthNotifyVisible,
                 modifier = Modifier.align(Alignment.BottomCenter),
-                label = "auth_notify_anim"
-            ) { status ->
-                if (status != null) {
+                enter = fadeIn() + slideInVertically { it },
+                exit = fadeOut() + slideOutVertically { it }
+            ) {
+                val dismissState = rememberSwipeToDismissBoxState()
+                LaunchedEffect(dismissState.currentValue) {
+                    if (dismissState.currentValue != SwipeToDismissBoxValue.Settled) {
+                        isAuthNotifyVisible = false
+                    }
+                }
+                SwipeToDismissBox(
+                    state = dismissState,
+                    backgroundContent = {}
+                ) {
                     AuthNotifyCard(
                         modifier = Modifier
                             .padding(MaterialTheme.spacing.medium),
-                        authStatus = status,
-                        hazeState = hazeState,
-                        onClick = {
-                            if (status is AuthStatus.Error) {
-                                onEvent(Event.OnRetryAuthorize)
-                            }
+                        ciuAuthStatus = authStatusCiu,
+                        yourNetiAuthStatus = authStatusYourNeti,
+                        onRetry = {
+                            onEvent(Event.OnRetryAuthorizeCiu)
+                        },
+                        onRetryYourNeti = {
+                            onEvent(Event.OnRetryAuthorizeYourNeti)
                         }
                     )
                 }
@@ -101,17 +125,4 @@ fun PhoneUi(
     }
 
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PhoneUiPreview() {
-    AppTheme {
-        PhoneUi(
-            authStatusNotify = AuthStatus.Loading("djdskjdsjksd"),
-            navController = rememberNavController(),
-            currentDestination = null,
-            onEvent = {}
-        )
-    }
 }

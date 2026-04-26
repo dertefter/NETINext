@@ -54,8 +54,6 @@ fun HeaderMainContent(
             )
         }
 
-        Spacer(Modifier.weight(1f))
-
         GroupButton(
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
             group = uiState.group?.name,
@@ -80,7 +78,7 @@ fun HeaderMainContent(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "spec:width=650px,height=2340px,dpi=440")
 @Composable
 fun HeaderMainContentPreview() {
     AppTheme {

@@ -12,6 +12,7 @@ import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.calendar.presentation.componets.calendar.CalendarState
+import com.dertefter.data.dto.schedule.EventDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -23,15 +24,21 @@ import javax.inject.Inject
 class CalendarViewModel @Inject constructor(
     private val getCurrentGroupUseCase: GetCurrentGroupUseCase,
     private val getScheduleUseCase: GetScheduleUseCase,
+    private val getSessiaScheduleUseCase: GetSessiaScheduleUseCase,
     private val getWeeksBoundsUseCase: GetWeeksBoundsUseCase,
     private val updateScheduleUseCase: UpdateScheduleUseCase,
+    private val updateSessiaScheduleUseCase: UpdateSessiaScheduleUseCase,
     private val navigateBackUseCase: NavigateBackUseCase,
     private val openGroupSearchUseCase: OpenGroupSearchUseCase,
     private val navigateLessonDetailUseCase: NavigateLessonDetailUseCase,
+    private val getEventsUseCase: GetEventsUseCase,
+    private val updateEventsUseCase: UpdateEventsUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
     private val _scheduleError = MutableStateFlow<AppError?>(null)
+
+    private val _events = getEventsUseCase()
 
     private val _currentGroup = getCurrentGroupUseCase()
         .distinctUntilChanged()
@@ -44,22 +51,30 @@ class CalendarViewModel @Inject constructor(
         _currentGroup.flatMapLatest { group ->
             if (group != null) getScheduleUseCase(group) else flowOf(null)
         },
+        _currentGroup.flatMapLatest { group ->
+            if (group != null) getSessiaScheduleUseCase(group) else flowOf(null)
+        },
         getWeeksBoundsUseCase(),
         _isUpdating,
-        _scheduleError
+        _scheduleError,
+        _events
     ) { args: Array<Any?> ->
         val group = args[0] as GroupDto?
         val schedule = args[1] as List<TimeSlotDto>?
-        val weekBounds = args[2] as List<WeekBoundsDto>?
-        val updating = args[3] as Boolean
-        val error = args[4] as AppError?
+        val sessiaSchedule = args[2] as List<TimeSlotDto>?
+        val weekBounds = args[3] as List<WeekBoundsDto>?
+        val updating = args[4] as Boolean
+        val error = args[5] as AppError?
+        val events = args[6] as List<EventDto>?
 
         UiState(
             group = group,
             timeSlots = schedule ?: emptyList(),
+            sessiaTimeSlots = sessiaSchedule ?: emptyList(),
             weekBounds = weekBounds ?: emptyList(),
             isUpdating = updating,
             isError = error,
+            events = events ?: emptyList()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
@@ -71,6 +86,8 @@ class CalendarViewModel @Inject constructor(
                 _scheduleError.value = e.toAppError()
             }
             _isUpdating.value = false
+            updateSessiaScheduleUseCase(group)
+
         }
     }
 
@@ -78,6 +95,12 @@ class CalendarViewModel @Inject constructor(
         when (event) {
             is Event.OnOpenGroupSearch -> {
                 openGroupSearchUseCase()
+            }
+
+            is Event.OnUpdateEvents -> {
+                viewModelScope.launch {
+                    updateEventsUseCase(event.year, event.month)
+                }
             }
 
             is Event.OnNavigateBack -> {

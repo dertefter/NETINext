@@ -1,5 +1,6 @@
 package com.dertefter.calendar.presentation.componets
 
+import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,9 +46,7 @@ fun LazyListScope.timeSlotsItems(
     onEvent: (Event) -> Unit = {},
 ) {
 
-
-
-    itemsIndexed(timeSlots, key = { _, timeSlot -> timeSlot.hashCode() }) { index, timeSlot ->
+    itemsIndexed(timeSlots) { index, timeSlot ->
 
         val cornerSmall = MaterialTheme.rounding.small
         val cornerLarge = MaterialTheme.rounding.extraLarge

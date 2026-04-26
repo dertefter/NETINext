@@ -61,7 +61,7 @@ fun MainScreen(
             animationSpec = MaterialTheme.motionScheme.slowSpatialSpec()
         )
 
-        val navigationItems = if (screenState.authStatus is AuthStatus.Unauthorized){
+        val navigationItems = if (screenState.authStatusCiu is AuthStatus.Unauthorized){
             guestNavigationItems
         } else {
             authorizedNavigationItems
@@ -105,7 +105,8 @@ fun MainScreen(
                 navController = navController,
                 currentDestination = currentDestination,
                 navigationItems = navigationItems,
-                authStatusNotify = screenState.authStatusNotify,
+                authStatusCiu = screenState.authStatusCiu,
+                authStatusYourNeti = screenState.authStatusYourNeti,
                 onEvent = onEvent
             )
         }
@@ -114,7 +115,8 @@ fun MainScreen(
                 navController = navController,
                 currentDestination = currentDestination,
                 navigationItems = navigationItems,
-                authStatusNotify = screenState.authStatusNotify,
+                authStatusCiu = screenState.authStatusCiu,
+                authStatusYourNeti = screenState.authStatusYourNeti,
                 onEvent = onEvent
             )
         }
@@ -150,27 +152,4 @@ fun MainScreen(
 
 
 
-}
-
-@Preview(showBackground = true, showSystemUi = true, device = "spec:width=673dp,height=841dp")
-@Composable
-fun MainScreenPreview() {
-    AppTheme {
-        MainScreen(
-            navigator = object : Navigator {
-                override val navigationActions = emptyFlow<NavigationAction>()
-                override fun navigate(route: Routes) {}
-                override fun navigateUp() {}
-                override fun navigateAndClearBackStack(
-                    route: Routes,
-                    popupTo: Routes,
-                    inclusive: Boolean
-                ) {}
-                override fun openAsBottomSheet(route: Routes) {}
-                override fun hideBottomSheet() {}
-            },
-            screenState = MainScreenState(AuthStatus.Unauthorized, null, null, null, null),
-            onEvent = {}
-        )
-    }
 }

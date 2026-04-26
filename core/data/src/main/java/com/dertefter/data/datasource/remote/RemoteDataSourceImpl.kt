@@ -7,8 +7,10 @@ import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.data.dto.person.PersonShortDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.ScheduleDto
+import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.UserInfoDto
@@ -102,6 +104,17 @@ class RemoteDataSourceImpl @Inject constructor(
         return ciuRemoteDataSource.getSchedule(group)
     }
 
+    override suspend fun getEvents(
+        year: String,
+        month: String
+    ): Result<List<EventDto>> {
+        return ciuRemoteDataSource.getEvents(year, month)
+    }
+
+    override suspend fun getSessiaSchedule(group: GroupDto): Result<List<TimeSlotDto>> {
+        return ciuRemoteDataSource.getSessiaSchedule(group)
+    }
+
     override suspend fun getSearchGroupResults(query: String): Result<List<GroupDto>> {
         return ciuRemoteDataSource.getSearchGroupResults(query)
     }
@@ -132,7 +145,6 @@ class RemoteDataSourceImpl @Inject constructor(
     ): Result<Unit> {
         if (idStudent == null){
             return Result.failure(Exception())
-            //todo
         }else{
             return yourNetiRemoteDataSource.unreadMessage(idStudent, idMessage)
         }
@@ -168,7 +180,6 @@ class RemoteDataSourceImpl @Inject constructor(
         if (idStudent == null || preferredRemoteSource == PreferredRemoteSource.CIU){
             return ciuRemoteDataSource.deleteMessageForever(idMessage)
         } else {
-            //TODO найти эндпоинт yourneti
             //fallback до ciu
             return ciuRemoteDataSource.deleteMessageForever(idMessage)
         }

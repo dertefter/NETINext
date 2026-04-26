@@ -28,6 +28,9 @@ interface GlobalConfigDao {
     fun getPromoList(): Flow<GlobalConfigEntity?>
 
     @Query("SELECT * FROM global_config WHERE id = 0")
+    fun getEvents(): Flow<GlobalConfigEntity?>
+
+    @Query("SELECT * FROM global_config WHERE id = 0")
     fun getConfig(): Flow<GlobalConfigEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

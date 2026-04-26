@@ -13,6 +13,12 @@ sealed class Event {
 
     object OnNavigateBack : Event()
 
+    data class OnUpdateEvents(
+        val year: String,
+        val month: String,
+    ) : Event()
+
+
     data class OnOpenLessonDetail(
         val name: String,
         val type: String? = null,

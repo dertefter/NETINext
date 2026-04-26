@@ -6,7 +6,7 @@
     <string name="auth_loading">Подключаемся к НГТУ НЭТИ</string>
     <string name="auth_error">Не удалось подключиться</string>
     <string name="auth_success">Вы подключены!</string>
-    <string name="auth_retry">Попробовать ещё раз</string>
+    <string name="learn_more">Попробовать ещё раз</string>
     <string name="close_card">Закрыть карточку</string>
 
     <string name="pretty_date_today">Сегодня</string>
@@ -31,5 +31,9 @@
     <string name="no_lessons">Нет занятий</string>
     <string name="no_lessons_near_time">На ближайшее время занятий нет</string>
     <string name="lesson_placeholder">Занятие</string>
+    <string name="connected">Подключено</string>
+    <string name="connecting">Подключение...</string>
+    <string name="waiting_to_connect">Ожидание подключения</string>
+    <string name="connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
 
 </resources>

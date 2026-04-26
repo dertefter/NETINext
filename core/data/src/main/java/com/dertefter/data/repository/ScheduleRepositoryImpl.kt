@@ -3,6 +3,7 @@ package com.dertefter.data.repository
 import android.util.Log
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.remote.RemoteDataSource
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
@@ -17,14 +18,32 @@ class ScheduleRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
 ) : ScheduleRepository {
 
-    override fun getScheduleForDate(groupDto: GroupDto, date: LocalDate): Flow<List<TimeSlotDto>?> {
-        return localDataSource.getTimeSlotsForGroup(groupDto).map { timeSlots ->
-            timeSlots?.filter { it.getDate() == date }
-        }
-    }
 
     override fun getSchedule(groupDto: GroupDto): Flow<List<TimeSlotDto>?> {
         return localDataSource.getTimeSlotsForGroup(groupDto)
+    }
+
+    override fun getSessiaSchedule(groupDto: GroupDto): Flow<List<TimeSlotDto>?> {
+        return localDataSource.getSessiaSchedule(groupDto)
+    }
+
+    override suspend fun updateSessiaScheduleForGroup(group: GroupDto): Result<List<TimeSlotDto>> {
+        return remoteDataSource.getSessiaSchedule(group = group).onSuccess { sessiaSchedule ->
+            localDataSource.saveSessiaSchedule(group, sessiaSchedule)
+        }
+    }
+
+    override fun getEvents(): Flow<List<EventDto>?> {
+        return localDataSource.getEvents()
+    }
+
+    override suspend fun updateEvents(
+        year: String,
+        month: String
+    ): Result<List<EventDto>> {
+        return remoteDataSource.getEvents(year, month).onSuccess {
+            localDataSource.saveEvents(it)
+        }
     }
 
     override fun getWeeksBounds(): Flow<List<WeekBoundsDto>?> {

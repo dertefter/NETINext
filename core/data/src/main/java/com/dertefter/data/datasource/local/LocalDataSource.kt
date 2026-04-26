@@ -9,6 +9,7 @@ import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
@@ -53,6 +54,10 @@ interface LocalDataSource {
     suspend fun saveTimeSlotsForGroup(groupDto: GroupDto, timeSlots: List<TimeSlotDto>)
 
     fun getTimeSlotsForGroup(groupDto: GroupDto): Flow<List<TimeSlotDto>?>
+
+    suspend fun saveSessiaSchedule(groupDto: GroupDto, timeSlots: List<TimeSlotDto>)
+
+    fun getSessiaSchedule(groupDto: GroupDto): Flow<List<TimeSlotDto>?>
 
 
     suspend fun saveWeekBounds(weekBounds: List<WeekBoundsDto>)
@@ -116,6 +121,10 @@ interface LocalDataSource {
     fun getPromo(): Flow<List<PromoItem>?>
 
     suspend fun savePromo(promoList: List<PromoItem>)
+
+    fun getEvents(): Flow<List<EventDto>?>
+
+    suspend fun saveEvents(eventList: List<EventDto>)
 
     fun getMoneyForYear(year: String): Flow<List<MoneyItemDto>?>
 

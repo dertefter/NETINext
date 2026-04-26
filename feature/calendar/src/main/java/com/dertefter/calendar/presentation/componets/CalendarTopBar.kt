@@ -24,6 +24,8 @@ import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 
 import com.dertefter.calendar.presentation.componets.calendar.CalendarState
+import com.dertefter.data.dto.schedule.GroupDto
+import com.dertefter.data.dto.schedule.WeekBoundsDto
 import java.time.LocalDate
 
 @Composable
@@ -48,7 +50,8 @@ fun CalendarTopBar(
                 .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
-        ) {
+        )
+        {
             AnimatedContent(
                 targetState = isWeekSelectionVisible,
                 modifier = Modifier.weight(1f),
@@ -93,12 +96,17 @@ fun CalendarTopBar(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "spec:width=800px,height=2340px,dpi=440")
 @Composable
 private fun CalendarTopBarPreview() {
     AppTheme {
         CalendarTopBar(
-            uiState = UiState(),
+            uiState = UiState(
+                group = GroupDto(name = "АБ-123"),
+                weekBounds = listOf(
+                    WeekBoundsDto(startDateString = LocalDate.now().toString(), weekNumber = 8)
+                )
+            ),
             calendarState = CalendarState(),
             onCalendarStateChange = {},
             isWeekSelectionVisible = false,

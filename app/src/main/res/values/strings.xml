@@ -4,7 +4,7 @@
     <string name="auth_loading">Logging…</string>
     <string name="auth_error">Failed to connect</string>
     <string name="auth_success">You are connected!</string>
-    <string name="auth_retry">Retry</string>
+    <string name="learn_more">Learn more</string>
     <string name="close_card">Close</string>
 
     <string name="pretty_date_today">Today</string>
@@ -28,5 +28,9 @@
     <string name="no_lessons">No lessons</string>
     <string name="no_lessons_near_time">No lessons in the near future</string>
     <string name="lesson_placeholder">Lesson</string>
+    <string name="connected">Connected</string>
+    <string name="connection_error">Сonnection error. Tap to try again</string>
+    <string name="connecting">Connecting...</string>
+    <string name="waiting_to_connect">Waiting for connection</string>
 
 </resources>

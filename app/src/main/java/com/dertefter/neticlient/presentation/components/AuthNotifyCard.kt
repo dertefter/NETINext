@@ -4,23 +4,28 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,111 +33,172 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dertefter.data.dto.auth.AuthStatus
+import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.cornerShape
+import com.dertefter.design.theme.rounding
 import com.dertefter.design.theme.spacing
 import com.dertefter.neticlient.R
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
-import dev.chrisbanes.haze.materials.HazeMaterials
+
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalHazeMaterialsApi::class)
 @Composable
 fun AuthNotifyCard(
     modifier: Modifier = Modifier,
-    hazeState: HazeState? = null,
-    authStatus: AuthStatus?,
-    onClick: () -> Unit = {}
+    ciuAuthStatus: AuthStatus,
+    yourNetiAuthStatus: AuthStatus,
+    onRetry: () -> Unit = {},
+    onRetryYourNeti: () -> Unit = {}
 ) {
 
+    val motionScheme = MaterialTheme.motionScheme
+    var isExpanded by remember { mutableStateOf(true) }
+
+    val radius by animateDpAsState(
+        targetValue = if (!isExpanded){
+            MaterialTheme.rounding.extraExtraLarge
+        } else {
+            MaterialTheme.rounding.largeIncreased
+        },
+        animationSpec = motionScheme.fastSpatialSpec()
+    )
+
     val containerColor by animateColorAsState(
-        targetValue = when (authStatus) {
+        targetValue = when (ciuAuthStatus) {
             is AuthStatus.Loading -> MaterialTheme.colorScheme.onSecondaryContainer
             is AuthStatus.Authorized -> MaterialTheme.colorScheme.onPrimaryContainer
             is AuthStatus.Error -> MaterialTheme.colorScheme.onErrorContainer
             else -> MaterialTheme.colorScheme.onSurface
         },
-        label = "containerColor"
+        label = "containerColor",
+        animationSpec = motionScheme.defaultEffectsSpec()
     )
 
     val contentColor by animateColorAsState(
-        targetValue = when (authStatus) {
+        targetValue = when (ciuAuthStatus) {
             is AuthStatus.Loading -> MaterialTheme.colorScheme.secondaryContainer
             is AuthStatus.Authorized -> MaterialTheme.colorScheme.primaryContainer
             is AuthStatus.Error -> MaterialTheme.colorScheme.errorContainer
             else -> MaterialTheme.colorScheme.surfaceContainer
         },
-        label = "contentColor"
+        label = "contentColor",
+        animationSpec = motionScheme.defaultEffectsSpec()
     )
 
-    Row(
+    Column(
         modifier = modifier
-            .clip(MaterialTheme.shapes.large)
-            .clickable(enabled = authStatus is AuthStatus.Error, onClick = onClick)
-            .hazeEffect(
-                state = hazeState,
-                style = HazeMaterials.thick(
-                    containerColor = containerColor
-                )
+            .clip(MaterialTheme.cornerShape(radius))
+            .clickable { isExpanded = !isExpanded }
+            .background(containerColor)
+            .animateContentSize(
+                animationSpec = motionScheme.fastSpatialSpec()
             )
-            .animateContentSize()
-            .padding(MaterialTheme.spacing.small)
-            .height(48.dp)
+            .padding(MaterialTheme.spacing.medium)
             .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
     ) {
+        Row(
+            modifier = Modifier
+                .height(48.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        AnimatedContent(
-            targetState = authStatus,
-            transitionSpec = {
-                (slideInVertically { height -> height } + fadeIn()) togetherWith
-                        (slideOutVertically { height -> -height } + fadeOut())
-            },
-            label = "authStatusText",
-            modifier = Modifier.weight(1f)
-        )
-        { targetAuthStatus ->
-            val title = when (targetAuthStatus) {
-                is AuthStatus.Loading -> stringResource(R.string.auth_loading)
-                is AuthStatus.Authorized -> stringResource(R.string.auth_success)
-                is AuthStatus.Error -> stringResource(R.string.auth_error)
-                else -> null
+            AnimatedContent(
+                targetState = ciuAuthStatus,
+                transitionSpec = {
+                    (slideInVertically(animationSpec = motionScheme.fastSpatialSpec()) { height -> height } + fadeIn(
+                        animationSpec = motionScheme.defaultEffectsSpec()
+                    )) togetherWith
+                            (slideOutVertically(animationSpec = motionScheme.fastSpatialSpec()) { height -> -height } + fadeOut(
+                                animationSpec = motionScheme.defaultEffectsSpec()
+                            ))
+                },
+                label = "authStatusText",
+                modifier = Modifier.weight(1f)
+            )
+            { targetAuthStatus ->
+                val title = when (targetAuthStatus) {
+                    is AuthStatus.Loading -> stringResource(R.string.auth_loading)
+                    is AuthStatus.Authorized -> stringResource(R.string.auth_success)
+                    is AuthStatus.Error -> stringResource(R.string.auth_error)
+                    else -> null
+                }
+
+                val caption = when (targetAuthStatus) {
+                    is AuthStatus.Loading -> targetAuthStatus.login
+                    is AuthStatus.Authorized -> targetAuthStatus.login
+                    is AuthStatus.Error -> stringResource(R.string.learn_more)
+                    else -> null
+                }
+
+                Column(
+                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
+                ) {
+                    title?.let { title ->
+                        Text(
+                            text = title,
+                            style = MaterialTheme.typography.labelLargeEmphasized,
+                            color = contentColor
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = !isExpanded,
+                        enter = fadeIn(animationSpec = motionScheme.defaultEffectsSpec()),
+                        exit = fadeOut(animationSpec = motionScheme.defaultEffectsSpec())
+                    ) {
+                        caption?.let { caption ->
+                            Text(
+                                text = caption,
+                                style = MaterialTheme.typography.labelMediumEmphasized,
+                                color = contentColor
+                            )
+                        }
+                    }
+
+
+                }
             }
 
-            val caption = when (targetAuthStatus) {
-                is AuthStatus.Loading -> targetAuthStatus.login
-                is AuthStatus.Authorized -> targetAuthStatus.login
-                is AuthStatus.Error -> stringResource(R.string.auth_retry)
-                else -> null
-            }
-
-            Column(
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraLarge)
+            AnimatedVisibility(
+                visible = ciuAuthStatus is AuthStatus.Loading,
+                enter = fadeIn(animationSpec = motionScheme.defaultEffectsSpec()),
+                exit = fadeOut(animationSpec = motionScheme.defaultEffectsSpec())
             ) {
-                title?.let { title ->
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = contentColor
-                    )
-                }
-
-                caption?.let { caption ->
-                    Text(
-                        text = caption,
-                        style = MaterialTheme.typography.labelMediumEmphasized,
-                        color = contentColor
-                    )
-                }
+                AppLoadingIndicator(
+                    color = contentColor,
+                )
             }
         }
-
         AnimatedVisibility(
-            visible = authStatus is AuthStatus.Loading,
+            visible = isExpanded,
+            enter = fadeIn(animationSpec = motionScheme.defaultEffectsSpec()),
+            exit = fadeOut(animationSpec = motionScheme.defaultEffectsSpec())
         ) {
-            LoadingIndicator(
-                color = contentColor
-            )
+            Column(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .clip(MaterialTheme.shapes.medium),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            ) {
+                SourceCard(
+                    title = "CIU",
+                    authStatus = ciuAuthStatus,
+                    onRetry = onRetry
+                )
+                AnimatedVisibility(
+                    visible = ciuAuthStatus is AuthStatus.Authorized,
+                    enter = fadeIn(animationSpec = motionScheme.defaultEffectsSpec()),
+                    exit = fadeOut(animationSpec = motionScheme.defaultEffectsSpec())
+                ) {
+                    SourceCard(
+                        title = "YourNeti",
+                        authStatus = yourNetiAuthStatus,
+                        onRetry = onRetryYourNeti
+                    )
+                }
+            }
         }
     }
 }
@@ -143,7 +209,8 @@ fun AuthNotifyCardLoadingPreview() {
     AppTheme {
         AuthNotifyCard(
             modifier = Modifier.padding(24.dp),
-            authStatus = AuthStatus.Loading("ivanov_ii"),
+            AuthStatus.Loading("ivanov_ii"),
+            AuthStatus.Loading("ivanov_ii"),
         )
     }
 }
@@ -154,7 +221,8 @@ fun AuthNotifyCardAuthorizedPreview() {
     AppTheme {
         AuthNotifyCard(
             modifier = Modifier.padding(24.dp),
-            authStatus = AuthStatus.Authorized("ivanov_ii"),
+            AuthStatus.Authorized("ivanov_ii"),
+            AuthStatus.Authorized("ivanov_ii"),
         )
     }
 }
@@ -165,7 +233,8 @@ fun AuthNotifyCardErrorPreview() {
     AppTheme {
         AuthNotifyCard(
             modifier = Modifier.padding(24.dp),
-            authStatus = AuthStatus.Error("ivanov_ii"),
+            AuthStatus.Error("ivanov_ii"),
+            AuthStatus.Error("ivanov_ii"),
         )
     }
 }

@@ -43,8 +43,8 @@ fun PanelsLayout(
 
     val minRatio = 0.3f
     val maxRatio = 0.7f
-    val minDragRatio = 0.35f
-    val maxDragRatio = 0.75f
+    val minDragRatio = minRatio - 0.05f
+    val maxDragRatio = maxRatio + 0.05f
 
     var manualRatio by remember { mutableStateOf<Float?>(null) }
     val currentRatio = manualRatio ?: 0.5f
