@@ -33,7 +33,7 @@ fun parseEvents(
                 events.add(
                     EventDto(
                         title = title,
-                        url = url,
+                        url = "https://nstu.ru$url",
                         dateString = dateString
                     )
                 )

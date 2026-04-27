@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.dertefter.auth.AuthRoute
@@ -134,7 +135,12 @@ fun NavGraphBuilder.graph() {
         RouteContent(Routes.Home)
     }
 
-    composable<Routes.NewsDetail> {
+    composable<Routes.NewsDetail>(
+        deepLinks = listOf(
+            navDeepLink { uriPattern = "https://nstu.ru/news/news_more?idnews={newsId}" },
+            navDeepLink { uriPattern = "https://www.nstu.ru/news/news_more?idnews={newsId}" }
+        )
+    ) {
         val args = it.toRoute<Routes.NewsDetail>()
         RouteContent(args)
     }

@@ -1,6 +1,8 @@
 package com.dertefter.calendar.presentation.componets
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.core.net.toUri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.dertefter.calendar.R
 import com.dertefter.calendar.presentation.Event
@@ -44,6 +47,7 @@ fun ScheduleDayList(
     events: List<EventDto>
 ) {
     val listState = rememberLazyListState()
+    val context = LocalContext.current
 
     DisposableEffect(listState) {
         onStateCreated(listState)
@@ -116,7 +120,19 @@ fun ScheduleDayList(
                     ) {
                         for (eventItem in events){
                             EventItem(
-                                title = eventItem.title
+                                title = eventItem.title,
+                                onClick = {
+                                    eventItem.url?.let {
+                                        if (it.isNotBlank()){
+                                            try {
+                                                val intent = Intent(Intent.ACTION_VIEW, it.toUri())
+                                                context.startActivity(intent)
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        }
+                                    }
+                                }
                             )
                         }
                     }

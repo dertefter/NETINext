@@ -69,11 +69,11 @@ sealed interface Routes {
     @Serializable
     data class NewsDetail(
         val newsId: String,
-        val previewUrl: String?,
-        val type: String?,
-        val tags: String?,
-        val date: String?,
-        val contentColor: Long?,
+        val previewUrl: String? = null,
+        val type: String? = null,
+        val tags: String? = null,
+        val date: String? = null,
+        val contentColor: Long? = null,
     ) : Routes
 
     @Serializable
