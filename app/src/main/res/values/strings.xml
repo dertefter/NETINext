@@ -29,8 +29,11 @@
     <string name="no_lessons_near_time">No lessons in the near future</string>
     <string name="lesson_placeholder">Lesson</string>
     <string name="connected">Connected</string>
-    <string name="connection_error">Сonnection error. Tap to try again</string>
-    <string name="connecting">Connecting...</string>
+    <string name="connection_error">Connection error. Tap to try again</string>
+    <string name="connecting">Connecting…</string>
     <string name="waiting_to_connect">Waiting for connection</string>
 
+    <string name="no_lessons_found">No lessons found</string>
+    <string name="schedule_title">Schedule</string>
+    <string name="near_schedule_widget_description">Upcoming Classes</string>
 </resources>

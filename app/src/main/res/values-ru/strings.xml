@@ -36,4 +36,7 @@
     <string name="waiting_to_connect">Ожидание подключения</string>
     <string name="connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
 
+    <string name="no_lessons_found">Занятий не найдено</string>
+    <string name="schedule_title">Расписание занятий</string>
+    <string name="near_schedule_widget_description">Ближайшие занятия</string>
 </resources>

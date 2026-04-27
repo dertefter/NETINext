@@ -4,17 +4,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.dto.auth.AuthStatus
 import com.dertefter.data.dto.schedule.GroupDto
+import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.repository.AuthRepository
 import com.dertefter.data.repository.GroupsRepository
+import com.dertefter.data.repository.ScheduleRepository
 import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.data.repository.UserRepository
+import com.dertefter.neticlient.widgets.near_schedule.WidgetUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -26,6 +33,8 @@ class MainViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val groupRepository: GroupsRepository,
     private val userRepository: UserRepository,
+    private val scheduleRepository: ScheduleRepository,
+    private val widgetUpdater: WidgetUpdater
 ) : ViewModel() {
 
 
@@ -34,25 +43,37 @@ class MainViewModel @Inject constructor(
 
     private val _isNotificationEnabled = settingsRepository.isNotificationEnabled
 
+    val currentGroup: StateFlow<GroupDto?> = groupRepository.getCurrentGroup()
+        .distinctUntilChanged()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val currentSchedule: StateFlow<List<TimeSlotDto>?> = currentGroup.flatMapLatest { group ->
+        if (group != null) {
+            scheduleRepository.getSchedule(group)
+        } else {
+            flowOf(null)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
+
+
 
     init {
-        authRepository.ciuAuthStatus
+        merge(authRepository.ciuAuthStatus, authRepository.yourNetiAuthStatus)
             .onEach { authStatus ->
-                if (authStatus is AuthStatus.Authorized){
+                if (authStatus is AuthStatus.Authorized) {
                     userRepository.updateUserInfoDto()
                 }
             }
             .launchIn(viewModelScope)
-
-        authRepository.yourNetiAuthStatus
-            .onEach { authStatus ->
-                if (authStatus is AuthStatus.Authorized){
-                    userRepository.updateUserInfoDto()
-                }
-            }
-            .launchIn(viewModelScope)
-
-
 
         userRepository.getUserInfoDto()
             .distinctUntilChanged()
@@ -63,6 +84,21 @@ class MainViewModel @Inject constructor(
                     )
                 }
 
+            }
+            .launchIn(viewModelScope)
+
+        currentSchedule.onEach {
+            widgetUpdater.updateScheduleWidget()
+        }.launchIn(viewModelScope)
+
+        authRepository.authCreds
+            .distinctUntilChanged()
+            .onEach { creds ->
+                creds?.let {
+                    if (authRepository.ciuAuthStatus.first() != AuthStatus.Authorized(it.xLogin)){
+                        authRepository.authorizeFull(it.xLogin, it.xPassword)
+                    }
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -82,19 +118,6 @@ class MainViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = null
     )
-
-    init {
-        authRepository.authCreds
-            .distinctUntilChanged()
-            .onEach { creds ->
-                creds?.let {
-                    if (authRepository.ciuAuthStatus.first() != AuthStatus.Authorized(it.xLogin)){
-                        authRepository.authorizeFull(it.xLogin, it.xPassword)
-                    }
-                }
-            }
-            .launchIn(viewModelScope)
-    }
 
     fun onEvent(event: Event) {
         when (event) {

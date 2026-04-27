@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -51,4 +52,5 @@ dependencies {
     implementation(libs.jsoup)
     implementation(libs.okhttp.java.net.cookiejar)
     implementation(libs.paging.runtime)
+    implementation(libs.kotlinx.serialization.json)
 }

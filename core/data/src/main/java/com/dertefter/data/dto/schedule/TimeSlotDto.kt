@@ -1,8 +1,10 @@
 package com.dertefter.data.dto.schedule
 
+import kotlinx.serialization.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 
+@Serializable
 data class TimeSlotDto(
     val dateString: String,
     val startTimeString: String,
