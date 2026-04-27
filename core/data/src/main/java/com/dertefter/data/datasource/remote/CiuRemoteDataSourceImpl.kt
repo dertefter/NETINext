@@ -22,6 +22,7 @@ import com.dertefter.data.datasource.remote.api.parsers.parsePromo
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaResults
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
+import com.dertefter.data.datasource.remote.api.parsers.parseWeekHeader
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
 import com.dertefter.data.dto.auth.Login2FormParams
 import com.dertefter.data.dto.messsages.MessageDto
@@ -182,6 +183,13 @@ class CiuRemoteDataSourceImpl @Inject constructor(
         return runCatching {
             val response = baseApiService.getSearchGroupResults(query)
             parseSearchGroupResults(response.items)
+        }
+    }
+
+    override suspend fun getWeekHeader(): Result<String> {
+        return runCatching {
+            val response = baseApiService.getBasePage()
+            parseWeekHeader(response.string())
         }
     }
 

@@ -91,6 +91,15 @@ class MainViewModel @Inject constructor(
             widgetUpdater.updateScheduleWidget()
         }.launchIn(viewModelScope)
 
+        scheduleRepository.getWeekHeader()
+            .onEach {
+                widgetUpdater.updateWeekHeaderWidget()
+            }.launchIn(viewModelScope)
+
+        viewModelScope.launch {
+            scheduleRepository.updateWeekHeader()
+        }
+
         authRepository.authCreds
             .distinctUntilChanged()
             .onEach { creds ->

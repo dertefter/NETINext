@@ -56,6 +56,8 @@ interface CiuRemoteDataSource  {
 
     suspend fun getSearchGroupResults(query: String): Result<List<GroupDto>>
 
+    suspend fun getWeekHeader(): Result<String>
+
     suspend fun getMessages(): Result<List<MessageDto>>
 
     suspend fun readMessage(messageId: Long): Result<Unit>

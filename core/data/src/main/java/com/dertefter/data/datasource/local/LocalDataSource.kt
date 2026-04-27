@@ -64,6 +64,10 @@ interface LocalDataSource {
 
     fun getWeekBounds(): Flow<List<WeekBoundsDto>?>
 
+    fun getWeekHeader(): Flow<String?>
+
+    suspend fun saveWeekHeader(header: String)
+
     fun getAuthCreds(): Flow<AuthCreditions?>
 
     suspend fun saveAuthCreds(authCreds: AuthCreditions?)

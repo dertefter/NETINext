@@ -39,4 +39,5 @@
     <string name="no_lessons_found">Занятий не найдено</string>
     <string name="schedule_title">Расписание занятий</string>
     <string name="near_schedule_widget_description">Ближайшие занятия</string>
+    <string name="week_header_widget_description">Текущая неделя</string>
 </resources>

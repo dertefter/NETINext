@@ -50,6 +50,16 @@ class ScheduleRepositoryImpl @Inject constructor(
         return localDataSource.getWeekBounds()
     }
 
+    override fun getWeekHeader(): Flow<String?> {
+        return localDataSource.getWeekHeader()
+    }
+
+    override suspend fun updateWeekHeader(): Result<String> {
+        return remoteDataSource.getWeekHeader().onSuccess {
+            localDataSource.saveWeekHeader(it)
+        }
+    }
+
     override fun getNextScheduleAfter(
         groupDto: GroupDto,
         date: LocalDate,

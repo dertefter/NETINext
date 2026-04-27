@@ -111,6 +111,10 @@ class RemoteDataSourceImpl @Inject constructor(
         return ciuRemoteDataSource.getEvents(year, month)
     }
 
+    override suspend fun getWeekHeader(): Result<String> {
+        return ciuRemoteDataSource.getWeekHeader()
+    }
+
     override suspend fun getSessiaSchedule(group: GroupDto): Result<List<TimeSlotDto>> {
         return ciuRemoteDataSource.getSessiaSchedule(group)
     }

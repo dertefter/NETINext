@@ -48,6 +48,17 @@
                 android:resource="@xml/schedule_widget_info" />
         </receiver>
 
+        <receiver
+            android:name=".widgets.week_header.WeekHeaderWidgetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/week_header_widget_info" />
+        </receiver>
+
     </application>
 
 </manifest>

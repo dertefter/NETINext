@@ -16,5 +16,6 @@ data class GlobalConfigEntity(
     val isShapeCut: Boolean? = null,
     val isNotificationEnabled: Boolean? = null,
     val promoList: List<PromoItem>? = null,
-    val eventList: List<EventDto>? = null
+    val eventList: List<EventDto>? = null,
+    val weekHeader: String? = null
 )

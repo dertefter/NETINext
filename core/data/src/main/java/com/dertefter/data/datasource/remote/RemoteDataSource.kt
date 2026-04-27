@@ -53,6 +53,8 @@ interface RemoteDataSource  {
 
     suspend fun getEvents(year: String, month: String): Result<List<EventDto>>
 
+    suspend fun getWeekHeader(): Result<String>
+
     suspend fun getSessiaSchedule(group: GroupDto): Result<List<TimeSlotDto>>
 
     suspend fun getSearchGroupResults(query: String): Result<List<GroupDto>>

@@ -30,6 +30,9 @@ interface GlobalConfigDao {
     @Query("SELECT * FROM global_config WHERE id = 0")
     fun getEvents(): Flow<GlobalConfigEntity?>
 
+    @Query("SELECT weekHeader FROM global_config WHERE id = 0")
+    fun getWeekHeader(): Flow<String?>
+
     @Query("SELECT * FROM global_config WHERE id = 0")
     fun getConfig(): Flow<GlobalConfigEntity?>
 

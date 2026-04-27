@@ -333,6 +333,15 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(eventList = eventList))
     }
 
+    override fun getWeekHeader(): Flow<String?> {
+        return globalConfigDao.getWeekHeader()
+    }
+
+    override suspend fun saveWeekHeader(header: String) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(weekHeader = header))
+    }
+
     override fun getMoneyForYear(year: String): Flow<List<MoneyItemDto>?> {
         return getCurrentLogin().flatMapLatest { login ->
             moneyDao.getMoney(login ?: GUEST_LOGIN, year).map { it?.moneyItems }

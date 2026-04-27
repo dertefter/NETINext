@@ -1,12 +1,10 @@
 package com.dertefter.data.datasource.remote.api.parsers
 
-import android.util.Log
 import com.dertefter.data.dto.person.PersonShortDto
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
-import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.time.LocalDate
@@ -201,6 +199,11 @@ fun parseFirstDayDateString(html: String): String {
     val doc: Document = Jsoup.parse(html)
     val firstDayDateString = doc.select("span.schedule__table-date").first()?.text()
     return firstDayDateString!!
+}
+
+fun parseWeekHeader(html: String): String {
+    val doc: Document = Jsoup.parse(html)
+    return doc.select("div.header__label").first()?.text()!!
 }
 
 

@@ -24,6 +24,10 @@ interface ScheduleRepository {
 
     fun getWeeksBounds(): Flow<List<WeekBoundsDto>?>
 
+    fun getWeekHeader(): Flow<String?>
+
+    suspend fun updateWeekHeader(): Result<String>
+
     fun getNextScheduleAfter(
         groupDto: GroupDto,
         date: LocalDate,
