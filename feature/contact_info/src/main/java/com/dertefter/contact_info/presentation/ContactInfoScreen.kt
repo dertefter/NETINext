@@ -19,7 +19,6 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -35,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.contact_info.domain.toContactInfo
 import com.dertefter.design.components.text_fields.TextFieldItem
 import com.dertefter.data.dto.user.ContactInfoDto
-import com.dertefter.data.dto.user.lkDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
@@ -304,10 +303,6 @@ private fun ContactInfoScreenPreview() {
                     vk = "https://vk.com/id1",
                     telegram = "@ivanov",
                     leaderId = "12345",
-                    lksList = listOf(
-                        lkDto(id = 1, title = "ЛК 1", subtitle = "Описание 1", isSelected = true),
-                        lkDto(id = 2, title = "ЛК 2", subtitle = "Описание 2", isSelected = false)
-                    )
                 ).toContactInfo(), isLoading = false
             ), savingState = SavingState(true, true)
         )

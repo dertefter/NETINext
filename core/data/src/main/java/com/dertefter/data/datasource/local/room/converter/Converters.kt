@@ -12,6 +12,7 @@ import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -139,6 +140,15 @@ class Converters {
     @TypeConverter
     fun toStringList(value: String?): List<String>? {
         val type = object : TypeToken<List<String>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromLksDtoList(value: List<LksDto>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toLksDtoList(value: String?): List<LksDto>? {
+        val type = object : TypeToken<List<LksDto>>() {}.type
         return gson.fromJson(value, type)
     }
 }

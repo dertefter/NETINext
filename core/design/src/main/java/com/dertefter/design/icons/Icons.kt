@@ -9,6 +9,9 @@ import com.dertefter.design.R
 @Suppress("unused")
 object Icons {
 
+    val SwapVert: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_swap_vert)
+
     val Star: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_star)
     val ArrowWarmUp: ImageVector

@@ -4,7 +4,7 @@
     <string name="connected">Подключено</string>
     <string name="connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
     <string name="connecting">Подключение...</string>
-    <string name="retry">Повторить попытку</string>
+    <string name="design_retry">Повторить попытку</string>
     <string name="ciu">Центр информатизации университета</string>
     <string name="yourNeti">YourNETI API</string>
     <string name="status">Статус подключения</string>

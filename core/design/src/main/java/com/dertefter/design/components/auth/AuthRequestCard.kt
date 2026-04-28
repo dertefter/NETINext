@@ -57,7 +57,7 @@ fun AuthRequestCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = stringResource(R.string.auth_req_title),
+                    text = stringResource(R.string.design_auth_req_title),
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     style = MaterialTheme.typography.headlineMediumEmphasized,
                     fontWeight = FontWeight(600),
@@ -77,13 +77,13 @@ fun AuthRequestCard(
 
             Text(
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                text = stringResource(R.string.auth_req_text),
+                text = stringResource(R.string.design_auth_req_text),
                 style = MaterialTheme.typography.bodyLarge,
             )
 
             Text(
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                text = stringResource(R.string.learn_more),
+                text = stringResource(R.string.design_learn_more),
                 style = MaterialTheme.typography.bodyLarge,
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier.clickable(onClick = onMoreClick)
@@ -94,7 +94,7 @@ fun AuthRequestCard(
 
 }
 
-@Preview
+@Preview(locale = "ru")
 @Composable
 private fun AuthRequestCardPreview() {
     AppTheme {

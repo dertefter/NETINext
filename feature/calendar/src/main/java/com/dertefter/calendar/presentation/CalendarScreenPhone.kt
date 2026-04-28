@@ -1,6 +1,5 @@
 package com.dertefter.calendar.presentation
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
@@ -24,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -208,7 +206,7 @@ fun CalendarScreenPhone(
                 ExtendedFloatingActionButton(
                     onClick = { calendarState = calendarState.copy(selectedDate = today) },
                     icon = { Icon(Icons.OpenInNew, null) },
-                    text = { Text(stringResource(R.string.to_today)) },
+                    text = { Text(stringResource(R.string.calendar_to_today)) },
                 )
             }
         }

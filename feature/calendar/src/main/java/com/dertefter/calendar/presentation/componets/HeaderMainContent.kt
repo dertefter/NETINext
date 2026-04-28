@@ -54,8 +54,12 @@ fun HeaderMainContent(
             )
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         GroupButton(
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.small)
+                .weight(10f, fill = false),
             group = uiState.group?.name,
             isIndividual = uiState.group?.isIndividual ?: false,
             isLoading = uiState.isUpdating,

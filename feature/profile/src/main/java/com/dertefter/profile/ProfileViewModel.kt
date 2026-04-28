@@ -9,7 +9,6 @@ import com.dertefter.data.repository.AuthRepository
 import com.dertefter.data.repository.UserRepository
 import com.dertefter.navigation.Navigator
 import com.dertefter.navigation.Routes
-import com.dertefter.profile.domain.toUserInfo
 import com.dertefter.profile.presentation.Event
 import com.dertefter.profile.presentation.UiState
 import com.dertefter.profile.presentation.UserInfoState
@@ -30,7 +29,9 @@ class ProfileViewModel @Inject constructor(
     private val navigator: Navigator
 ) : ViewModel() {
 
-    private val _userInfoDto = userRepository.getUserInfoDto()
+    private val _userInfoDto = userRepository.getUserInfo()
+
+    private val _lksList = userRepository.getLksList()
     private val _ciuAuthStatus = authRepository.ciuAuthStatus
 
     private val _yourNetiAuthStatus = authRepository.yourNetiAuthStatus
@@ -42,7 +43,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _userInfoDto.collect { userInfoDto ->
                 _userInfoState.update {
-                    it.copy(userInfo = userInfoDto?.toUserInfo())
+                    it.copy(userInfo = userInfoDto)
                 }
             }
         }
@@ -51,6 +52,7 @@ class ProfileViewModel @Inject constructor(
             _ciuAuthStatus.collect { authStatus ->
                 if (authStatus is AuthStatus.Authorized){
                     updateUserInfo()
+                    updateLksList()
                 }
             }
         }
@@ -59,6 +61,7 @@ class ProfileViewModel @Inject constructor(
             _yourNetiAuthStatus.collect { authStatus ->
                 if (authStatus is AuthStatus.Authorized){
                     updateUserInfo()
+                    updateLksList()
                 }
             }
         }
@@ -66,23 +69,30 @@ class ProfileViewModel @Inject constructor(
 
     val state: StateFlow<UiState> = combine(
         _ciuAuthStatus,
-        _userInfoState
-    ) { authStatus, userInfoState ->
-        return@combine UiState(authStatus, userInfoState, routesMenu)
+        _userInfoState,
+        _lksList,
+    ) { authStatus, userInfoState, lksList ->
+        return@combine UiState(authStatus, userInfoState, routesMenu, lksList)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = UiState(AuthStatus.Unauthorized, UserInfoState())
+        initialValue = UiState(AuthStatus.Unauthorized, UserInfoState(), lksList = emptyList())
     )
 
     fun onEvent(event: Event) {
         when (event) {
             is Event.OnRequestUpdate -> {
+                updateLksList()
                 updateUserInfo()
             }
 
             is Event.OnNavigateToRoute -> {
-                navigator.navigate(event.route)
+                if (event.route == Routes.SwapLks) {
+                    navigator.openAsBottomSheet(event.route)
+                } else {
+                    navigator.navigate(event.route)
+                }
+
             }
 
             is Event.OnNavigateBack -> {
@@ -96,13 +106,19 @@ class ProfileViewModel @Inject constructor(
 
             _userInfoState.update { it.copy(isLoading = true, error = null) }
 
-            userRepository.updateUserInfoDto().onFailure { e ->
+            userRepository.updateUserInfo().onFailure { e ->
                 Log.e("updateUserInfoDto", e.stackTraceToString())
                 _userInfoState.update { it.copy(error = e.toAppError()) }
             }
 
             _userInfoState.update { it.copy(isLoading = false) }
 
+        }
+    }
+
+    private fun updateLksList(){
+        viewModelScope.launch {
+            userRepository.updateLksList()
         }
     }
 

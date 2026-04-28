@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId = "com.dertefter.neticlient"
-        minSdk = 26
+        minSdk = 30
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
@@ -60,7 +60,6 @@ dependencies {
     implementation(project(":feature:settings_labs"))
     implementation(project(":feature:settings_theme"))
     implementation(project(":feature:settings_notifications"))
-
     implementation(project(":feature:messages"))
     implementation(project(":feature:messages_detail"))
     implementation(project(":feature:search_person"))
@@ -68,6 +67,7 @@ dependencies {
     implementation(project(":feature:lesson_detail"))
     implementation(project(":feature:sessia_results"))
     implementation(project(":feature:share_score"))
+    implementation(project(":feature:swap_lks"))
     implementation(project(":feature:image_viewer"))
 
     implementation(libs.core.ktx)

@@ -7,6 +7,7 @@ import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 
 @Entity(tableName = "accounts")
@@ -20,5 +21,6 @@ data class AccountEntity(
     val sessiaResults: List<SessiaResultDto>? = null,
     val groupHistory: List<GroupDto> = emptyList(),
     val shareScoreLink: String? = null,
-    val moneyYears: List<String>? = null
+    val moneyYears: List<String>? = null,
+    val lksList: List<LksDto>? = null
 )

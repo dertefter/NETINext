@@ -14,6 +14,7 @@ import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 
 
@@ -87,5 +88,8 @@ interface RemoteDataSource  {
 
     suspend fun getYears(): Result<List<String>>
 
+    suspend fun getLksList(): Result<List<LksDto>>
+
+    suspend fun setSelectedLks(lksId: Int): Result<Unit>
 
 }

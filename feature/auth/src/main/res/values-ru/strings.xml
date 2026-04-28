@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="guest">Гостевой режим</string>
-    <string name="connected">Подключено</string>
-    <string name="connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
-    <string name="connecting">Подключение...</string>
-    <string name="retry">Повторить попытку</string>
-    <string name="ciu">Центр информатизации университета</string>
-    <string name="yourNeti">YourNETI API</string>
-    <string name="status">Статус подключения</string>
-    <string name="logout">Выйти из аккаунта</string>
-    <string name="different_account">Сменить аккаунт</string>
-    <string name="saved_accounts">Сохранённые аккаунты</string>
-    <string name="your_account">Ваш аккаунт</string>
-    <string name="waiting_to_connect">Ожидание подключения</string>
+    <string name="auth_guest">Гостевой режим</string>
+    <string name="auth_connected">Подключено</string>
+    <string name="auth_connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
+    <string name="auth_connecting">Подключение...</string>
+    <string name="auth_design_retry">Повторить попытку</string>
+    <string name="auth_ciu">Центр информатизации университета</string>
+    <string name="auth_your_neti">YourNETI API</string>
+    <string name="auth_status">Статус подключения</string>
+    <string name="auth_logout">Выйти из аккаунта</string>
+    <string name="auth_different_account">Сменить аккаунт</string>
+    <string name="auth_saved_accounts">Сохранённые аккаунты</string>
+    <string name="auth_your_account">Ваш аккаунт</string>
+    <string name="auth_waiting_to_connect">Ожидание подключения</string>
 </resources>

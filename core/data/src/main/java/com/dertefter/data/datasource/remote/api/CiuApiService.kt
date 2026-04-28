@@ -11,6 +11,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CiuApiService {
+
+    @GET("student_study/")
+    suspend fun getBasePage(): ResponseBody
+
+    @FormUrlEncoded
+    @POST("student_study/")
+    suspend fun setSelectedLks(
+        @Field("id_lks") lksId: Int,
+    ): ResponseBody
+
     @GET("student_study/personal/contact_info")
     suspend fun getContactInfo(): ResponseBody
 

@@ -67,14 +67,14 @@ fun ScheduleDayList(
         item {
             when {
                 !isGroupSelected -> NoLessons(
-                    text = stringResource(R.string.no_group_selected),
-                    subtext = stringResource(R.string.tap_to_add_group),
+                    text = stringResource(R.string.calendar_no_group_selected),
+                    subtext = stringResource(R.string.calendar_tap_to_add_group),
                     onClick = {
                         onEvent(Event.OnOpenGroupSearch)
                     }
                 )
                 timeSlots.isEmpty() && sessiaTimeSlots.isEmpty() && isError == null -> {
-                    NoLessons(text = stringResource(R.string.no_classes))
+                    NoLessons(text = stringResource(R.string.calendar_no_classes))
                 }
             }
         }

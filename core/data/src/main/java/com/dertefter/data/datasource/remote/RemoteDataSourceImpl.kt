@@ -13,6 +13,7 @@ import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 import javax.inject.Inject
 
@@ -220,6 +221,14 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getYears(): Result<List<String>> {
         return ciuRemoteDataSource.getYears()
+    }
+
+    override suspend fun getLksList(): Result<List<LksDto>> {
+        return ciuRemoteDataSource.getLksList()
+    }
+
+    override suspend fun setSelectedLks(lksId: Int): Result<Unit> {
+        return ciuRemoteDataSource.setSelectedLks(lksId)
     }
 
 

@@ -16,6 +16,7 @@ import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
 import com.dertefter.data.datasource.remote.api.parsers.parseEvents
+import com.dertefter.data.datasource.remote.api.parsers.parseLksList
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyItems
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyYearList
 import com.dertefter.data.datasource.remote.api.parsers.parsePromo
@@ -38,6 +39,7 @@ import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 import com.dertefter.data.dto.user.toUserInfoDto
 import okhttp3.ResponseBody
@@ -239,6 +241,19 @@ class CiuRemoteDataSourceImpl @Inject constructor(
         return runCatching {
             val response = ciuApiService.getMoneyYears()
             parseMoneyYearList(response.string())
+        }
+    }
+
+    override suspend fun getLksList(): Result<List<LksDto>> {
+        return runCatching {
+            val response = ciuApiService.getBasePage()
+            parseLksList(response.string())
+        }
+    }
+
+    override suspend fun setSelectedLks(lksId: Int): Result<Unit> {
+        return runCatching {
+            ciuApiService.setSelectedLks(lksId)
         }
     }
 

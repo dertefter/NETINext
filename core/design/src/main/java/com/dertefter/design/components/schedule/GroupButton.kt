@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dertefter.design.icons.Icons
@@ -40,8 +41,6 @@ fun GroupButton(
 
     val icon = if (group == null) {
         Icons.AddGroup
-    } else if (isIndividual) {
-        Icons.Star
     } else {
         Icons.Group
     }
@@ -86,7 +85,9 @@ fun GroupButton(
                         Text(
                             text = it.uppercase(),
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 }

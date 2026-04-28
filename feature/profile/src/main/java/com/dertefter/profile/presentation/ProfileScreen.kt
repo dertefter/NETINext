@@ -1,5 +1,7 @@
 package com.dertefter.profile.presentation
 
+import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,9 +20,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import coil.ImageLoader
-import coil.compose.LocalImageLoader
 import coil.imageLoader
 import com.dertefter.data.dto.auth.AuthStatus
+import com.dertefter.data.dto.user.LksDto
+import com.dertefter.data.dto.user.UserInfoDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.auth.AuthRequestCard
@@ -29,7 +32,7 @@ import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.navigation.Routes
-import com.dertefter.profile.domain.UserInfo
+import com.dertefter.profile.presentation.components.LksItem
 import com.dertefter.profile.presentation.components.UserInfoCard
 import com.dertefter.profile.presentation.content.RoutesListMenu
 
@@ -54,7 +57,7 @@ fun ProfileScreen(
                                 Event.OnNavigateToRoute(Routes.Settings)
                             )
                         },
-                        )
+                    )
                 },
                 scrollBehavior = scrollBehavior
             )
@@ -78,16 +81,17 @@ fun ProfileScreen(
                     isRefreshing = uiState.userInfoState.isLoading
                 )
             }
-        ){
+        ) {
 
             LazyColumn(
                 modifier = Modifier
                     .nestedScroll(scrollBehavior.nestedScrollConnection)
                     .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
-                    .padding(contentPadding)
+                    .padding(contentPadding),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
 
-                if (uiState.authStatus is AuthStatus.Unauthorized){
+                if (uiState.authStatus is AuthStatus.Unauthorized) {
                     item {
                         AuthRequestCard(
                             onClick = {
@@ -112,7 +116,15 @@ fun ProfileScreen(
                             },
                             onImageClick = {
                                 uiState.userInfoState.userInfo?.photoPath?.let { photoPath ->
-                                    onEvent(Event.OnNavigateToRoute(Routes.ImageViewer(listOf(photoPath))))
+                                    onEvent(
+                                        Event.OnNavigateToRoute(
+                                            Routes.ImageViewer(
+                                                listOf(
+                                                    photoPath
+                                                )
+                                            )
+                                        )
+                                    )
                                 }
 
                             }
@@ -120,7 +132,26 @@ fun ProfileScreen(
                     }
                 }
 
-                item{
+                uiState.lksList?.let { lksList ->
+
+                    val selectedItem = lksList.find { it.isSelected }
+                    selectedItem?.let { selectedItem ->
+                        item {
+                            LksItem(
+                                title = selectedItem.title,
+                                subtitle = selectedItem.subtitle,
+                                onClick = {
+                                    onEvent(
+                                        Event.OnNavigateToRoute(Routes.SwapLks)
+                                    )
+                                }
+                            )
+                        }
+                    }
+
+                }
+
+                item {
                     RoutesListMenu(
                         routesList = uiState.routesListMenu,
                         onRouteClick = { route ->
@@ -136,6 +167,29 @@ fun ProfileScreen(
     }
 }
 
+
+
+@Preview(showBackground = true, locale = "ru")
+@Composable
+private fun ProfileScreenUnauthorizedPreview() {
+    AppTheme {
+        ProfileScreen(
+            onEvent = {},
+            uiState = UiState(
+                authStatus = AuthStatus.Unauthorized,
+                userInfoState = UserInfoState(),
+                lksList = listOf(
+                    LksDto(
+                        "tttt", "ttttt", 111, true,
+                    )
+                )
+            ),
+            imageLoader = ImageLoader.Builder(LocalContext.current).build()
+        )
+    }
+}
+
+
 @Preview(showBackground = true)
 @Composable
 private fun ProfileScreenAuthorizedPreview() {
@@ -145,7 +199,7 @@ private fun ProfileScreenAuthorizedPreview() {
             uiState = UiState(
                 authStatus = AuthStatus.Authorized("ivan_ivanov"),
                 userInfoState = UserInfoState(
-                    userInfo = UserInfo(
+                    userInfo = UserInfoDto(
                         name = "Иван",
                         surname = "Иванов",
                         patronymic = "Иванович",
@@ -155,7 +209,13 @@ private fun ProfileScreenAuthorizedPreview() {
                         symFaculty = "АВТФ",
                         symGroup = "АВТ-123",
                         photoPath = null,
-                        birthday = "01.01.2000"
+                        birthday = "01.01.2000",
+
+                        )
+                ),
+                lksList = listOf(
+                    LksDto(
+                        "tttt", "ttttt", 111, true,
                     )
                 )
             ),
@@ -164,20 +224,7 @@ private fun ProfileScreenAuthorizedPreview() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun ProfileScreenUnauthorizedPreview() {
-    AppTheme {
-        ProfileScreen(
-            onEvent = {},
-            uiState = UiState(
-                authStatus = AuthStatus.Unauthorized,
-                userInfoState = UserInfoState()
-            ),
-            imageLoader = ImageLoader.Builder(LocalContext.current).build()
-        )
-    }
-}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -187,7 +234,12 @@ private fun ProfileScreenLoadingPreview() {
             onEvent = {},
             uiState = UiState(
                 authStatus = AuthStatus.Loading("ivan_ivanov"),
-                userInfoState = UserInfoState(isLoading = true)
+                userInfoState = UserInfoState(isLoading = true),
+                lksList = listOf(
+                    LksDto(
+                        "tttt", "ttttt", 111, true,
+                    )
+                )
             ),
             imageLoader = ImageLoader.Builder(LocalContext.current).build()
         )

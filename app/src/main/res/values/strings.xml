@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NETI Client</string>
-    <string name="auth_loading">Logging…</string>
-    <string name="auth_error">Failed to connect</string>
-    <string name="auth_success">You are connected!</string>
+    <string name="error">Failed to connect</string>
+    <string name="success">You are connected!</string>
     <string name="learn_more">Learn more</string>
     <string name="close_card">Close</string>
 

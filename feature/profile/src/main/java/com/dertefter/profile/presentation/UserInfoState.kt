@@ -1,10 +1,10 @@
 package com.dertefter.profile.presentation
 
 import com.dertefter.data.common.AppError
-import com.dertefter.profile.domain.UserInfo
+import com.dertefter.data.dto.user.UserInfoDto
 
 data class UserInfoState(
-    val userInfo: UserInfo? = null,
+    val userInfo: UserInfoDto? = null,
     val isLoading: Boolean = false,
     val error: AppError? = null,
 )

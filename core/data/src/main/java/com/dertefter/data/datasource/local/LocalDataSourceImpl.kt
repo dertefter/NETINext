@@ -19,6 +19,7 @@ import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.schedule.asLowercase
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -363,5 +364,17 @@ class LocalDataSourceImpl @Inject constructor(
         val login = getCurrentLoginValue()
         val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
         accountDao.insertAccount(account.copy(moneyYears = years))
+    }
+
+    override fun getLksList(): Flow<List<LksDto>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            accountDao.getAccount(login ?: GUEST_LOGIN).map { it?.lksList }
+        }
+    }
+
+    override suspend fun saveLksList(lksList: List<LksDto>?) {
+        val login = getCurrentLoginValue()
+        val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
+        accountDao.insertAccount(account.copy(lksList = lksList))
     }
 }

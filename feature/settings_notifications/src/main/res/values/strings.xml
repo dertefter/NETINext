@@ -4,7 +4,7 @@
     <string name="connected">Connected</string>
     <string name="connection_error">Сonnection error. Tap to try again</string>
     <string name="connecting">Connecting...</string>
-    <string name="retry">Try again</string>
+    <string name="design_retry">Try again</string>
     <string name="ciu">Ciu</string>
     <string name="yourNeti">YourNETI API</string>
     <string name="status">Connection status</string>

@@ -81,17 +81,17 @@ fun TimeDateCard(
     val diff:  Long = ChronoUnit.DAYS.between(LocalDate.now(), date)
 
     val dateString: String? = when (diff) {
-        0L -> stringResource(R.string.pretty_date_today)
-        1L -> stringResource(R.string.pretty_date_tomorrow)
-        2L -> stringResource(R.string.pretty_date_after_tomorrow)
+        0L -> stringResource(R.string.design_pretty_date_today)
+        1L -> stringResource(R.string.design_pretty_date_tomorrow)
+        2L -> stringResource(R.string.design_pretty_date_after_tomorrow)
         in 3L..6L -> pluralStringResource(R.plurals.pretty_date_days, diff.toInt(), diff.toInt())
-        else -> "${stringResource(R.string.in_what)} ${date.format(dateFormatter).replaceFirstChar { it.uppercase() }}"
+        else -> "${stringResource(R.string.design_in_what)} ${date.format(dateFormatter).replaceFirstChar { it.uppercase() }}"
     }
 
     val dateLabel = when {
-        isPast -> "${stringResource(R.string.ended)} ${dateString?.lowercase()} ${stringResource(R.string.in_what)} ${timeFormatter.format(endTime)}"
-        isNow -> stringResource(R.string.going_now)
-        else -> "${stringResource(R.string.will_start)} ${dateString?.lowercase()} ${stringResource(R.string.in_what)} ${timeFormatter.format(startTime)}"
+        isPast -> "${stringResource(R.string.design_ended)} ${dateString?.lowercase()} ${stringResource(R.string.design_in_what)} ${timeFormatter.format(endTime)}"
+        isNow -> stringResource(R.string.design_going_now)
+        else -> "${stringResource(R.string.design_will_start)} ${dateString?.lowercase()} ${stringResource(R.string.design_in_what)} ${timeFormatter.format(startTime)}"
     }
 
     val fontWeight = when {

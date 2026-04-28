@@ -45,7 +45,7 @@ include(":feature:share_score")
 include(":feature:money")
 include(":feature:messages")
 include(":feature:messages_detail")
-
+include(":feature:swap_lks")
 include(":feature:search_person")
 include(":feature:person_detail")
 include(":feature:person_gallery")

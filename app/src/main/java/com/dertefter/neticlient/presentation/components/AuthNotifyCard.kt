@@ -53,7 +53,7 @@ fun AuthNotifyCard(
 ) {
 
     val motionScheme = MaterialTheme.motionScheme
-    var isExpanded by remember { mutableStateOf(true) }
+    var isExpanded by remember { mutableStateOf(false) }
 
     val radius by animateDpAsState(
         targetValue = if (!isExpanded){
@@ -64,23 +64,23 @@ fun AuthNotifyCard(
         animationSpec = motionScheme.fastSpatialSpec()
     )
 
-    val containerColor by animateColorAsState(
+    val contentColor by animateColorAsState(
         targetValue = when (ciuAuthStatus) {
-            is AuthStatus.Loading -> MaterialTheme.colorScheme.onSecondaryContainer
-            is AuthStatus.Authorized -> MaterialTheme.colorScheme.onPrimaryContainer
-            is AuthStatus.Error -> MaterialTheme.colorScheme.onErrorContainer
-            else -> MaterialTheme.colorScheme.onSurface
+            is AuthStatus.Loading -> MaterialTheme.colorScheme.onSecondary
+            is AuthStatus.Authorized -> MaterialTheme.colorScheme.onPrimary
+            is AuthStatus.Error -> MaterialTheme.colorScheme.onError
+            else -> MaterialTheme.colorScheme.onSurfaceVariant
         },
         label = "containerColor",
         animationSpec = motionScheme.defaultEffectsSpec()
     )
 
-    val contentColor by animateColorAsState(
+    val containerColor by animateColorAsState(
         targetValue = when (ciuAuthStatus) {
-            is AuthStatus.Loading -> MaterialTheme.colorScheme.secondaryContainer
-            is AuthStatus.Authorized -> MaterialTheme.colorScheme.primaryContainer
-            is AuthStatus.Error -> MaterialTheme.colorScheme.errorContainer
-            else -> MaterialTheme.colorScheme.surfaceContainer
+            is AuthStatus.Loading -> MaterialTheme.colorScheme.secondary
+            is AuthStatus.Authorized -> MaterialTheme.colorScheme.primary
+            is AuthStatus.Error -> MaterialTheme.colorScheme.error
+            else -> MaterialTheme.colorScheme.surfaceVariant
         },
         label = "contentColor",
         animationSpec = motionScheme.defaultEffectsSpec()
@@ -119,9 +119,9 @@ fun AuthNotifyCard(
             )
             { targetAuthStatus ->
                 val title = when (targetAuthStatus) {
-                    is AuthStatus.Loading -> stringResource(R.string.auth_loading)
-                    is AuthStatus.Authorized -> stringResource(R.string.auth_success)
-                    is AuthStatus.Error -> stringResource(R.string.auth_error)
+                    is AuthStatus.Loading -> stringResource(R.string.loading)
+                    is AuthStatus.Authorized -> stringResource(R.string.success)
+                    is AuthStatus.Error -> stringResource(R.string.error)
                     else -> null
                 }
 

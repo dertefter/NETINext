@@ -74,7 +74,7 @@ fun SessiaResultScreen(
     val pagerState = rememberPagerState(pageCount = { semesters.size })
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(semesters.isNotEmpty()) {
+    LaunchedEffect(semesters.size) {
         if (semesters.isNotEmpty()) {
             pagerState.scrollToPage(semesters.size - 1)
         }
@@ -120,7 +120,7 @@ fun SessiaResultScreen(
 
                 if (semesters.isNotEmpty()) {
                     PrimaryScrollableTabRow(
-                        selectedTabIndex = pagerState.currentPage,
+                        selectedTabIndex = pagerState.currentPage.coerceIn(0, semesters.size - 1),
                         edgePadding = MaterialTheme.spacing.medium,
                         containerColor = Color.Transparent,
                         divider = {},

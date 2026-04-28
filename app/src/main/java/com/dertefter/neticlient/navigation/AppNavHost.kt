@@ -33,6 +33,7 @@ import com.dertefter.settings_labs.SettingsLabsRoute
 import com.dertefter.settings_notifications.SettingsNotificationsRoute
 import com.dertefter.settings_theme.SettingsThemeRoute
 import com.dertefter.share_score.ShareScoreRoute
+import com.dertefter.swap_lks.SwapLksRoute
 
 @SuppressLint("RestrictedApi")
 @Composable
@@ -102,6 +103,7 @@ fun RouteContent(route: Routes) {
             date = route.getDate()
         )
         is Routes.SessiaResults -> SessiaResultsRoute()
+        is Routes.SwapLks -> SwapLksRoute()
         is Routes.Money -> MoneyRoute()
         is Routes.ShareScore -> ShareScoreRoute()
         is Routes.SettingsLabs -> SettingsLabsRoute()
@@ -147,6 +149,10 @@ fun NavGraphBuilder.graph() {
 
     composable<Routes.Auth> {
         RouteContent(Routes.Auth)
+    }
+
+    composable<Routes.SwapLks> {
+        RouteContent(Routes.SwapLks)
     }
 
     composable<Routes.SearchGroup> {

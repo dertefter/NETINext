@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,8 +34,8 @@ fun ErrorLarge(
     onRetry: () -> Unit = {}
 ) {
 
-    val title = title ?: stringResource(R.string.update_failed)
-    val retryText = retryText ?: stringResource(R.string.retry)
+    val title = title ?: stringResource(R.string.design_update_failed)
+    val retryText = retryText ?: stringResource(R.string.design_retry)
 
 
     Column(

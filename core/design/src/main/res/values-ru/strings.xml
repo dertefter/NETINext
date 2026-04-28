@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_failed">Не удалось загрузить данные</string>
-    <string name="retry">Повторить попытку</string>
-    <string name="back_content_desc">Вернуться назад</string>
-    <string name="pretty_date_today">Сегодня</string>
-    <string name="pretty_date_tomorrow">Завтра</string>
-    <string name="pretty_date_after_tomorrow">Послезавтра</string>
+    <string name="design_update_failed">Не удалось загрузить данные</string>
+    <string name="design_retry">Повторить попытку</string>
+    <string name="design_back_content_desc">Вернуться назад</string>
+    <string name="design_pretty_date_today">Сегодня</string>
+    <string name="design_pretty_date_tomorrow">Завтра</string>
+    <string name="design_pretty_date_after_tomorrow">Послезавтра</string>
 
     <plurals name="pretty_date_days">
         <item quantity="one">Через %d день</item>
@@ -13,12 +13,12 @@
         <item quantity="many">Через %d дней</item>
     </plurals>
 
-    <string name="auth_req_title">Войдите в аккаунт студента НГТУ НЭТИ</string>
-    <string name="auth_req_text">Это позволит вам получить доступ к некоторым функциям</string>
-    <string name="learn_more">Подробнее</string>
-    <string name="will_start">Начнётся</string>
-    <string name="ended">Закончилось</string>
-    <string name="going_now">Идёт сейчас</string>
-    <string name="in_what">в</string>
+    <string name="design_auth_req_title">Войдите в аккаунт студента НГТУ НЭТИ</string>
+    <string name="design_auth_req_text">Это позволит вам получить доступ к некоторым функциям</string>
+    <string name="design_learn_more">Подробнее</string>
+    <string name="design_will_start">Начнётся</string>
+    <string name="design_ended">Закончилось</string>
+    <string name="design_going_now">Идёт сейчас</string>
+    <string name="design_in_what">в</string>
 
 </resources>

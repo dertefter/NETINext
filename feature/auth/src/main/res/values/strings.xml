@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="guest">Guest mode</string>
-    <string name="connected">Connected</string>
-    <string name="connection_error">Сonnection error. Tap to try again</string>
-    <string name="connecting">Connecting...</string>
-    <string name="retry">Try again</string>
-    <string name="ciu">Ciu</string>
-    <string name="yourNeti">YourNETI API</string>
-    <string name="status">Connection status</string>
-    <string name="logout">Log out</string>
-    <string name="different_account">Change account</string>
-    <string name="saved_accounts">Saved accounts</string>
-    <string name="your_account">Your account</string>
-    <string name="waiting_to_connect">Waiting for connection</string>
+    <string name="auth_guest">Guest mode</string>
+    <string name="auth_connected">Connected</string>
+    <string name="auth_connection_error">Сonnection error. Tap to try again</string>
+    <string name="auth_connecting">Connecting...</string>
+    <string name="auth_design_retry">Try again</string>
+    <string name="auth_ciu">Ciu</string>
+    <string name="auth_your_neti">YourNETI API</string>
+    <string name="auth_status">Connection status</string>
+    <string name="auth_logout">Log out</string>
+    <string name="auth_different_account">Change account</string>
+    <string name="auth_saved_accounts">Saved accounts</string>
+    <string name="auth_your_account">Your account</string>
+    <string name="auth_waiting_to_connect">Waiting for connection</string>
 </resources>

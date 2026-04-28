@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_failed">Failed to load data</string>
-    <string name="retry">Retry</string>
-    <string name="back_content_desc">Back</string>
-    <string name="pretty_date_today">Today</string>
-    <string name="pretty_date_tomorrow">Tomorrow</string>
-    <string name="pretty_date_after_tomorrow">Day after tomorrow</string>
+    <string name="design_update_failed">Failed to load data</string>
+    <string name="design_retry">Retry</string>
+    <string name="design_back_content_desc">Back</string>
+    <string name="design_pretty_date_today">Today</string>
+    <string name="design_pretty_date_tomorrow">Tomorrow</string>
+    <string name="design_pretty_date_after_tomorrow">Day after tomorrow</string>
     <plurals name="pretty_date_days">
         <item quantity="one">In %d day</item>
         <item quantity="few">In %d days</item>
         <item quantity="many">In %d days</item>
     </plurals>
-    <string name="auth_req_title">Sign in to your NSTU NETI student account</string>
-    <string name="auth_req_text">This will enable you to use some features</string>
-    <string name="learn_more">Learn more</string>
-    <string name="will_start">Will start</string>
-    <string name="ended">Ended</string>
-    <string name="going_now">Now</string>
-    <string name="in_what">in</string>
+    <string name="design_auth_req_title">Sign in to your NSTU NETI student account</string>
+    <string name="design_auth_req_text">This will enable you to use some features</string>
+    <string name="design_learn_more">Learn more</string>
+    <string name="design_will_start">Will start</string>
+    <string name="design_ended">Ended</string>
+    <string name="design_going_now">Now</string>
+    <string name="design_in_what">in</string>
 </resources>

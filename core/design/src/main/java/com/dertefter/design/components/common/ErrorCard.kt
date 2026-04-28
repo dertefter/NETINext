@@ -34,7 +34,7 @@ fun ErrorCard(
     onRetry: () -> Unit = {}
 ) {
 
-    val title = title ?: stringResource(id = R.string.update_failed)
+    val title = title ?: stringResource(id = R.string.design_update_failed)
 
     Row(
         modifier = modifier
@@ -56,7 +56,7 @@ fun ErrorCard(
                 .padding(8.dp),
             imageVector = Icons.Cached,
             tint = MaterialTheme.colorScheme.onPrimary,
-            contentDescription = stringResource(id = R.string.retry)
+            contentDescription = stringResource(id = R.string.design_retry)
         )
 
         Column(

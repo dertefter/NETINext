@@ -15,6 +15,7 @@ import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
+import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
 import kotlinx.coroutines.flow.Flow
 import androidx.paging.PagingSource
@@ -137,5 +138,9 @@ interface LocalDataSource {
     suspend fun saveMoneyForYear(year: String, money: List<MoneyItemDto>)
 
     suspend fun saveMoneyYears(years: List<String>)
+
+    fun getLksList(): Flow<List<LksDto>?>
+
+    suspend fun saveLksList(lksList: List<LksDto>?)
 
 }

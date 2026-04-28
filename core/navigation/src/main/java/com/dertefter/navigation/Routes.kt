@@ -58,6 +58,9 @@ sealed interface Routes {
     data object SettingsNotifications : Routes
 
     @Serializable
+    data object SwapLks : Routes
+
+    @Serializable
     data object Messages : Routes
 
     @Serializable

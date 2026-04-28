@@ -41,9 +41,9 @@ fun ScheduleHeader(
     val diff: Long? = if (targetDate == null) null else ChronoUnit.DAYS.between(nowDate, targetDate)
     val primaryLine: String? = when (diff) {
         null -> "Расписание занятий"
-        0L -> stringResource(R.string.pretty_date_today)
-        1L -> stringResource(R.string.pretty_date_tomorrow)
-        2L -> stringResource(R.string.pretty_date_after_tomorrow)
+        0L -> stringResource(R.string.design_pretty_date_today)
+        1L -> stringResource(R.string.design_pretty_date_tomorrow)
+        2L -> stringResource(R.string.design_pretty_date_after_tomorrow)
         in 3L..6L -> pluralStringResource(R.plurals.pretty_date_days, diff.toInt(), diff.toInt())
         else -> null
     }

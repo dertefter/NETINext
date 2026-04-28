@@ -180,7 +180,7 @@ fun CalendarScreenFold(
                         ExtendedFloatingActionButton(
                             onClick = { calendarState = calendarState.copy(selectedDate = today) },
                             icon = { Icon(Icons.OpenInNew, null) },
-                            text = { Text(stringResource(R.string.to_today)) },
+                            text = { Text(stringResource(R.string.calendar_to_today)) },
                         )
                     }
                 }

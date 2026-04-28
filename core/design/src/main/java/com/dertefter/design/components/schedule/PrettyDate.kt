@@ -1,15 +1,11 @@
 package com.dertefter.design.components.schedule
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,7 +16,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import com.dertefter.design.R
 import com.dertefter.design.theme.AppTheme
 import java.time.LocalDate
@@ -53,9 +48,9 @@ fun PrettyDate(
             val nowDate = LocalDate.now()
             val diff = ChronoUnit.DAYS.between(nowDate, targetDate)
             val primaryLine: String? = when (diff) {
-                0L -> stringResource(R.string.pretty_date_today)
-                1L -> stringResource(R.string.pretty_date_tomorrow)
-                2L -> stringResource(R.string.pretty_date_after_tomorrow)
+                0L -> stringResource(R.string.design_pretty_date_today)
+                1L -> stringResource(R.string.design_pretty_date_tomorrow)
+                2L -> stringResource(R.string.design_pretty_date_after_tomorrow)
                 in 3L..6L -> pluralStringResource(R.plurals.pretty_date_days, diff.toInt(), diff.toInt())
                 else -> null
             }

@@ -70,12 +70,12 @@ class MainViewModel @Inject constructor(
         merge(authRepository.ciuAuthStatus, authRepository.yourNetiAuthStatus)
             .onEach { authStatus ->
                 if (authStatus is AuthStatus.Authorized) {
-                    userRepository.updateUserInfoDto()
+                    userRepository.updateUserInfo()
                 }
             }
             .launchIn(viewModelScope)
 
-        userRepository.getUserInfoDto()
+        userRepository.getUserInfo()
             .distinctUntilChanged()
             .onEach { userInfo ->
                 userInfo?.symGroup?.let { symGroup ->

@@ -8,10 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.calendar.R
-import com.dertefter.design.theme.AppTheme
-import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
 
@@ -37,7 +34,7 @@ fun MonthTitle(
     }
 
     Text(
-        text = text ?: stringResource(R.string.calendar), style = style, modifier = modifier
+        text = text ?: stringResource(R.string.calendar_calendar), style = style, modifier = modifier
     )
 }
 

@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -33,7 +32,7 @@ import com.dertefter.neticlient.presentation.content.PhoneUi
 import com.dertefter.neticlient.presentation.content.TabUI
 import com.dertefter.search_group.SearchGroupRoute
 import com.dertefter.share_score.ShareScoreRoute
-import kotlinx.coroutines.flow.emptyFlow
+import com.dertefter.swap_lks.SwapLksRoute
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -131,6 +130,7 @@ fun MainScreen(
                 when (val route = bottomSheetRoute) {
                     is Routes.SearchGroup -> SearchGroupRoute()
                     is Routes.ShareScore -> ShareScoreRoute()
+                    is Routes.SwapLks -> SwapLksRoute()
                     is Routes.LessonDetail -> LessonDetailRoute(
                         name = route.name,
                         type = route.type,

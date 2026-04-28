@@ -12,8 +12,7 @@ data class ContactInfoDto(
     val oms: String?,
     val vk: String?,
     val telegram: String?,
-    val leaderId: String?,
-    val lksList: List<lkDto> = emptyList(),
+    val leaderId: String?
 )
 
 

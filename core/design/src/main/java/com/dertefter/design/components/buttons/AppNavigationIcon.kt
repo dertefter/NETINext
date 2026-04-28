@@ -1,6 +1,5 @@
 package com.dertefter.design.components.buttons
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
@@ -11,13 +10,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dertefter.design.R
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
-import com.dertefter.design.theme.isCut
-import com.dertefter.design.theme.spacing
 
 @Composable
 fun AppNavigationIcon(
@@ -40,7 +36,7 @@ fun AppNavigationIcon(
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = contentDescription ?: stringResource(R.string.back_content_desc)
+            contentDescription = contentDescription ?: stringResource(R.string.design_back_content_desc)
         )
     }
 }

@@ -2,7 +2,7 @@ package com.dertefter.data.datasource.remote.api.parsers
 
 import com.dertefter.data.dto.auth.Login2FormParams
 import com.dertefter.data.dto.user.ContactInfoDto
-import com.dertefter.data.dto.user.lkDto
+import com.dertefter.data.dto.user.LksDto
 import org.jsoup.Jsoup
 
 fun parseFormParams(html: String): Login2FormParams {
@@ -50,7 +50,7 @@ fun parseContactInfo(html: String): ContactInfoDto {
     val tg = doc.selectFirst("input[name=n_tg]")?.attr("value")
     val leaderId = doc.selectFirst("input[name=n_leader]")?.attr("value")
 
-    val lksList = mutableListOf<lkDto>()
+    val lksList = mutableListOf<LksDto>()
     val elements = doc.select("div#other_lks_content > div.other_lks")
 
     for (element in elements.orEmpty()) {
@@ -64,7 +64,7 @@ fun parseContactInfo(html: String): ContactInfoDto {
                 ?.trim()
         val isSelected = element.select("span:contains(выбран)").isNotEmpty() || id == null
 
-        lksList.add(lkDto(id, title, subtitle, isSelected))
+        lksList.add(LksDto(title, subtitle, id, isSelected))
     }
 
     return ContactInfoDto(
@@ -79,10 +79,30 @@ fun parseContactInfo(html: String): ContactInfoDto {
         oms = oms,
         vk = vk,
         telegram = tg,
-        leaderId = leaderId,
-        lksList = lksList
+        leaderId = leaderId
     )
 
 
+}
+
+fun parseLksList(html: String): List<LksDto> {
+    val doc = Jsoup.parse(html)
+    val lksList = mutableListOf<LksDto>()
+    val elements = doc.select("div#other_lks_content > div.other_lks")
+
+    for (element in elements.orEmpty()) {
+        val id = element.select("a[onclick]").first()?.let { a ->
+            val onclick = a.attr("onclick")
+            Regex("selectOtherLks\\((\\d+)\\)").find(onclick)?.groupValues?.get(1)?.toInt()
+        }
+        val title = element.select("b").first()?.text()?.trim() ?: continue
+        val subtitle =
+            element.ownText().takeIf { it.isNotBlank() }?.trim()?.removeSurrounding("(", ")")
+                ?.trim()
+        val isSelected = element.select("span:contains(выбран)").isNotEmpty() || id == null
+
+        lksList.add(LksDto(title, subtitle, id, isSelected))
+    }
+    return lksList
 }
 
