@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="design_pretty_date_today">Today</string>
+    <string name="design_pretty_date_tomorrow">Tomorrow</string>
+    <string name="design_pretty_date_after_tomorrow">Day after tomorrow</string>
+    <string name="wearable_home_title">Upcoming Classes</string>
+    <string name="wear_loading_error">Failed to load data</string>
+    <string name="wear_no_lessons">No upcoming classes found</string>
+    <string name="app_name" translatable="false">NETI Next</string>
+    <plurals name="pretty_date_days">
+        <item quantity="one">In %d day</item>
+        <item quantity="few">In %d days</item>
+        <item quantity="many">In %d days</item>
+    </plurals>
+
+</resources>

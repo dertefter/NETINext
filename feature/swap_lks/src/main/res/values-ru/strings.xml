@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="swap_lks_title">Выбор личного кабинета</string>
+    <string name="info_lks">Некоторые данные зависят от выбора личного кабинета. Например: результаты сессии или заявки на документы</string>
+</resources>

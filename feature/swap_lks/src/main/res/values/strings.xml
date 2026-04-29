@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="swap_lks_title">Change space</string>
+    <string name="info_lks">Certain information varies depending on the chosen space. For instance: academic results or applications for documents.</string>
+</resources>

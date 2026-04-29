@@ -26,6 +26,7 @@ dependencyResolutionManagement {
 rootProject.name = "NETI Client"
 
 include(":app")
+include(":app_wearable")
 
 include(":core:data")
 include(":core:design")
@@ -49,8 +50,6 @@ include(":feature:swap_lks")
 include(":feature:search_person")
 include(":feature:person_detail")
 include(":feature:person_gallery")
-
-
 include(":feature:settings")
 include(":feature:settings_account")
 include(":feature:settings_labs")

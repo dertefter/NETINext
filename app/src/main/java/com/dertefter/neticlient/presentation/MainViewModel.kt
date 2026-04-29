@@ -10,6 +10,7 @@ import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.ScheduleRepository
 import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.data.repository.UserRepository
+import com.dertefter.neticlient.WearCommunicationClient
 import com.dertefter.neticlient.widgets.near_schedule.WidgetUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +35,8 @@ class MainViewModel @Inject constructor(
     private val groupRepository: GroupsRepository,
     private val userRepository: UserRepository,
     private val scheduleRepository: ScheduleRepository,
-    private val widgetUpdater: WidgetUpdater
+    private val widgetUpdater: WidgetUpdater,
+    private val wearClient: WearCommunicationClient
 ) : ViewModel() {
 
 
@@ -91,6 +93,12 @@ class MainViewModel @Inject constructor(
             widgetUpdater.updateScheduleWidget()
         }.launchIn(viewModelScope)
 
+        currentGroup.onEach { group ->
+            group?.let {
+                wearClient.sendData("group", "${group.name}=${group.isIndividual}")
+            }
+        }.launchIn(viewModelScope)
+
         scheduleRepository.getWeekHeader()
             .onEach {
                 widgetUpdater.updateWeekHeaderWidget()
@@ -107,6 +115,9 @@ class MainViewModel @Inject constructor(
                     if (authRepository.ciuAuthStatus.first() != AuthStatus.Authorized(it.xLogin)){
                         authRepository.authorizeFull(it.xLogin, it.xPassword)
                     }
+
+                    wearClient.sendData("xLogin", it.xLogin)
+                    wearClient.sendData("xPassword", it.xPassword)
                 }
             }
             .launchIn(viewModelScope)

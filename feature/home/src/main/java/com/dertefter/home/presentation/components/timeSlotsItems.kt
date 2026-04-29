@@ -65,8 +65,7 @@ fun LazyListScope.timeSlotsItems(
                     topEnd = if (index == 0) cornerLarge else cornerSmall,
                     bottomEnd = if (index == timeSlots.size - 1) cornerLarge else cornerSmall
                 )
-            )
-            ,
+            ),
 
             content = {
                 val lessons = timeSlot.lessons
