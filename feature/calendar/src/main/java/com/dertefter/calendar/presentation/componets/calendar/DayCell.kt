@@ -17,9 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.Morph
 import com.dertefter.design.shape.MorphPolygonShape
+import com.dertefter.design.theme.AppTheme
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -78,7 +80,49 @@ fun DayCell(
         Text(
             text = date.dayOfMonth.toString(),
             color = textColor,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMediumEmphasized
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DayCellPreview() {
+    AppTheme {
+        DayCell(
+            date = LocalDate.now(),
+            isSelected = false,
+            isToday = true,
+            isCurrentMonth = true,
+            onDateClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DayCellSelectedPreview() {
+    AppTheme {
+        DayCell(
+            date = LocalDate.now(),
+            isSelected = true,
+            isToday = false,
+            isCurrentMonth = true,
+            onDateClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DayCellOtherMonthPreview() {
+    AppTheme {
+        DayCell(
+            date = LocalDate.now(),
+            isSelected = false,
+            isToday = false,
+            isCurrentMonth = false,
+            onDateClick = {}
         )
     }
 }

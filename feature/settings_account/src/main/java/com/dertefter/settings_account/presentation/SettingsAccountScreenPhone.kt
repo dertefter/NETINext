@@ -32,6 +32,7 @@ package com.dertefter.settings_account.presentation
  import com.dertefter.design.components.buttons.AppNavigationIcon
  import com.dertefter.design.icons.Icons
  import com.dertefter.design.theme.AppTheme
+ import com.dertefter.design.theme.circleShape
  import com.dertefter.design.theme.cornerShape
  import com.dertefter.design.theme.rounding
  import com.dertefter.design.theme.spacing
@@ -62,6 +63,7 @@ fun SettingsAccountScreen(
     Scaffold(
         topBar = {
             AppToolbar(
+                title = "Аккаунт",
                 navigationIcon = {
                     if (!isPanel){
                         AppNavigationIcon(
@@ -135,7 +137,7 @@ fun SettingsAccountScreen(
                         contentAlignment = Alignment.CenterEnd
                     ){
                         Button(
-                            shape = MaterialTheme.shapes.medium,
+                            shape = MaterialTheme.circleShape(),
                             onClick = {
                                 onEvent(Event.OnLogOut)
                             },

@@ -19,7 +19,7 @@ fun DaysOfWeekHeader() {
                 modifier = Modifier.weight(1f),
                 text = day.getDisplayName(TextStyle.SHORT, LocalLocale.current.platformLocale),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.labelMediumEmphasized,
                 color = MaterialTheme.colorScheme.outline
             )
         }

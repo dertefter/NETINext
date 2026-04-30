@@ -8,6 +8,7 @@ import com.dertefter.person_detail.presentation.UiState
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.repository.PersonsRepository
 import com.dertefter.navigation.Navigator
+import com.dertefter.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,10 +56,13 @@ class PersonDetailViewModel @Inject constructor(
                     updatePersonDetail(it)
                 }
             }
+            is Event.OnOpenAvatar -> {
+                navigator.navigate(
+                    Routes.ImageViewer(listOf(event.url))
+                )
+            }
             is Event.OnNavigateBack -> {
-                _personId.value?.let {
-                    navigator.navigateUp()
-                }
+                navigator.navigateUp()
             }
         }
     }

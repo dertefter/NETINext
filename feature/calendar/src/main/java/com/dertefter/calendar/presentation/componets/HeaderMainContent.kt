@@ -37,7 +37,9 @@ fun HeaderMainContent(
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.clickable {
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
                 onCalendarStateChange(
                     calendarState.copy(isExpanded = !calendarState.isExpanded)
                 )
@@ -54,35 +56,35 @@ fun HeaderMainContent(
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        GroupButton(
-            modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.small)
-                .weight(10f, fill = false),
-            group = uiState.group?.name,
-            isIndividual = uiState.group?.isIndividual ?: false,
-            isLoading = uiState.isUpdating,
-            onClick = {
-                onEvent(Event.OnOpenGroupSearch)
-            }
-        )
-
-        if (uiState.weekBounds.isNotEmpty()) {
-            val selectedDate = calendarState.selectedDate ?: LocalDate.now()
-            val selectedWeek = uiState.weekBounds.find { week ->
-                !selectedDate.isBefore(week.getStartDate()) && !selectedDate.isAfter(week.getEndDate())
-            }
-            WeekItem(
-                weekNumber = selectedWeek?.weekNumber ?: 0,
-                isSelected = true,
-                onClick = { onWeekSelectionVisibilityChange(true) }
+        Row(){
+            GroupButton(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.small),
+                group = uiState.group?.name,
+                isIndividual = uiState.group?.isIndividual ?: false,
+                isLoading = uiState.isUpdating,
+                onClick = {
+                    onEvent(Event.OnOpenGroupSearch)
+                }
             )
+
+            if (uiState.weekBounds.isNotEmpty()) {
+                val selectedDate = calendarState.selectedDate ?: LocalDate.now()
+                val selectedWeek = uiState.weekBounds.find { week ->
+                    !selectedDate.isBefore(week.getStartDate()) && !selectedDate.isAfter(week.getEndDate())
+                }
+                WeekItem(
+                    weekNumber = selectedWeek?.weekNumber ?: 0,
+                    isSelected = true,
+                    onClick = { onWeekSelectionVisibilityChange(true) }
+                )
+            }
         }
+
     }
 }
 
-@Preview(showBackground = true, device = "spec:width=650px,height=2340px,dpi=440")
+@Preview(showBackground = true, device = "spec:width=950px,height=2340px,dpi=440")
 @Composable
 fun HeaderMainContentPreview() {
     AppTheme {

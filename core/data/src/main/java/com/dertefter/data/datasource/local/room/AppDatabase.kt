@@ -1,6 +1,5 @@
 package com.dertefter.data.datasource.local.room
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -8,12 +7,12 @@ import com.dertefter.data.datasource.local.room.converter.Converters
 import com.dertefter.data.datasource.local.room.dao.AccountDao
 import com.dertefter.data.datasource.local.room.dao.GlobalConfigDao
 import com.dertefter.data.datasource.local.room.dao.MessageDao
+import com.dertefter.data.datasource.local.room.dao.MoneyDao
 import com.dertefter.data.datasource.local.room.dao.NewsDao
 import com.dertefter.data.datasource.local.room.dao.NewsRemoteKeyDao
 import com.dertefter.data.datasource.local.room.dao.PersonDao
 import com.dertefter.data.datasource.local.room.dao.ScheduleDao
 import com.dertefter.data.datasource.local.room.dao.SessiaScheduleDao
-import com.dertefter.data.datasource.local.room.dao.MoneyDao
 import com.dertefter.data.datasource.local.room.entity.AccountEntity
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
 import com.dertefter.data.datasource.local.room.entity.MessageEntity

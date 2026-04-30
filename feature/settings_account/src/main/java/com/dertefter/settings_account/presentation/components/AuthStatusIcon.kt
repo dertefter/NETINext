@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dertefter.data.dto.auth.AuthStatus
+import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 
@@ -55,12 +56,12 @@ fun AuthStatusIcon(
                     )
                 }
                 is AuthStatus.Loading -> {
-                    LoadingIndicator(
+                    AppLoadingIndicator(
                         color = contentColor
                     )
                 }
                 AuthStatus.Unauthorized -> {
-                    LoadingIndicator(
+                    AppLoadingIndicator(
                         color = contentColor
                     )
                 }

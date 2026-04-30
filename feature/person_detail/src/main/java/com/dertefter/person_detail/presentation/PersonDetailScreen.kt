@@ -1,11 +1,13 @@
 package com.dertefter.person_detail.presentation
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -16,13 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import coil.ImageLoader
-import coil.imageLoader
+import androidx.core.net.toUri
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
 import com.dertefter.design.components.common.ErrorLarge
+import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.person_detail.presentation.component.PersonDetailContent
 
@@ -31,9 +33,8 @@ import com.dertefter.person_detail.presentation.component.PersonDetailContent
 fun PersonDetailScreen(
     onEvent: (Event) -> Unit,
     uiState: UiState,
-    imageLoader: ImageLoader = LocalContext.current.imageLoader,
 ) {
-
+    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -45,6 +46,20 @@ fun PersonDetailScreen(
                             onEvent(Event.OnNavigateBack)
                         },
                     )
+                },
+                actions = {
+                   if (uiState.personDetail?.personId != null){
+                       AppNavigationIcon(
+                           onClick = {
+                               val url = "https://ciu.nstu.ru/kaf/persons/${uiState.personDetail.personId}"
+                               val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                               context.startActivity(intent)
+                           },
+                           containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                           contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                           icon = Icons.Language
+                       )
+                   }
                 },
                 scrollBehavior = scrollBehavior
             )
@@ -84,7 +99,7 @@ fun PersonDetailScreen(
                         personDetail = personDetail,
                         contentPadding = contentPadding,
                         scrollBehavior = scrollBehavior,
-                        imageLoader = imageLoader
+                        onEvent = onEvent
                     )
                 }
             }

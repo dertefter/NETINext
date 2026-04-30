@@ -2,6 +2,7 @@ package com.dertefter.person_detail.presentation.component
 
 import android.content.ClipData
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 import com.dertefter.person_detail.R
+import com.dertefter.person_detail.presentation.Event
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -55,7 +57,7 @@ fun PersonDetailContent(
     personDetail: PersonDetailDto,
     contentPadding: PaddingValues,
     scrollBehavior: TopAppBarScrollBehavior,
-    imageLoader: ImageLoader
+    onEvent: (Event) -> Unit = {}
 
 ) {
     val clipboard = LocalClipboard.current
@@ -84,7 +86,6 @@ fun PersonDetailContent(
             {
                 SubcomposeAsyncImage(
                     model = personDetail.avatarUrl,
-                    imageLoader = imageLoader,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     alignment = BiasAlignment(
@@ -93,6 +94,15 @@ fun PersonDetailContent(
                     ),
                     modifier = Modifier
                         .clip(MaterialTheme.circleShape())
+                        .clickable(
+                            onClick = {
+                                if (!personDetail.avatarUrl.isNullOrEmpty()){
+                                    onEvent(
+                                        Event.OnOpenAvatar(personDetail.avatarUrl ?: "")
+                                    )
+                                }
+                            }
+                        )
                         .background(MaterialTheme.colorScheme.secondaryContainer)
                         .size(64.dp)
                 )
@@ -199,7 +209,6 @@ private fun PersonDetailContentPreview() {
             ),
             contentPadding = PaddingValues(0.dp),
             scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState()),
-            imageLoader = ImageLoader.Builder(LocalContext.current).build()
         )
     }
 }

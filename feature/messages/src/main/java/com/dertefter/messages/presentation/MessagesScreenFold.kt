@@ -46,10 +46,3 @@ fun MessagesScreenFold(
     )
 
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun MessagesScreenFoldPreview() {
-
-
-}

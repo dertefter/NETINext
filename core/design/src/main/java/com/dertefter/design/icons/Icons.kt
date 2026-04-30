@@ -5,9 +5,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.transition.Visibility
 import com.dertefter.design.R
+import org.intellij.lang.annotations.Language
 
 @Suppress("unused")
 object Icons {
+
+    val Language: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_language)
 
     val Subject: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_subject)

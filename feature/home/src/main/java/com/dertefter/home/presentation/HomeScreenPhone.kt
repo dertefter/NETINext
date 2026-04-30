@@ -57,6 +57,7 @@ import com.gigamole.composefadingedges.FadingEdgesGravity
 import com.gigamole.composefadingedges.verticalFadingEdges
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -163,7 +164,7 @@ fun HomeScreenPhone(
                                 imageUrl = item.imageUrl,
                                 onClick = {
                                     item.link?.let { url ->
-                                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                         context.startActivity(intent)
                                     }
                                 }

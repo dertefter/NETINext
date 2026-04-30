@@ -61,6 +61,7 @@ package com.dertefter.home.presentation
  import com.gigamole.composefadingedges.verticalFadingEdges
  import kotlinx.coroutines.launch
  import java.time.LocalDate
+ import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -161,7 +162,7 @@ fun HomeScreenFold(
                                     imageUrl = item.imageUrl,
                                     onClick = {
                                         item.link?.let { url ->
-                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                             context.startActivity(intent)
                                         }
                                     }
