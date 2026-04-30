@@ -1,4 +1,4 @@
-package com.dertefter.search_group.domain.usecase
+package com.dertefter.search_group.usecase
 
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.repository.GroupsRepository

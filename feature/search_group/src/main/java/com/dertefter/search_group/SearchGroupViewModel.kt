@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.dto.schedule.GroupDto
-import com.dertefter.search_group.domain.usecase.GetGroupHistoryUseCase
-import com.dertefter.search_group.domain.usecase.GetSearchResultsUseCase
-import com.dertefter.search_group.domain.usecase.NavigateBackUseCase
-import com.dertefter.search_group.domain.usecase.RemoveGroupFromHistoryUseCase
-import com.dertefter.search_group.domain.usecase.SelectGroupUseCase
+import com.dertefter.search_group.usecase.GetGroupHistoryUseCase
+import com.dertefter.search_group.usecase.GetSearchResultsUseCase
+import com.dertefter.search_group.usecase.NavigateBackUseCase
+import com.dertefter.search_group.usecase.RemoveGroupFromHistoryUseCase
+import com.dertefter.search_group.usecase.SelectGroupUseCase
 import com.dertefter.search_group.presentation.Event
 import com.dertefter.search_group.presentation.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel

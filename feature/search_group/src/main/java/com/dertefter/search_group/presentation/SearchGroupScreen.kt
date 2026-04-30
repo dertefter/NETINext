@@ -79,9 +79,9 @@ fun SearchGroupScreen(
                     onValueChange = { onEvent(Event.OnSearchQueryChanged(it)) },
                     placeholder = {
                         Text(
-                        text = stringResource(R.string.search_group)
+                        text = stringResource(R.string.search_group_search_group)
                     ) },
-                    leadingIcon = { Icon(Icons.Search, contentDescription = stringResource(R.string.search_group)) },
+                    leadingIcon = { Icon(Icons.Search, contentDescription = stringResource(R.string.search_group_search_group)) },
                     trailingIcon = {
                         if (uiState.query.isNotEmpty()) {
                             IconButton(
@@ -90,7 +90,7 @@ fun SearchGroupScreen(
                                     onEvent(Event.OnSearchQueryChanged(""))
                                 }
                             ) {
-                                Icon(Icons.Close, contentDescription = stringResource(R.string.clear))
+                                Icon(Icons.Close, contentDescription = stringResource(R.string.search_group_clear))
                             }
                         } else {
                             IconButton(
@@ -104,12 +104,12 @@ fun SearchGroupScreen(
                                     speechRecognizerLauncher.launch(intent)
                                 }
                             ) {
-                                Icon(Icons.Mic, contentDescription = stringResource(R.string.voice_recogintion))
+                                Icon(Icons.Mic, contentDescription = stringResource(R.string.search_group_voice_recogintion))
                             }
                         }
                     },
                     singleLine = true,
-                    shape = MaterialTheme.shapes.large,
+                    shape = MaterialTheme.circleShape(),
                     isError = uiState.error != null,
                     colors = OutlinedTextFieldDefaults.colors().copy(
                         focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -130,7 +130,7 @@ fun SearchGroupScreen(
                         item {
                             Icon(
                                 imageVector = Icons.History,
-                                contentDescription = stringResource(R.string.history),
+                                contentDescription = stringResource(R.string.search_group_history),
                                 modifier = Modifier
                                     .clip(MaterialTheme.circleShape())
                                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
@@ -180,7 +180,7 @@ fun SearchGroupScreen(
                             ErrorLarge()
                         } else {
                             Text(
-                                text = stringResource(R.string.nothing_searched),
+                                text = stringResource(R.string.search_group_nothing_searched),
                                 modifier = Modifier.align(Alignment.Center),
                                 style = MaterialTheme.typography.bodyLarge
                             )

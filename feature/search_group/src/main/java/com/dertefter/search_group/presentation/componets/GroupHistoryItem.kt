@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -61,7 +60,7 @@ fun GroupHistoryItem(
         ) {
             Icon(
                 imageVector = Icons.Close,
-                contentDescription = stringResource(R.string.remove_from_history),
+                contentDescription = stringResource(R.string.search_group_remove_from_history),
                 tint = MaterialTheme.colorScheme.onSecondaryContainer,
             )
         }

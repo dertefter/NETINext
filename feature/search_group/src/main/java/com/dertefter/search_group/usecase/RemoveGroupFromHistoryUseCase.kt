@@ -1,14 +1,14 @@
-package com.dertefter.search_group.domain.usecase
+package com.dertefter.search_group.usecase
 
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.repository.GroupsRepository
 import javax.inject.Inject
 
-class SelectGroupUseCase @Inject constructor(
+class RemoveGroupFromHistoryUseCase @Inject constructor(
 
     private val groupsRepository: GroupsRepository
 ) {
     suspend operator fun invoke(groupDto: GroupDto){
-        groupsRepository.setCurrentGroup(groupDto)
+        groupsRepository.removeGroupFromHistory(groupDto)
     }
 }
