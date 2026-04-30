@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="clear">Clear</string>
-    <string name="voice_recogintion">Say</string>
-    <string name="search_person">Search</string>
-    <string name="nothing_searched">Nothing found</string>
+    <string name="search_person_clear">Clear</string>
+    <string name="search_person_voice_recogintion">Say</string>
+    <string name="search_person_search">Search</string>
+    <string name="search_person_nothing_searched">Nothing found</string>
+    <string name="search_person_hint">Type something in the search field</string>
 </resources>

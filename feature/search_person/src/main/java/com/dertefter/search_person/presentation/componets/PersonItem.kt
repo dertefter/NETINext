@@ -17,15 +17,12 @@ import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
-import coil.imageLoader
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
@@ -36,7 +33,6 @@ fun PersonItem(
     modifier: Modifier = Modifier,
     name: String,
     avatarUrl: String? = null,
-    imageLoader: ImageLoader = LocalContext.current.imageLoader,
     onClick: () -> Unit,
 
     ){
@@ -56,7 +52,6 @@ fun PersonItem(
     {
         SubcomposeAsyncImage(
             model = avatarUrl,
-            imageLoader = imageLoader,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             alignment = BiasAlignment(horizontalBias = 0f, verticalBias = -0.2f),

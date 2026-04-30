@@ -41,6 +41,7 @@ import com.dertefter.design.components.buttons.AppNavigationIcon
 import com.dertefter.design.components.common.ErrorLarge
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 import com.dertefter.search_person.R
 import com.dertefter.search_person.presentation.componets.PersonItem
@@ -103,9 +104,9 @@ fun SearchPersonScreen(
                     onValueChange = { onEvent(Event.OnSearchQueryChanged(it)) },
                     placeholder = {
                         Text(
-                            text = stringResource(R.string.search_person)
+                            text = stringResource(R.string.search_person_search)
                         ) },
-                    leadingIcon = { Icon(Icons.Search, contentDescription = stringResource(R.string.search_person)) },
+                    leadingIcon = { Icon(Icons.Search, contentDescription = stringResource(R.string.search_person_search)) },
                     trailingIcon = {
                         if (uiState.query.isNotEmpty()) {
                             IconButton(
@@ -114,7 +115,7 @@ fun SearchPersonScreen(
                                     onEvent(Event.OnSearchQueryChanged(""))
                                 }
                             ) {
-                                Icon(Icons.Close, contentDescription = stringResource(R.string.clear))
+                                Icon(Icons.Close, contentDescription = stringResource(R.string.search_person_clear))
                             }
                         } else {
                             IconButton(
@@ -127,16 +128,16 @@ fun SearchPersonScreen(
                                     }
                                     try{
                                         speechRecognizerLauncher.launch(intent)
-                                    } catch (e: Exception){}
+                                    } catch (_: Exception){}
 
                                 }
                             ) {
-                                Icon(Icons.Mic, contentDescription = stringResource(R.string.voice_recogintion))
+                                Icon(Icons.Mic, contentDescription = stringResource(R.string.search_person_voice_recogintion))
                             }
                         }
                     },
                     singleLine = true,
-                    shape = MaterialTheme.shapes.large,
+                    shape = MaterialTheme.circleShape(),
                     isError = uiState.error != null,
                     colors = OutlinedTextFieldDefaults.colors().copy(
                         focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -170,8 +171,13 @@ fun SearchPersonScreen(
                         if (uiState.error != null) {
                             ErrorLarge()
                         } else {
+                            val text = if (uiState.query.isEmpty()){
+                                stringResource(R.string.search_person_hint)
+                            } else {
+                                stringResource(R.string.search_person_nothing_searched)
+                            }
                             Text(
-                                text = stringResource(R.string.nothing_searched),
+                                text = text,
                                 modifier = Modifier.align(Alignment.Center),
                                 style = MaterialTheme.typography.bodyLarge
                             )
@@ -212,7 +218,7 @@ fun SrarchPersonScreenPreview(){
     ) {
         SearchPersonScreen(
             onEvent = {},
-            uiState = UiState(query = "dd", emptyList()),
+            uiState = UiState(query = "", emptyList()),
 
         )
     }

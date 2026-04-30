@@ -3,11 +3,11 @@ package com.dertefter.search_person
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.PersonsRepository
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
 import com.dertefter.search_person.presentation.Event
 import com.dertefter.search_person.presentation.UiState
+import com.dertefter.search_person.usecase.GetPersonSearchResultsUseCase
+import com.dertefter.search_person.usecase.NavigateBackUseCase
+import com.dertefter.search_person.usecase.NavigateToPersonDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchPersonViewModel @Inject constructor(
-    private val personsRepository: PersonsRepository,
-    private val navigator: Navigator
+    private val getPersonSearchResultsUseCase: GetPersonSearchResultsUseCase,
+    private val navigateToPersonDetailUseCase: NavigateToPersonDetailUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState("", emptyList()))
@@ -33,14 +34,11 @@ class SearchPersonViewModel @Inject constructor(
             }
 
             is Event.OnOpenPerson -> {
-                navigator.navigate(Routes.PersonDetail(event.personId))
+                navigateToPersonDetailUseCase(event.personId)
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateBackUseCase()
             }
-
-
-            else -> {}
         }
     }
 
@@ -56,7 +54,7 @@ class SearchPersonViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = true, error = null) }
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            personsRepository.getSearchResults(q).onSuccess { persons ->
+            getPersonSearchResultsUseCase(q).onSuccess { persons ->
                 _uiState.update { it.copy(persons = persons, isLoading = false) }
             }.onFailure { throwable ->
                 _uiState.update { it.copy(isLoading = false, error = throwable.toAppError()) }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="clear">Очистить</string>
-    <string name="voice_recogintion">Сказать голосом</string>
-    <string name="search_person">Поиск сотрудников</string>
-    <string name="nothing_searched">Ничего не нашлось</string>
+    <string name="search_person_clear">Очистить</string>
+    <string name="search_person_voice_recogintion">Сказать голосом</string>
+    <string name="search_person_search">Поиск сотрудников</string>
+    <string name="search_person_nothing_searched">Ничего не нашлось</string>
+    <string name="search_person_hint">Введите что-нибудь в поле поиска</string>
 </resources>
