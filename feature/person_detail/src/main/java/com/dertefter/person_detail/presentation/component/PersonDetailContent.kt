@@ -33,11 +33,9 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
@@ -154,7 +152,7 @@ fun PersonDetailContent(
 
                 if (personDetail.contactInfo.isNotEmpty()) {
                     TitleAndStrings(
-                        title = stringResource(R.string.contact_info),
+                        title = stringResource(R.string.person_detail_contact_info),
                         strings = personDetail.contactInfo,
                         onStringClicked = { string ->
                             coroutineScope.launch {
@@ -166,7 +164,7 @@ fun PersonDetailContent(
                 }
                 if (personDetail.disciplines.isNotEmpty()) {
                     TitleAndStrings(
-                        title = stringResource(R.string.subjects),
+                        title = stringResource(R.string.person_detail_subjects),
                         strings = personDetail.disciplines,
                         onStringClicked = { string ->
                             coroutineScope.launch {
@@ -177,7 +175,7 @@ fun PersonDetailContent(
                 }
                 if (personDetail.profiles.isNotEmpty()) {
                     TitleAndStrings(
-                        title = stringResource(R.string.profiles),
+                        title = stringResource(R.string.person_detail_profiles),
                         strings = personDetail.profiles,
                         onStringClicked = { string ->
                             coroutineScope.launch {

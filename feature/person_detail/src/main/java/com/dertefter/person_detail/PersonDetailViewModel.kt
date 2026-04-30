@@ -3,12 +3,13 @@ package com.dertefter.person_detail
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dertefter.data.common.toAppError
 import com.dertefter.person_detail.presentation.Event
 import com.dertefter.person_detail.presentation.UiState
-import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.PersonsRepository
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
+import com.dertefter.person_detail.usecase.GetPersonDetailFlowUseCase
+import com.dertefter.person_detail.usecase.NavigateBackUseCase
+import com.dertefter.person_detail.usecase.OpenAvatarUseCase
+import com.dertefter.person_detail.usecase.UpdatePersonDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +23,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonDetailViewModel @Inject constructor(
-    private val personsRepository: PersonsRepository,
-    private val navigator: Navigator,
+    private val getPersonDetailFlowUseCase: GetPersonDetailFlowUseCase,
+    private val updatePersonDetailUseCase: UpdatePersonDetailUseCase,
+    private val openAvatarUseCase: OpenAvatarUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -33,7 +36,7 @@ class PersonDetailViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val personDetailFlow = _personId.filterNotNull().flatMapLatest { id ->
-        personsRepository.getPersonDetailFlowById(id)
+        getPersonDetailFlowUseCase(id)
     }
 
     init {
@@ -57,12 +60,10 @@ class PersonDetailViewModel @Inject constructor(
                 }
             }
             is Event.OnOpenAvatar -> {
-                navigator.navigate(
-                    Routes.ImageViewer(listOf(event.url))
-                )
+                openAvatarUseCase(event.url)
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateBackUseCase()
             }
         }
     }
@@ -70,7 +71,7 @@ class PersonDetailViewModel @Inject constructor(
     private fun updatePersonDetail(personId: Long) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            personsRepository.updatePersonDetail(personId).onSuccess { personDetailDto ->
+            updatePersonDetailUseCase(personId).onSuccess { personDetailDto ->
                 _uiState.update { it.copy(personDetail = personDetailDto, isLoading = false) }
             }.onFailure { error ->
                 Log.e("updatePersonDetail", error.stackTraceToString())

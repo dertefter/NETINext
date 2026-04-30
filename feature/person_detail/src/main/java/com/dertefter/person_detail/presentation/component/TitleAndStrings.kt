@@ -36,7 +36,7 @@ fun TitleAndStrings(
 
         Box(
             modifier = Modifier
-                .clip(MaterialTheme.shapes.large)
+                .clip(MaterialTheme.shapes.largeIncreased)
         ){
             StringList(
                 strings = strings,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="profiles">Профили</string>
-    <string name="subjects">Преподаваемые дисциплины</string>
-    <string name="contact_info">Контактная информация</string>
+    <string name="person_detail_profiles">Профили</string>
+    <string name="person_detail_subjects">Преподаваемые дисциплины</string>
+    <string name="person_detail_contact_info">Контактная информация</string>
 </resources>
