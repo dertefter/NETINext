@@ -57,13 +57,13 @@ fun ShareScoreScreen(
 ) {
     val clipboard = LocalClipboard.current
     val coroutineScope = rememberCoroutineScope()
-    val shareScoreLabel = stringResource(R.string.share_score_label)
+    val shareScoreLabel = stringResource(R.string.share_score__label)
 
     Scaffold(
         containerColor = Color.Transparent,
         topBar = {
             Headline(
-                text = stringResource(R.string.share_score),
+                text = stringResource(R.string.share_score_title),
                 modifier = Modifier.padding(MaterialTheme.spacing.defaultScreenPadding)
             )
         }
@@ -112,7 +112,7 @@ fun ShareScoreScreen(
                                 IconButton(onClick = { onEvent(Event.OnUpdateLink) }) {
                                     Icon(
                                         imageVector = Icons.Cached,
-                                        contentDescription = stringResource(R.string.update_link),
+                                        contentDescription = stringResource(R.string.share_score_update_link),
                                         tint = MaterialTheme.colorScheme.onTertiaryContainer
                                     )
                                 }
@@ -171,7 +171,7 @@ fun ShareScoreScreen(
                                     }
                                 }
                             ) {
-                                Text(stringResource(R.string.copy))
+                                Text(stringResource(R.string.share_score_copy))
                             }
                         }
 
@@ -186,7 +186,7 @@ fun ShareScoreScreen(
                                 shape = MaterialTheme.circleShape(),
                                 onClick = { onEvent(Event.OnRegenerateLink) }
                             ) {
-                                Text(stringResource(R.string.new_link))
+                                Text(stringResource(R.string.share_score_new_link))
                             }
                         }
                     }
@@ -209,7 +209,7 @@ fun ShareScoreScreen(
                         tint = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = stringResource(R.string.info),
+                        text = stringResource(R.string.share_score_info),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

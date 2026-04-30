@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.ShareScoreRepository
 import com.dertefter.share_score.presentation.Event
 import com.dertefter.share_score.presentation.UiState
+import com.dertefter.share_score.usecase.GetShareScoreLinkUseCase
+import com.dertefter.share_score.usecase.UpdateShareScoreLinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,14 +21,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShareScoreViewModel @Inject constructor(
-    private val shareScoreRepository: ShareScoreRepository
+    getShareScoreLinkUseCase: GetShareScoreLinkUseCase,
+    private val updateShareScoreLinkUseCase: UpdateShareScoreLinkUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
 
     private val _error = MutableStateFlow<AppError?>(null)
 
-    private val _shareScoreLink = shareScoreRepository.getShareScoreLink()
+    private val _shareScoreLink = getShareScoreLinkUseCase()
 
     val uiState: StateFlow<UiState> = combine(
         _shareScoreLink,
@@ -60,9 +62,8 @@ class ShareScoreViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _error.update { null }
-            shareScoreRepository.updateShareScoreLink(generateNew)
+            updateShareScoreLinkUseCase(generateNew)
                 .onFailure { error ->
-
                     Log.e("updateLink", error.stackTraceToString())
                     _error.update {
                         error.toAppError()
