@@ -1,14 +1,10 @@
 package com.dertefter.news_detail
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dertefter.design.theme.AppTheme
-import com.dertefter.design.theme.isCut
 import com.dertefter.news_detail.presentation.NewsDetailScreen
 
 @Composable

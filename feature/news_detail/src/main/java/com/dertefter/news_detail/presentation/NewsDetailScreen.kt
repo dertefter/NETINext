@@ -251,7 +251,7 @@ fun NewsDetailScreen(
                                         ImagesCarousel(
                                             imageUrls = newsDetail.imageUrls,
                                             modifier = Modifier.padding(vertical = MaterialTheme.spacing.defaultScreenPadding),
-                                            onImageClick = { url, position ->
+                                            onImageClick = { _, position ->
                                                 onEvent(
                                                     Event.OnNavigateToImageViewer(
                                                         imageUrls = newsDetail.imageUrls,

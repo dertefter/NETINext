@@ -1,4 +1,4 @@
-package com.dertefter.news_detail.domain.usecase
+package com.dertefter.news_detail.usecase
 
 import com.dertefter.navigation.Navigator
 import javax.inject.Inject

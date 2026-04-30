@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.dertefter.news_detail.presentation.Event
 import com.dertefter.news_detail.presentation.NewsState
 import com.dertefter.data.common.toAppError
-import com.dertefter.news_detail.domain.usecase.FetchNewsDetailUseCase
-import com.dertefter.news_detail.domain.usecase.NavigateBackUseCase
-import com.dertefter.news_detail.domain.usecase.NavigateImageViewerUseCase
+import com.dertefter.news_detail.usecase.FetchNewsDetailUseCase
+import com.dertefter.news_detail.usecase.NavigateBackUseCase
+import com.dertefter.news_detail.usecase.NavigateImageViewerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
