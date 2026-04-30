@@ -3,10 +3,11 @@ package com.dertefter.settings_labs
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
-import com.dertefter.data.repository.SettingsRepository
-import com.dertefter.navigation.Navigator
 import com.dertefter.settings_labs.presentation.Event
 import com.dertefter.settings_labs.presentation.UiState
+import com.dertefter.settings_labs.usecase.GetSelectedRemoteDataSourceUseCase
+import com.dertefter.settings_labs.usecase.NavigateUpUseCase
+import com.dertefter.settings_labs.usecase.SetSelectedRemoteDataSourceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,11 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsLabsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    private val navigator: Navigator
+    getSelectedRemoteDataSourceUseCase: GetSelectedRemoteDataSourceUseCase,
+    private val setSelectedRemoteDataSourceUseCase: SetSelectedRemoteDataSourceUseCase,
+    private val navigateUpUseCase: NavigateUpUseCase
     ) : ViewModel() {
 
-    val selectedRemoteDataSource = settingsRepository.selectedRemoteDataSource
+    private val selectedRemoteDataSource = getSelectedRemoteDataSourceUseCase()
         
     val uiState: StateFlow<UiState> = selectedRemoteDataSource.map {
         UiState(it)
@@ -36,16 +38,13 @@ class SettingsLabsViewModel @Inject constructor(
 
             is Event.OnSelectPreferredDataSource -> {
                 viewModelScope.launch {
-                    settingsRepository.setSelectedRemoteDataSource(event.p)
+                    setSelectedRemoteDataSourceUseCase(event.p)
                 }
             }
 
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateUpUseCase()
             }
-
-            else -> {}
-
         }
     }
 

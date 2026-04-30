@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="guest">Гостевой режим</string>
-    <string name="connected">Подключено</string>
-    <string name="connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
-    <string name="connecting">Подключение...</string>
-    <string name="design_retry">Повторить попытку</string>
-    <string name="ciu">Центр информатизации университета</string>
-    <string name="yourNeti">YourNETI API</string>
-    <string name="status">Статус подключения</string>
-    <string name="logout">Выйти из аккаунта</string>
-    <string name="different_account">Сменить аккаунт</string>
-    <string name="saved_accounts">Сохранённые аккаунты</string>
-    <string name="your_account">Ваш аккаунт</string>
-    <string name="waiting_to_connect">Ожидание подключения</string>
+    <string name="settings_labs_title">Эксперименты</string>
+    <string name="settings_labs_preferred_source_title">Предпочтительный источник данных</string>
+    <string name="settings_labs_source_auto">АВТО</string>
+    <string name="settings_labs_source_yourneti">YourNETI</string>
+    <string name="settings_labs_source_ciu">ЦИУ</string>
 </resources>
