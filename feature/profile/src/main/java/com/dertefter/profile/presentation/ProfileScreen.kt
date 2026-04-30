@@ -1,6 +1,5 @@
 package com.dertefter.profile.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.ImageLoader
 import coil.imageLoader
@@ -32,9 +32,10 @@ import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.navigation.Routes
+import com.dertefter.profile.R
 import com.dertefter.profile.presentation.components.LksItem
 import com.dertefter.profile.presentation.components.UserInfoCard
-import com.dertefter.profile.presentation.content.RoutesListMenu
+import com.dertefter.profile.presentation.components.RoutesListMenu
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -49,6 +50,7 @@ fun ProfileScreen(
     Scaffold(
         topBar = {
             AppToolbar(
+                title = stringResource(R.string.profile_title),
                 actions = {
                     AppNavigationIcon(
                         icon = Icons.Settings,

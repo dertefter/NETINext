@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="person_search">Person search</string>
-    <string name="sessia_results">Exam Results</string>
-    <string name="money">Scholarships and Payments</string>
+    <string name="profile_title">Profile</string>
+    <string name="profile_person_search">Staff Search</string>
+    <string name="profile_sessia_results">Exam results</string>
+    <string name="profile_money">Scholarships and Payments</string>
+    <string name="profile_docs">Document Requests</string>
 </resources>

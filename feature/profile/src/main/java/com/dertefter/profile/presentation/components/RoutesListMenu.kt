@@ -1,4 +1,4 @@
-package com.dertefter.profile.presentation.content
+package com.dertefter.profile.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.spacing
 import com.dertefter.navigation.Routes
 import com.dertefter.profile.R
-import com.dertefter.profile.presentation.components.RouteItem
 
 @Composable
 fun RoutesListMenu(
@@ -22,7 +21,7 @@ fun RoutesListMenu(
 ){
     Column(
         modifier = modifier
-            .clip(MaterialTheme.shapes.large)
+            .clip(MaterialTheme.shapes.largeIncreased)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
@@ -35,10 +34,10 @@ fun RoutesListMenu(
                 else -> Icons.ArrowDropUp
             }
             val text = when (route){
-                Routes.SearchPerson -> stringResource(R.string.person_search)
-                Routes.SessiaResults -> stringResource(R.string.sessia_results)
-                Routes.Money -> stringResource(R.string.money)
-                Routes.Docs -> "Документы"
+                Routes.SearchPerson -> stringResource(R.string.profile_person_search)
+                Routes.SessiaResults -> stringResource(R.string.profile_sessia_results)
+                Routes.Money -> stringResource(R.string.profile_money)
+                Routes.Docs -> stringResource(R.string.profile_docs)
                 else -> ""
             }
 

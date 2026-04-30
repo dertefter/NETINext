@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="person_search">Поиск сотрудников</string>
-    <string name="sessia_results">Результаты сессии</string>
-    <string name="money">Стипендии и выплаты</string>
+    <string name="profile_title">Профиль</string>
+    <string name="profile_person_search">Поиск сотрудников</string>
+    <string name="profile_sessia_results">Результаты сессии</string>
+    <string name="profile_money">Стипендии и выплаты</string>
+    <string name="profile_docs">Заявки на документы</string>
 </resources>
