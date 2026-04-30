@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">No data available</string>
-    <string name="money">Money</string>
+    <string name="new_document_title">New request</string>
+    <string name="new_document_select_type_label">Select document type</string>
+    <string name="new_document_comment_label">Comment</string>
+    <string name="new_document_create_button">Create request</string>
 </resources>

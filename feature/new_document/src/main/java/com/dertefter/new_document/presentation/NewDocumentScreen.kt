@@ -1,6 +1,5 @@
 package com.dertefter.new_document.presentation
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,6 +45,7 @@ import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
+import com.dertefter.new_document.R
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -54,8 +54,6 @@ fun NewDocumentScreen(
     uiState: UiState,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Log.e("docdocdocdoc", uiState.toString())
 
     LaunchedEffect(uiState.optionList) {
         if (uiState.optionList.isNotEmpty()){
@@ -69,14 +67,15 @@ fun NewDocumentScreen(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Новая заявка",
+                title = stringResource(R.string.new_document_title),
                 navigationIcon = {
                     AppNavigationIcon(
                         onClick = {
-
+                            onEvent(Event.OnNavigateUp)
                         }
                     )
-                }
+                },
+                scrollBehavior = scrollBehavior
             )
         }
     ) { contentPadding ->
@@ -134,7 +133,7 @@ fun NewDocumentScreen(
                         value = uiState.selectedOption?.text ?: "",
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("Выберите вид документа") },
+                        label = { Text(stringResource(R.string.new_document_select_type_label)) },
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                         },
@@ -201,7 +200,7 @@ fun NewDocumentScreen(
                                 )
                             },
                             label = {
-                                Text("Комментарий")
+                                Text(stringResource(R.string.new_document_comment_label))
                             },
                             supportingText = {
                                 Text(documentRequest.text_comm ?: "")
@@ -245,7 +244,7 @@ fun NewDocumentScreen(
                             enabled = documentRequest.is_avail == "1"
                         ){
                             Text(
-                                "Создать заявку"
+                                stringResource(R.string.new_document_create_button)
                             )
                         }
 
@@ -284,8 +283,6 @@ private fun NewDocumentScreenPreview() {
             ),
             selectedOption = DocumentOptionItem("Справка об обучении", "1"),
         )
-
-        val u2 = UiState()
 
         NewDocumentScreen(
             onEvent = {},

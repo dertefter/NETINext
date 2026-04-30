@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Нет данных</string>
-    <string name="money">Выплаты</string>
+    <string name="new_document_title">Новая заявка</string>
+    <string name="new_document_select_type_label">Выберите вид документа</string>
+    <string name="new_document_comment_label">Комментарий</string>
+    <string name="new_document_create_button">Создать заявку</string>
 </resources>
