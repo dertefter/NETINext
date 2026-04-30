@@ -23,37 +23,36 @@ fun SettingsScreenFold(
 ) {
     var currentRoute by remember { mutableStateOf<Routes?>(null) }
 
-    PanelsLayout(
-        modifier = Modifier.fillMaxSize(),
-        contentLeft = {
-            SettingsScreenPhone(
-                onEvent = { event ->
-                    if (event is Event.OnNavigateTo) {
-                        currentRoute = event.route
-                    } else {
-                        onEvent(event)
-                    }
+    PanelsLayout(modifier = Modifier.fillMaxSize(), contentLeft = {
+        SettingsScreenPhone(
+            onEvent = { event ->
+                if (event is Event.OnNavigateTo) {
+                    currentRoute = event.route
+                } else {
+                    onEvent(event)
                 }
-            )
-        },
-        contentRight = {
-            when (currentRoute) {
-                is Routes.SettingsAccount -> {
-                    SettingsAccountRoute(isPanel = true)
-                }
-                is Routes.SettingsLabs -> {
-                    SettingsLabsRoute(isPanel = true)
-                }
-                is Routes.SettingsTheme -> {
-                    SettingsThemeRoute(isPanel = true)
-                }
-                is Routes.SettingsNotifications -> {
-                    SettingsNotificationsRoute(isPanel = true)
-                }
-                else -> {
+            })
+    }, contentRight = {
+        when (currentRoute) {
+            is Routes.SettingsAccount -> {
+                SettingsAccountRoute(isPanel = true)
+            }
 
-                }
+            is Routes.SettingsLabs -> {
+                SettingsLabsRoute(isPanel = true)
+            }
+
+            is Routes.SettingsTheme -> {
+                SettingsThemeRoute(isPanel = true)
+            }
+
+            is Routes.SettingsNotifications -> {
+                SettingsNotificationsRoute(isPanel = true)
+            }
+
+            else -> {
+
             }
         }
-    )
+    })
 }
