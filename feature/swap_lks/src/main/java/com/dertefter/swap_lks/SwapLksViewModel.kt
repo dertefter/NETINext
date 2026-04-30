@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.UserRepository
-import com.dertefter.navigation.Navigator
 import com.dertefter.swap_lks.presentation.Event
 import com.dertefter.swap_lks.presentation.UiState
+import com.dertefter.swap_lks.usecase.GetLksListUseCase
+import com.dertefter.swap_lks.usecase.HideBottomShitUseCase
+import com.dertefter.swap_lks.usecase.SetSelectedLksUseCase
+import com.dertefter.swap_lks.usecase.UpdateLksListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,8 +22,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SwapLksViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val navigator: Navigator
+    getLksListUseCase: GetLksListUseCase,
+    private val updateLksListUseCase: UpdateLksListUseCase,
+    private val setSelectedLksUseCase: SetSelectedLksUseCase,
+    private val hideBottomShitUseCase: HideBottomShitUseCase,
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
@@ -30,14 +34,14 @@ class SwapLksViewModel @Inject constructor(
 
     private val _error = MutableStateFlow<AppError?>(null)
 
-    private val _lksList = userRepository.getLksList()
+    private val _lksList = getLksListUseCase()
 
     val uiState: StateFlow<UiState> = combine(
         _lksList,
         _isUpdating,
         _swapLksId,
         _error
-    ) { lksList, isUpdating,swapLksId, error ->
+    ) { lksList, isUpdating, swapLksId, error ->
         UiState(
             lksList = lksList,
             isLoading = isUpdating,
@@ -65,7 +69,7 @@ class SwapLksViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _error.update { null }
-            userRepository.updateLksList()
+            updateLksListUseCase()
                 .onFailure { error ->
                     _error.update {
                         error.toAppError()
@@ -80,10 +84,10 @@ class SwapLksViewModel @Inject constructor(
         viewModelScope.launch {
             _swapLksId.update { lksId }
             _error.update { null }
-            userRepository.setSelectedLks(lksId)
+            setSelectedLksUseCase(lksId)
                 .onSuccess {
-                    userRepository.updateLksList()
-                    navigator.hideBottomSheet()
+                    updateLksListUseCase()
+                    hideBottomShitUseCase()
                 }
             _swapLksId.update { null }
         }

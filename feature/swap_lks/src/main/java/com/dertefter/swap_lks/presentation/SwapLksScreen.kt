@@ -120,7 +120,7 @@ fun SwapLksScreen(
                             tint = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = stringResource(R.string.info_lks),
+                            text = stringResource(R.string.swap_lks_info_lks),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

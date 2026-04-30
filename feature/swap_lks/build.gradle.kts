@@ -55,8 +55,4 @@ dependencies {
     implementation(libs.hilt.lifecycle.viewmodel.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation(libs.coil.compose)
-    implementation(libs.coil)
-    implementation(libs.material.kolor)
-    implementation(libs.lightspark.compose.qr.code)
 }
