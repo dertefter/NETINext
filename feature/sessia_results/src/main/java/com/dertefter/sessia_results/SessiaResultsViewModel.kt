@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.SessiaResultsRepository
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
 import com.dertefter.sessia_results.presentation.Event
 import com.dertefter.sessia_results.presentation.UiState
+import com.dertefter.sessia_results.usecase.GetSessiaResultsUseCase
+import com.dertefter.sessia_results.usecase.NavigateBackUseCase
+import com.dertefter.sessia_results.usecase.OpenShareScoreUseCase
+import com.dertefter.sessia_results.usecase.UpdateSessiaResultsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,15 +22,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SessiaResultsViewModel @Inject constructor(
-    private val sessiaResultsRepository: SessiaResultsRepository,
-    private val navigator: Navigator
+    getSessiaResultsUseCase: GetSessiaResultsUseCase,
+    private val updateSessiaResultsUseCase: UpdateSessiaResultsUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase,
+    private val openShareScoreUseCase: OpenShareScoreUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
 
     private val _error = MutableStateFlow<AppError?>(null)
 
-    private val _sessiaResults = sessiaResultsRepository.getSessiaResults()
+    private val _sessiaResults = getSessiaResultsUseCase()
 
     val uiState: StateFlow<UiState> = combine(
         _sessiaResults,
@@ -57,11 +60,11 @@ class SessiaResultsViewModel @Inject constructor(
                 updateSessiaResults()
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateBackUseCase()
             }
 
             is Event.OnShare -> {
-                navigator.openAsBottomSheet(Routes.ShareScore)
+                openShareScoreUseCase()
             }
         }
     }
@@ -70,7 +73,7 @@ class SessiaResultsViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _error.update { null }
-            sessiaResultsRepository.updateSessiaResults()
+            updateSessiaResultsUseCase()
                 .onFailure { error ->
                     _error.update { error.toAppError() }
                 }

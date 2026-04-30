@@ -35,11 +35,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
 import com.dertefter.design.components.common.ErrorCard
 import com.dertefter.design.icons.Icons
+import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.sessia_results.R
 import com.dertefter.sessia_results.presentation.component.SessiaResultItem
@@ -87,7 +90,7 @@ fun SessiaResultScreen(
                     .background(containerColor)
             ) {
                 AppToolbar(
-                    title = stringResource(R.string.sessia_results),
+                    title = stringResource(R.string.sessia_results_title),
                     navigationIcon = {
                         AppNavigationIcon(
                             onClick = {
@@ -135,7 +138,7 @@ fun SessiaResultScreen(
                                 },
                                 text = {
                                     Text(
-                                        text = stringResource(R.string.semester_format, semester),
+                                        text = stringResource(R.string.sessia_results_semester_format, semester),
                                         style = MaterialTheme.typography.titleSmall
                                     )
                                 },
@@ -174,7 +177,7 @@ fun SessiaResultScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = stringResource(R.string.no_data),
+                            text = stringResource(R.string.sessia_results_no_data),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -187,7 +190,7 @@ fun SessiaResultScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = stringResource(R.string.no_results),
+                            text = stringResource(R.string.sessia_results_no_results),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -220,7 +223,7 @@ fun SessiaResultScreen(
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Text(
-                                            text = stringResource(R.string.no_results_in_semester),
+                                            text = stringResource(R.string.sessia_results_no_results_in_semester),
                                             style = MaterialTheme.typography.bodyLarge,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
@@ -250,5 +253,46 @@ fun SessiaResultScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun SessiaResultScreenPreview() {
+    val sampleResults = listOf(
+        SessiaResultDto(
+            name = "Математический анализ",
+            markName = "отлично",
+            score = 95,
+            typeName = "Экзамен",
+            europeanMarkString = "A",
+            semester = 1
+        ),
+        SessiaResultDto(
+            name = "Физика",
+            markName = "хорошо",
+            score = 80,
+            typeName = "Экзамен",
+            europeanMarkString = "B",
+            semester = 1
+        ),
+        SessiaResultDto(
+            name = "Программирование",
+            markName = "зачтено",
+            score = 0,
+            typeName = "Зачёт",
+            europeanMarkString = "Pass",
+            semester = 2
+        )
+    )
+    AppTheme {
+        SessiaResultScreen(
+            onEvent = {},
+            uiState = UiState(
+                sessiaResults = sampleResults,
+                isLoading = false,
+                error = null
+            )
+        )
     }
 }

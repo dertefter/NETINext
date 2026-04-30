@@ -1,4 +1,4 @@
-package com.dertefter.sessia_results.domain.usecase
+package com.dertefter.sessia_results.usecase
 
 import com.dertefter.navigation.Navigator
 import javax.inject.Inject

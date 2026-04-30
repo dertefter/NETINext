@@ -52,9 +52,9 @@ fun SessiaResultItem(
     isBottom: Boolean = true,
 ) {
 
-    val topRounding = if (isTop) MaterialTheme.rounding.defaultListItemRadiusEdges else MaterialTheme.rounding.defaultListItemRadius
+    val topRounding = if (isTop) MaterialTheme.rounding.largeIncreased else MaterialTheme.rounding.small
 
-    val bottomRounding  = if (isBottom) MaterialTheme.rounding.defaultListItemRadiusEdges else MaterialTheme.rounding.defaultListItemRadius
+    val bottomRounding  = if (isBottom) MaterialTheme.rounding.largeIncreased else MaterialTheme.rounding.small
 
     val shape = MaterialTheme.cornerShape(
         topStart = topRounding,
@@ -140,7 +140,7 @@ fun SessiaResultItem(
                         if (!((score == 0 )
                                     &&  (sessiaResult.markName ?: "").contains("зач", ignoreCase = true))){
                             ValueItem(
-                                title = stringResource(R.string.score),
+                                title = stringResource(R.string.sessia_results_score),
                                 value = score.toString()
                             )
                         }
@@ -149,7 +149,7 @@ fun SessiaResultItem(
 
                     sessiaResult.markName?.let { markName ->
                         ValueItem(
-                            title = stringResource(R.string.mark),
+                            title = stringResource(R.string.sessia_results_mark),
                             value = markName
                         )
 
