@@ -22,5 +22,4 @@ fun SettingsAccountRoute(
     )
 
 
-
 }

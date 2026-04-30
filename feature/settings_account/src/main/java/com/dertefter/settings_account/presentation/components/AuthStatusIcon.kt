@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,16 +30,16 @@ fun AuthStatusIcon(
     authStatus: AuthStatus,
     contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     containerColor: Color = MaterialTheme.colorScheme.secondaryContainer
-){
+) {
     Box(
         modifier = modifier
             .clip(CircleShape)
             .background(containerColor)
             .size(40.dp),
         contentAlignment = Alignment.Center
-    ){
+    ) {
         AnimatedContent(authStatus) { authStatus ->
-            when (authStatus){
+            when (authStatus) {
                 is AuthStatus.Authorized -> {
                     Icon(
                         imageVector = Icons.NetworkNode,
@@ -48,18 +47,19 @@ fun AuthStatusIcon(
                         tint = contentColor,
                     )
                 }
+
                 is AuthStatus.Error -> {
                     Icon(
-                        imageVector = Icons.Error,
-                        contentDescription = null,
-                        tint = contentColor
+                        imageVector = Icons.Error, contentDescription = null, tint = contentColor
                     )
                 }
+
                 is AuthStatus.Loading -> {
                     AppLoadingIndicator(
                         color = contentColor
                     )
                 }
+
                 AuthStatus.Unauthorized -> {
                     AppLoadingIndicator(
                         color = contentColor
@@ -75,8 +75,7 @@ fun AuthStatusIcon(
 private fun AuthStatusIconPreview() {
     AppTheme {
         Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             AuthStatusIcon(authStatus = AuthStatus.Unauthorized)
             AuthStatusIcon(authStatus = AuthStatus.Loading(login = "test"))

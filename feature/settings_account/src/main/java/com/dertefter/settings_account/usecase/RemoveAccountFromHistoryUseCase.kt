@@ -1,8 +1,6 @@
-package com.dertefter.settings_account.domain.usecase
+package com.dertefter.settings_account.usecase
 
 import com.dertefter.data.repository.AuthRepository
-import com.dertefter.navigation.Navigator
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class RemoveAccountFromHistoryUseCase @Inject constructor(
