@@ -4,9 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -32,11 +30,7 @@ fun ShapeItem(
     text: String = ""
 ) {
 
-    val cornerRadius = if (isSelected) {
-        MaterialTheme.rounding.extraLarge
-    } else {
-        MaterialTheme.rounding.medium
-    }
+    val cornerRadius =  MaterialTheme.rounding.medium
 
     val shape = if (isCut){
         CutCornerShape(cornerRadius)

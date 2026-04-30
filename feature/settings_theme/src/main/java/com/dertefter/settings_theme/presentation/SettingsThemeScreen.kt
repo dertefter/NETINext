@@ -2,6 +2,7 @@ package com.dertefter.settings_theme.presentation
 
  import androidx.compose.foundation.background
  import androidx.compose.foundation.layout.Arrangement
+ import androidx.compose.foundation.layout.Column
  import androidx.compose.foundation.layout.PaddingValues
  import androidx.compose.foundation.layout.Row
  import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ package com.dertefter.settings_theme.presentation
  import androidx.compose.ui.graphics.Color
  import androidx.compose.ui.graphics.toArgb
  import androidx.compose.ui.input.nestedscroll.nestedScroll
+ import androidx.compose.ui.res.stringResource
  import androidx.compose.ui.tooling.preview.Preview
  import com.dertefter.design.components.appbar.AppToolbar
  import com.dertefter.design.components.buttons.AppNavigationIcon
@@ -34,6 +36,7 @@ package com.dertefter.settings_theme.presentation
  import com.dertefter.design.theme.AppTheme
  import com.dertefter.design.theme.rounding
  import com.dertefter.design.theme.spacing
+ import com.dertefter.settings_theme.R
  import com.dertefter.settings_theme.presentation.components.ShapeItem
  import com.dertefter.settings_theme.presentation.components.ThemeItem
  import com.dertefter.settings_theme.presentation.components.ThemeItemLarge
@@ -56,14 +59,15 @@ fun SettingsThemeScreen(
             val listState = rememberLazyListState()
 
             val colors: List<Long> = remember {
-                List(5) { i ->
-                    Color.hsv(i * (360f / 5), 1f, 1f).toArgb().toLong() and 0xFFFFFFFFL
+                List(12) { i ->
+                    Color.hsv(i * (360f / 12), 1f, 1f).toArgb().toLong() and 0xFFFFFFFFL
                 }
             }
 
             Scaffold(
                 topBar = {
                     AppToolbar(
+                        title = stringResource(R.string.settings_theme_title),
                         navigationIcon = {
                             if (!isPanel) {
                                 AppNavigationIcon(
@@ -93,7 +97,7 @@ fun SettingsThemeScreen(
 
                     item {
                         Text(
-                            text = "Цвет темы",
+                            text = stringResource(R.string.settings_theme_color_title),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLargeEmphasized,
                             modifier = Modifier
@@ -105,41 +109,45 @@ fun SettingsThemeScreen(
                     }
 
                     item {
-                        ThemeItemLarge(
-                            isSelected = uiState.color == null,
-                            onClick = {
-                                onEvent(Event.OnSelectColor(null))
-                            }
-                        )
-                    }
-
-                    item {
-                        LazyRow(
+                        Column(
                             modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
-                                .background(MaterialTheme.colorScheme.surfaceContainer)
+                                .clip(MaterialTheme.shapes.largeIncreased)
                                 .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
-                            contentPadding = PaddingValues(MaterialTheme.spacing.large)
+                            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
                         ) {
-                            items(colors) { color ->
-                                ThemeItem(
-                                    modifier = Modifier,
-                                    color = color,
-                                    onClick = {
-                                        onEvent(
-                                            Event.OnSelectColor(color)
-                                        )
-                                    },
-                                    isSelected = color == uiState.color
-                                )
+                            ThemeItemLarge(
+                                isSelected = uiState.color == null,
+                                onClick = {
+                                    onEvent(Event.OnSelectColor(null))
+                                }
+                            )
+                            LazyRow(
+                                modifier = Modifier
+                                    .clip(MaterialTheme.shapes.small)
+                                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
+                                contentPadding = PaddingValues(MaterialTheme.spacing.large)
+                            ) {
+                                items(colors) { color ->
+                                    ThemeItem(
+                                        color = color,
+                                        onClick = {
+                                            onEvent(
+                                                Event.OnSelectColor(color)
+                                            )
+                                        },
+                                        isSelected = color == uiState.color
+                                    )
+                                }
                             }
                         }
+
                     }
 
                     item {
                         Text(
-                            text = "Форма углов",
+                            text = stringResource(R.string.settings_theme_shape_title),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLargeEmphasized,
                             modifier = Modifier
@@ -153,11 +161,11 @@ fun SettingsThemeScreen(
                     item {
                         Row(
                             modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
+                                .clip(MaterialTheme.shapes.largeIncreased)
                                 .background(MaterialTheme.colorScheme.surfaceContainer)
                                 .padding(MaterialTheme.spacing.large)
                                 .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large)
                         ) {
                             ShapeItem(
                                 modifier = Modifier.weight(1f),
@@ -168,7 +176,7 @@ fun SettingsThemeScreen(
                                         Event.OnSetIsShapeCut(false)
                                     )
                                 },
-                                text = "Закругление"
+                                text = stringResource(R.string.settings_theme_shape_round)
                             )
                             ShapeItem(
                                 modifier = Modifier.weight(1f),
@@ -179,7 +187,7 @@ fun SettingsThemeScreen(
                                         Event.OnSetIsShapeCut(true)
                                     )
                                 },
-                                text = "Обрезка"
+                                text = stringResource(R.string.settings_theme_shape_cut)
                             )
                         }
                     }

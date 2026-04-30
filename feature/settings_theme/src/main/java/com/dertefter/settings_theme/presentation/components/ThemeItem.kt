@@ -1,6 +1,5 @@
 package com.dertefter.settings_theme.presentation.components
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,14 +21,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.toColorLong
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
-import com.dertefter.design.theme.cornerShape
 import com.dertefter.design.theme.isCut
-import com.dertefter.design.theme.rounding
 
 @Composable
 fun ThemeItem(
@@ -38,10 +34,6 @@ fun ThemeItem(
     color: Long,
     isSelected: Boolean = false,
 ){
-
-    val cornerRadius by animateDpAsState(
-        if (isSelected) MaterialTheme.rounding.large else MaterialTheme.rounding.medium
-    )
 
     val iconAlpha by animateFloatAsState(
         if (isSelected) 1f else 0f
@@ -53,7 +45,7 @@ fun ThemeItem(
     ) {
         Box(
             modifier = modifier
-                .clip(MaterialTheme.cornerShape(cornerRadius))
+                .clip(MaterialTheme.shapes.medium)
                 .clickable(
                     onClick = onClick
                 )

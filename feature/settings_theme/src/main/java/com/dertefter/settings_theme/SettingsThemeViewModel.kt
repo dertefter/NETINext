@@ -2,10 +2,13 @@ package com.dertefter.settings_theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.data.repository.SettingsRepository
-import com.dertefter.navigation.Navigator
 import com.dertefter.settings_theme.presentation.Event
 import com.dertefter.settings_theme.presentation.UiState
+import com.dertefter.settings_theme.usecase.GetIsShapeCutUseCase
+import com.dertefter.settings_theme.usecase.GetThemeColorUseCase
+import com.dertefter.settings_theme.usecase.NavigateBackUseCase
+import com.dertefter.settings_theme.usecase.SaveIsShapeCutUseCase
+import com.dertefter.settings_theme.usecase.SaveThemeColorUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,14 +19,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsThemeViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    private val navigator: Navigator
-    ) : ViewModel() {
+    getThemeColorUseCase: GetThemeColorUseCase,
+    getIsShapeCutUseCase: GetIsShapeCutUseCase,
+    private val saveThemeColorUseCase: SaveThemeColorUseCase,
+    private val saveIsShapeCutUseCase: SaveIsShapeCutUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase
+) : ViewModel() {
 
-    private val selectedColor = settingsRepository.themeColor
+    private val selectedColor = getThemeColorUseCase()
 
-    private val isShapeCut = settingsRepository.isShapeCut
-    
+    private val isShapeCut = getIsShapeCutUseCase()
+
     val uiState: StateFlow<UiState> = combine(
         selectedColor,
         isShapeCut
@@ -40,18 +46,18 @@ class SettingsThemeViewModel @Inject constructor(
 
             is Event.OnSelectColor -> {
                 viewModelScope.launch {
-                    settingsRepository.saveThemeColor(event.color)
+                    saveThemeColorUseCase(event.color)
                 }
             }
 
             is Event.OnSetIsShapeCut -> {
                 viewModelScope.launch {
-                    settingsRepository.saveIsShapeCut(event.isCut)
+                    saveIsShapeCutUseCase(event.isCut)
                 }
             }
 
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateBackUseCase()
             }
 
         }

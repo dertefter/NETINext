@@ -1,7 +1,6 @@
 package com.dertefter.settings_theme.presentation.components
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,13 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
-import com.dertefter.design.theme.cornerShape
-import com.dertefter.design.theme.rounding
 import com.dertefter.design.theme.spacing
+import com.dertefter.settings_theme.R
 
 @Composable
 fun ThemeItemLarge(
@@ -32,10 +30,6 @@ fun ThemeItemLarge(
     isSelected: Boolean = false,
     onClick: () -> Unit = {}
 ){
-
-    val cornerRadius by animateDpAsState(
-        if (isSelected) MaterialTheme.rounding.large else MaterialTheme.rounding.medium
-    )
 
     val containerColor by animateColorAsState(
         if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
@@ -47,7 +41,7 @@ fun ThemeItemLarge(
 
     Row(
         modifier = modifier
-            .clip(MaterialTheme.cornerShape(cornerRadius))
+            .clip(MaterialTheme.shapes.small)
             .clickable(onClick = onClick)
             .background(containerColor)
             .padding(horizontal = MaterialTheme.spacing.extraLarge)
@@ -62,7 +56,7 @@ fun ThemeItemLarge(
             tint = contentColor
         )
         Text(
-            text = "По умолчанию",
+            text = stringResource(R.string.settings_theme_default_color),
             color = contentColor,
             style = MaterialTheme.typography.bodyLargeEmphasized
         )
