@@ -2,8 +2,9 @@ package com.dertefter.settings_notifications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.data.repository.SettingsRepository
-import com.dertefter.navigation.Navigator
+import com.dertefter.settings_notifications.usecase.GetNotificationStatusUseCase
+import com.dertefter.settings_notifications.usecase.NavigateUpUseCase
+import com.dertefter.settings_notifications.usecase.SaveNotificationEnabledUseCase
 import com.dertefter.settings_notifications.presentation.Event
 import com.dertefter.settings_notifications.presentation.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,11 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsNotificationsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    private val navigator: Navigator
+    getNotificationStatusUseCase: GetNotificationStatusUseCase,
+    private val saveNotificationEnabledUseCase: SaveNotificationEnabledUseCase,
+    private val navigateUpUseCase: NavigateUpUseCase
     ) : ViewModel() {
 
-    private val isNotificationEnabled = settingsRepository.isNotificationEnabled
+    private val isNotificationEnabled = getNotificationStatusUseCase()
         
     val uiState: StateFlow<UiState> = isNotificationEnabled.map {
         UiState(it == true)
@@ -35,12 +37,12 @@ class SettingsNotificationsViewModel @Inject constructor(
 
             is Event.OnChangeNotificationStatus -> {
                 viewModelScope.launch {
-                    settingsRepository.saveNotificationEnabled(event.isEnabled)
+                    saveNotificationEnabledUseCase(event.isEnabled)
                 }
             }
 
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateUpUseCase()
             }
 
         }

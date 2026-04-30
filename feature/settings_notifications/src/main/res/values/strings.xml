@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="guest">Guest mode</string>
-    <string name="connected">Connected</string>
-    <string name="connection_error">Сonnection error. Tap to try again</string>
-    <string name="connecting">Connecting...</string>
-    <string name="design_retry">Try again</string>
-    <string name="ciu">Ciu</string>
-    <string name="yourNeti">YourNETI API</string>
-    <string name="status">Connection status</string>
-    <string name="logout">Log out</string>
-    <string name="different_account">Change account</string>
-    <string name="saved_accounts">Saved accounts</string>
-    <string name="your_account">Your account</string>
-    <string name="waiting_to_connect">Waiting for connection</string>
+    <string name="settings_notifications_title">Notifications</string>
+    <string name="settings_notifications_permission_required">Notification permission is required for notifications to work</string>
+    <string name="settings_notifications_classes_title">Class notifications</string>
+    <string name="settings_notifications_classes_desc">Show current and upcoming classes in notifications</string>
 </resources>
