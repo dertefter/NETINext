@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Нет данных</string>
-    <string name="money">Выплаты</string>
+    <string name="money_no_data">Нет данных</string>
+    <string name="money_title">Выплаты</string>
 </resources>

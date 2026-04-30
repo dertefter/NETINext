@@ -65,7 +65,7 @@ fun MoneyScreen(
         topBar = {
             Column {
                 AppToolbar(
-                    title = stringResource(id = R.string.money),
+                    title = stringResource(id = R.string.money_title),
                     navigationIcon = {
                         AppNavigationIcon(onClick = { onEvent(Event.OnNavigateBack) })
                     },
@@ -123,7 +123,7 @@ fun MoneyScreen(
         ) {
             if (uiState.years.isEmpty() && !uiState.isLoading) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = stringResource(id = R.string.no_data))
+                    Text(text = stringResource(id = R.string.money_no_data))
                 }
             } else {
                 HorizontalPager(
@@ -142,7 +142,7 @@ fun MoneyScreen(
 
                     if (moneyItems.isEmpty() && !uiState.isLoading) {
                         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                            Text(text = stringResource(id = R.string.no_data))
+                            Text(text = stringResource(id = R.string.money_no_data))
                         }
                     } else {
                         LazyColumn(

@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.dto.money.MoneyItemDto
-import com.dertefter.data.repository.MoneyRepository
 import com.dertefter.money.presentation.Event
 import com.dertefter.money.presentation.UiState
-import com.dertefter.navigation.Navigator
+import com.dertefter.money.usecase.GetMoneyForYearUseCase
+import com.dertefter.money.usecase.GetMoneyYearsUseCase
+import com.dertefter.money.usecase.NavigateUpUseCase
+import com.dertefter.money.usecase.UpdateMoneyForYearUseCase
+import com.dertefter.money.usecase.UpdateMoneyYearsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,21 +28,24 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class MoneyViewModel @Inject constructor(
-    private val moneyRepository: MoneyRepository,
-    private val navigator: Navigator
+    getMoneyYearsUseCase: GetMoneyYearsUseCase,
+    private val getMoneyForYearUseCase: GetMoneyForYearUseCase,
+    private val updateMoneyYearsUseCase: UpdateMoneyYearsUseCase,
+    private val updateMoneyForYearUseCase: UpdateMoneyForYearUseCase,
+    private val navigateUpUseCase: NavigateUpUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
     private val _error = MutableStateFlow<AppError?>(null)
 
-    private val _years = moneyRepository.getYears()
+    private val _years = getMoneyYearsUseCase()
 
     private val _moneyData = _years.flatMapLatest { years ->
         if (years.isEmpty()) {
-            flowOf(emptyMap<String, List<MoneyItemDto>>())
+            flowOf(emptyMap())
         } else {
             combine(years.map { year ->
-                moneyRepository.getMoneyForYear(year).map { year to it }
+                getMoneyForYearUseCase(year).map { year to it }
             }) { it.toMap() }
         }
     }
@@ -76,7 +81,7 @@ class MoneyViewModel @Inject constructor(
                 updateMoneyForYear(event.year)
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateUpUseCase()
             }
         }
     }
@@ -85,7 +90,7 @@ class MoneyViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _error.update { null }
-            moneyRepository.updateYears()
+            updateMoneyYearsUseCase()
                 .onFailure { error ->
                     _error.update { error.toAppError() }
                 }
@@ -97,7 +102,7 @@ class MoneyViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _error.update { null }
-            moneyRepository.updateMoneyForYear(year)
+            updateMoneyForYearUseCase(year)
                 .onFailure { error ->
                     _error.update { error.toAppError() }
                 }
