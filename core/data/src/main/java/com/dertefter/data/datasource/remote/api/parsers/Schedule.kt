@@ -120,7 +120,6 @@ fun parseSchedule(
     val weekBounds = createWeekBounds(firstDayLocalDate, weeksCount)
 
     return ScheduleDto(timeSlots, weekBounds)
-
 }
 
 fun parseSessiaSchedule(html: String): List<TimeSlotDto> {

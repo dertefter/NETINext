@@ -4,6 +4,7 @@ import com.dertefter.data.datasource.local.room.entity.NewsEntity
 import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsItem
@@ -142,5 +143,9 @@ interface LocalDataSource {
     fun getLksList(): Flow<List<LksDto>?>
 
     suspend fun saveLksList(lksList: List<LksDto>?)
+
+    fun getDocsList(): Flow<List<DocsItemDto>?>
+
+    suspend fun saveDocsList(docsList: List<DocsItemDto>?)
 
 }

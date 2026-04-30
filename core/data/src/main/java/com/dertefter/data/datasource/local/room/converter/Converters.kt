@@ -2,6 +2,7 @@ package com.dertefter.data.datasource.local.room.converter
 
 import androidx.room.TypeConverter
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.PromoItem
@@ -149,6 +150,15 @@ class Converters {
     @TypeConverter
     fun toLksDtoList(value: String?): List<LksDto>? {
         val type = object : TypeToken<List<LksDto>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromDocsItemDtoList(value: List<DocsItemDto>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toDocsItemDtoList(value: String?): List<DocsItemDto>? {
+        val type = object : TypeToken<List<DocsItemDto>>() {}.type
         return gson.fromJson(value, type)
     }
 }

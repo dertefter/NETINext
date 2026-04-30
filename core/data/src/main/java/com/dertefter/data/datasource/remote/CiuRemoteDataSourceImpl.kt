@@ -15,6 +15,9 @@ import com.dertefter.data.datasource.remote.api.parsers.parsePersonShorts
 import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
+import com.dertefter.data.datasource.remote.api.parsers.parseDocCancelable
+import com.dertefter.data.datasource.remote.api.parsers.parseDocsList
+import com.dertefter.data.datasource.remote.api.parsers.parseDocsOptionsList
 import com.dertefter.data.datasource.remote.api.parsers.parseEvents
 import com.dertefter.data.datasource.remote.api.parsers.parseLksList
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyItems
@@ -26,6 +29,9 @@ import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
 import com.dertefter.data.datasource.remote.api.parsers.parseWeekHeader
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
 import com.dertefter.data.dto.auth.Login2FormParams
+import com.dertefter.data.dto.docs.DocsItemDto
+import com.dertefter.data.dto.docs.DocumentOptionItem
+import com.dertefter.data.dto.docs.DocumentRequestItem
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
@@ -157,7 +163,18 @@ class CiuRemoteDataSourceImpl @Inject constructor(
                     basicSchedulePrintResponseHtml = basicSchedulePrintResponseHtml,
                     scheduleFirstWeekRespHtml = firstDayDateResponseHtml,
                 )
-            schedule
+
+            val scheduleFallback =
+                parseSchedule(
+                    schedulePrintResponseHtml = basicSchedulePrintResponseHtml,
+                    basicSchedulePrintResponseHtml = basicSchedulePrintResponseHtml,
+                    scheduleFirstWeekRespHtml = firstDayDateResponseHtml,
+                )
+            if (schedule.timeSlots.isEmpty()){
+                scheduleFallback
+            }else {
+               schedule
+            }
         }.onFailure { e ->
             Log.e(TAG, e.stackTraceToString())
         }
@@ -254,6 +271,46 @@ class CiuRemoteDataSourceImpl @Inject constructor(
     override suspend fun setSelectedLks(lksId: Int): Result<Unit> {
         return runCatching {
             ciuApiService.setSelectedLks(lksId)
+        }
+    }
+
+    override suspend fun getDocsList(): Result<List<DocsItemDto>> {
+        return runCatching {
+            val response = ciuApiService.getDocuments()
+            parseDocsList(response.string())
+        }
+    }
+
+    override suspend fun getOptionsList(): Result<List<DocumentOptionItem>> {
+        return runCatching {
+            val response = ciuApiService.getDocuments()
+            parseDocsOptionsList(response.string())
+        }
+    }
+
+    override suspend fun getDocumentRequestItem(typeDoc: String): Result<DocumentRequestItem> {
+        return runCatching {
+            ciuApiService.getDocumentRequestItem(typeDoc = typeDoc)
+        }
+    }
+
+    override suspend fun claimNewDocument(typeClaim: String, comment: String): Result<Unit> {
+        return runCatching {
+            ciuApiService.claimNewDocument(typeClaim = typeClaim, comment = comment)
+        }
+    }
+
+    override suspend fun checkCancelable(docId: String): Result<Boolean> {
+        return runCatching {
+            val response = ciuApiService.checkDocCancelable(docId)
+            parseDocCancelable(response.string())
+        }
+    }
+
+    override suspend fun cancelDocument(docId: String): Result<Unit> {
+        return runCatching {
+            ciuApiService.cancelDocument(docId)
+            Unit
         }
     }
 

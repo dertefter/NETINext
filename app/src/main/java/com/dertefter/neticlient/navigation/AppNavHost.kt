@@ -14,6 +14,8 @@ import androidx.navigation.toRoute
 import com.dertefter.auth.AuthRoute
 import com.dertefter.calendar.CalendarRoute
 import com.dertefter.contact_info.ContactInfoRoute
+import com.dertefter.doc_detail.DocDetailRoute
+import com.dertefter.docs.DocsRoute
 import com.dertefter.home.HomeRoute
 import com.dertefter.image_viewer.ImageViewerRoute
 import com.dertefter.lesson_detail.LessonDetailRoute
@@ -21,6 +23,7 @@ import com.dertefter.messages.MessagesRoute
 import com.dertefter.messages_detail.MessagesDetailRoute
 import com.dertefter.money.MoneyRoute
 import com.dertefter.navigation.Routes
+import com.dertefter.new_document.NewDocumentRoute
 import com.dertefter.news_detail.NewsDetailRoute
 import com.dertefter.person_detail.PersonDetailRoute
 import com.dertefter.profile.ProfileRoute
@@ -84,6 +87,16 @@ fun RouteContent(route: Routes) {
             contentColor = route.contentColor
         )
         is Routes.Auth -> AuthRoute()
+        is Routes.Docs -> DocsRoute()
+        is Routes.NewDocument -> NewDocumentRoute()
+        is Routes.DocDetail -> DocDetailRoute(
+            type = route.type,
+            date = route.date,
+            status = route.status,
+            person = route.person,
+            comment = route.comment,
+            number = route.number
+        )
         is Routes.SearchGroup -> SearchGroupRoute()
         is Routes.Calendar -> CalendarRoute()
         is Routes.SettingsAccount -> SettingsAccountRoute()
@@ -175,6 +188,18 @@ fun NavGraphBuilder.graph() {
         RouteContent(Routes.SearchPerson)
     }
 
+    composable<Routes.Docs> {
+        RouteContent(Routes.Docs)
+    }
+
+    composable<Routes.NewDocument> {
+        RouteContent(Routes.NewDocument)
+    }
+
+    composable<Routes.DocDetail> {
+        val args = it.toRoute<Routes.DocDetail>()
+        RouteContent(args)
+    }
 
     composable<Routes.MessagesDetail> {
         val args = it.toRoute<Routes.MessagesDetail>()

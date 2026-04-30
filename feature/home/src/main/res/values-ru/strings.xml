@@ -2,4 +2,5 @@
 <resources>
     <string name="no_group_selected">Не выбрана учебная группа</string>
     <string name="tap_to_add_group">Нажмите чтобы добавить свою группу</string>
+    <string name="home_no_near_lessons">На ближайшее время занятий не найдено</string>
 </resources>

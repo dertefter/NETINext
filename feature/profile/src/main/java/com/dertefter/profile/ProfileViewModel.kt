@@ -37,7 +37,7 @@ class ProfileViewModel @Inject constructor(
     private val _yourNetiAuthStatus = authRepository.yourNetiAuthStatus
     private val _userInfoState = MutableStateFlow(UserInfoState())
 
-    val routesMenu = listOf(Routes.SessiaResults, Routes.SearchPerson, Routes.Money)
+    val routesMenu = listOf(Routes.SessiaResults, Routes.SearchPerson, Routes.Docs, Routes.Money)
 
     init {
         viewModelScope.launch {
@@ -107,7 +107,6 @@ class ProfileViewModel @Inject constructor(
             _userInfoState.update { it.copy(isLoading = true, error = null) }
 
             userRepository.updateUserInfo().onFailure { e ->
-                Log.e("updateUserInfoDto", e.stackTraceToString())
                 _userInfoState.update { it.copy(error = e.toAppError()) }
             }
 

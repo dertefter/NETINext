@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.remote.api
 
+import com.dertefter.data.dto.docs.DocumentRequestItem
 import com.dertefter.data.dto.share_score.ShareScoreResponse
 import okhttp3.ResponseBody
 import retrofit2.http.Field
@@ -14,6 +15,37 @@ interface CiuApiService {
 
     @GET("student_study/")
     suspend fun getBasePage(): ResponseBody
+
+    @GET("student_study/docs/claims")
+    suspend fun getDocuments(): ResponseBody
+
+    @FormUrlEncoded
+    @POST("student_study/docs/claims/ajax_claims")
+    suspend fun getDocumentRequestItem(
+        @Field("ajax") ajax: String = "1",
+        @Field("type_doc") typeDoc: String,
+    ): DocumentRequestItem
+
+    @FormUrlEncoded
+    @POST("student_study/docs/claims")
+    suspend fun claimNewDocument(
+        @Field("what") what: String = "1",
+        @Field("send") send: String = "1",
+        @Field("type_claim") typeClaim: String,
+        @Field("file_pay") filePay: String = "",
+        @Field("file_zayav") fileZayav: String = "",
+        @Field("comment") comment: String
+    ): ResponseBody
+
+    @GET("student_study/docs/claims/edit_claim")
+    suspend fun checkDocCancelable(@Query("id") id: String): ResponseBody
+
+    @FormUrlEncoded
+    @POST("student_study/docs/claims/edit_claim")
+    suspend fun cancelDocument(
+        @Query("id") id: String,
+        @Field("act") act: String = "2"
+    ): ResponseBody
 
     @FormUrlEncoded
     @POST("student_study/")

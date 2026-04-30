@@ -1,5 +1,8 @@
 package com.dertefter.data.datasource.remote
 
+import com.dertefter.data.dto.docs.DocsItemDto
+import com.dertefter.data.dto.docs.DocumentOptionItem
+import com.dertefter.data.dto.docs.DocumentRequestItem
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
@@ -229,6 +232,33 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun setSelectedLks(lksId: Int): Result<Unit> {
         return ciuRemoteDataSource.setSelectedLks(lksId)
+    }
+
+    override suspend fun getDocsList(): Result<List<DocsItemDto>> {
+        return ciuRemoteDataSource.getDocsList()
+    }
+
+    override suspend fun getOptionsList(): Result<List<DocumentOptionItem>> {
+        return ciuRemoteDataSource.getOptionsList()
+    }
+
+    override suspend fun getDocumentRequestItem(typeDoc: String): Result<DocumentRequestItem> {
+        return ciuRemoteDataSource.getDocumentRequestItem(typeDoc)
+    }
+
+    override suspend fun claimNewDocument(
+        typeClaim: String,
+        comment: String
+    ): Result<Unit> {
+        return ciuRemoteDataSource.claimNewDocument(typeClaim, comment)
+    }
+
+    override suspend fun checkCancelable(docId: String): Result<Boolean> {
+        return ciuRemoteDataSource.checkCancelable(docId)
+    }
+
+    override suspend fun cancelDocument(docId: String): Result<Unit> {
+        return ciuRemoteDataSource.cancelDocument(docId)
     }
 
 

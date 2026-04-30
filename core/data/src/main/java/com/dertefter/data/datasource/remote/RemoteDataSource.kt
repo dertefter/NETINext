@@ -1,5 +1,8 @@
 package com.dertefter.data.datasource.remote
 
+import com.dertefter.data.dto.docs.DocsItemDto
+import com.dertefter.data.dto.docs.DocumentOptionItem
+import com.dertefter.data.dto.docs.DocumentRequestItem
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
 import com.dertefter.data.dto.news.NewsDetailDto
@@ -11,7 +14,6 @@ import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
-import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.LksDto
@@ -91,5 +93,20 @@ interface RemoteDataSource  {
     suspend fun getLksList(): Result<List<LksDto>>
 
     suspend fun setSelectedLks(lksId: Int): Result<Unit>
+
+    suspend fun getDocsList(): Result<List<DocsItemDto>>
+
+    suspend fun getOptionsList(): Result<List<DocumentOptionItem>>
+
+    suspend fun getDocumentRequestItem(typeDoc: String): Result<DocumentRequestItem>
+
+    suspend fun claimNewDocument(
+        typeClaim: String,
+        comment: String
+    ): Result<Unit>
+
+    suspend fun checkCancelable(docId: String): Result<Boolean>
+
+    suspend fun cancelDocument(docId: String): Result<Unit>
 
 }

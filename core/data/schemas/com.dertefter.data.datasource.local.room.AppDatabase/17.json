@@ -1,0 +1,386 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 17,
+    "identityHash": "63013a7d2a0df248065311ef8aa87a48",
+    "entities": [
+      {
+        "tableName": "accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `authCreds` TEXT, `userInfo` TEXT, `contactInfo` TEXT, `currentGroup` TEXT, `weekBounds` TEXT, `sessiaResults` TEXT, `groupHistory` TEXT NOT NULL, `shareScoreLink` TEXT, `moneyYears` TEXT, `lksList` TEXT, `docsList` TEXT, PRIMARY KEY(`login`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authCreds",
+            "columnName": "authCreds",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userInfo",
+            "columnName": "userInfo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "contactInfo",
+            "columnName": "contactInfo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "currentGroup",
+            "columnName": "currentGroup",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "weekBounds",
+            "columnName": "weekBounds",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessiaResults",
+            "columnName": "sessiaResults",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "groupHistory",
+            "columnName": "groupHistory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shareScoreLink",
+            "columnName": "shareScoreLink",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "moneyYears",
+            "columnName": "moneyYears",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lksList",
+            "columnName": "lksList",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "docsList",
+            "columnName": "docsList",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "login"
+          ]
+        }
+      },
+      {
+        "tableName": "messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `userLogin` TEXT NOT NULL, `messageDto` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userLogin",
+            "columnName": "userLogin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "messageDto",
+            "columnName": "messageDto",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "schedules",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `groupName` TEXT NOT NULL, `timeSlots` TEXT NOT NULL, PRIMARY KEY(`login`, `groupName`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "groupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeSlots",
+            "columnName": "timeSlots",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "login",
+            "groupName"
+          ]
+        }
+      },
+      {
+        "tableName": "global_config",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `currentLogin` TEXT, `preferredRemoteSource` TEXT NOT NULL, `themeColor` INTEGER, `isShapeCut` INTEGER, `isNotificationEnabled` INTEGER, `promoList` TEXT, `eventList` TEXT, `weekHeader` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentLogin",
+            "columnName": "currentLogin",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "preferredRemoteSource",
+            "columnName": "preferredRemoteSource",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "themeColor",
+            "columnName": "themeColor",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isShapeCut",
+            "columnName": "isShapeCut",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isNotificationEnabled",
+            "columnName": "isNotificationEnabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "promoList",
+            "columnName": "promoList",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "eventList",
+            "columnName": "eventList",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "weekHeader",
+            "columnName": "weekHeader",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "persons",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`personId` INTEGER NOT NULL, `personDetailDto` TEXT NOT NULL, PRIMARY KEY(`personId`))",
+        "fields": [
+          {
+            "fieldPath": "personId",
+            "columnName": "personId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "personDetailDto",
+            "columnName": "personDetailDto",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "personId"
+          ]
+        }
+      },
+      {
+        "tableName": "news",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `type` TEXT NOT NULL, `title` TEXT NOT NULL, `tags` TEXT NOT NULL, `date` TEXT NOT NULL, `imageUrl` TEXT, `detailUrl` TEXT NOT NULL, `page` INTEGER NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "detailUrl",
+            "columnName": "detailUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "page",
+            "columnName": "page",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "news_remote_keys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`newsId` TEXT NOT NULL, `prevKey` INTEGER, `nextKey` INTEGER, PRIMARY KEY(`newsId`))",
+        "fields": [
+          {
+            "fieldPath": "newsId",
+            "columnName": "newsId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prevKey",
+            "columnName": "prevKey",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nextKey",
+            "columnName": "nextKey",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "newsId"
+          ]
+        }
+      },
+      {
+        "tableName": "money",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `year` TEXT NOT NULL, `moneyItems` TEXT NOT NULL, PRIMARY KEY(`login`, `year`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "moneyItems",
+            "columnName": "moneyItems",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "login",
+            "year"
+          ]
+        }
+      },
+      {
+        "tableName": "sessia_schedules",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `groupName` TEXT NOT NULL, `timeSlots` TEXT NOT NULL, PRIMARY KEY(`login`, `groupName`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "groupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeSlots",
+            "columnName": "timeSlots",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "login",
+            "groupName"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '63013a7d2a0df248065311ef8aa87a48')"
+    ]
+  }
+}

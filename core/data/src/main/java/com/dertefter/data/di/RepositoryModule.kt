@@ -6,6 +6,8 @@ import com.dertefter.data.repository.AuthRepository
 import com.dertefter.data.repository.AuthRepositoryImpl
 import com.dertefter.data.repository.ContactInfoRepository
 import com.dertefter.data.repository.ContactInfoRepositoryImpl
+import com.dertefter.data.repository.DocsRepository
+import com.dertefter.data.repository.DocsRepositoryImpl
 import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.GroupsRepositoryImpl
 import com.dertefter.data.repository.MessagesRepository
@@ -135,6 +137,14 @@ object RepositoryModule {
     fun provideMoneyRepository(
         localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource
     ): MoneyRepository = MoneyRepositoryImpl(
+        localDataSource = localDataSource, remoteDataSource = remoteDataSource
+    )
+
+    @Provides
+    @Singleton
+    fun provideDocsRepository(
+        localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource
+    ): DocsRepository = DocsRepositoryImpl(
         localDataSource = localDataSource, remoteDataSource = remoteDataSource
     )
 

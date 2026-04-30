@@ -22,6 +22,7 @@ import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.cornerShape
 import com.dertefter.design.theme.isTab
 import com.dertefter.design.theme.rounding
+import com.dertefter.doc_detail.DocDetailRoute
 import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.navigation.NavigationAction
 import com.dertefter.navigation.Navigator
@@ -139,6 +140,14 @@ fun MainScreen(
                         startTime = route.getStartTime(),
                         endTime = route.getEndTime(),
                         date = route.getDate()
+                    )
+                    is Routes.DocDetail -> DocDetailRoute(
+                        type = route.type,
+                        date = route.date,
+                        status = route.status,
+                        person = route.person,
+                        comment = route.comment,
+                        number = route.number
                     )
                     null -> {}
                     else -> {}

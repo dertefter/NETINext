@@ -9,6 +9,7 @@ import com.dertefter.data.datasource.local.room.entity.PersonEntity
 import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
 import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
@@ -376,5 +377,17 @@ class LocalDataSourceImpl @Inject constructor(
         val login = getCurrentLoginValue()
         val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
         accountDao.insertAccount(account.copy(lksList = lksList))
+    }
+
+    override fun getDocsList(): Flow<List<DocsItemDto>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            accountDao.getAccount(login ?: GUEST_LOGIN).map { it?.docsList }
+        }
+    }
+
+    override suspend fun saveDocsList(docsList: List<DocsItemDto>?) {
+        val login = getCurrentLoginValue()
+        val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
+        accountDao.insertAccount(account.copy(docsList = docsList))
     }
 }

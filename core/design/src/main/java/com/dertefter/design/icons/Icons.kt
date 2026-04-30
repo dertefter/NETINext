@@ -9,6 +9,10 @@ import com.dertefter.design.R
 @Suppress("unused")
 object Icons {
 
+    val Subject: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_subject)
+    val EditNote: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_edit_note)
     val SwapVert: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_swap_vert)
 

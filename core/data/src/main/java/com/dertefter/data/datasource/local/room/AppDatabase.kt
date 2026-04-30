@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.local.room
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -35,7 +36,7 @@ import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
         MoneyEntity::class,
         SessiaScheduleEntity::class
     ],
-    version = 16,
+    version = 17,
     exportSchema = false
 )
 

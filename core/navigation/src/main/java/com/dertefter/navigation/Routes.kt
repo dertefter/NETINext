@@ -61,6 +61,23 @@ sealed interface Routes {
     data object SwapLks : Routes
 
     @Serializable
+    data object Docs : Routes
+
+    @Serializable
+    data object NewDocument : Routes
+
+    @Serializable
+    data class DocDetail(
+        val type: String,
+        val date: String?,
+        val status: String?,
+        val person: String?,
+        val comment: String?,
+        val number: String?,
+    ) : Routes
+
+
+    @Serializable
     data object Messages : Routes
 
     @Serializable

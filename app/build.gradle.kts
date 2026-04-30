@@ -48,6 +48,9 @@ dependencies {
     implementation(project(":core:navigation"))
 
     implementation(project(":feature:auth"))
+    implementation(project(":feature:docs"))
+    implementation(project(":feature:new_document"))
+    implementation(project(":feature:doc_detail"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:contact_info"))
     implementation(project(":feature:home"))
