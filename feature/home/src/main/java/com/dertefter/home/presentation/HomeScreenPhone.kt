@@ -1,7 +1,6 @@
 package com.dertefter.home.presentation
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -37,11 +36,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.core.net.toUri
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
@@ -50,6 +50,7 @@ import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.rounding
 import com.dertefter.design.theme.spacing
+import com.dertefter.home.R
 import com.dertefter.home.presentation.components.PromoCard
 import com.dertefter.home.presentation.content.newsContent
 import com.dertefter.home.presentation.content.scheduleContent
@@ -57,7 +58,6 @@ import com.gigamole.composefadingedges.FadingEdgesGravity
 import com.gigamole.composefadingedges.verticalFadingEdges
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -152,6 +152,7 @@ fun HomeScreenPhone(
                         HorizontalPager(
                             state = pagerState,
                             modifier = Modifier
+                                .padding(top = MaterialTheme.spacing.medium)
                                 .fillMaxWidth(),
                             pageSpacing = MaterialTheme.spacing.small,
                             contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.defaultScreenPadding)
@@ -185,7 +186,7 @@ fun HomeScreenPhone(
                                 vertical = MaterialTheme.spacing.medium,
                                 horizontal = MaterialTheme.rounding.medium
                             ),
-                        text = "Жизнь университета"
+                        text = stringResource(R.string.home_news_title)
                     )
                 }
 
@@ -199,15 +200,6 @@ fun HomeScreenPhone(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPhonePreview() {
-    val sampleNewsItem = NewsItem(
-        id = "1",
-        type = "Новости",
-        title = "НГТУ НЭТИ вошел в число победителей конкурса грантов для популяризации науки",
-        tags = "Гранты, Конкурсы",
-        date = "27 октября 2023",
-        detailUrl = "https://www.nstu.ru/news/news_more_12345",
-        imageUrl = null,
-    )
 
     val sampleTimeSlot = TimeSlotDto(
         dateString = LocalDate.now().toString(),

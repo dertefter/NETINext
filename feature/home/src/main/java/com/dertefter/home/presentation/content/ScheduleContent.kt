@@ -1,23 +1,17 @@
 package com.dertefter.home.presentation.content
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.dertefter.design.components.common.ErrorCard
-import com.dertefter.design.components.schedule.GroupButton
 import com.dertefter.design.components.schedule.NoLessons
-import com.dertefter.design.components.schedule.PrettyDate
 import com.dertefter.home.R
 import com.dertefter.home.presentation.Event
 import com.dertefter.home.presentation.ScheduleState
-import com.dertefter.design.components.appbar.Headline
 import com.dertefter.design.theme.spacing
 import com.dertefter.home.presentation.components.timeSlotsItems
 
@@ -38,8 +32,8 @@ fun LazyListScope.scheduleContent(
     if (scheduleState.group == null){
         item{
             NoLessons(
-                text = stringResource(R.string.no_group_selected),
-                subtext = stringResource(R.string.tap_to_add_group),
+                text = stringResource(R.string.home_no_group_selected),
+                subtext = stringResource(R.string.home_tap_to_add_group),
                 onClick = {
                     onEvent(Event.OnNavigateToSearchGroup)
                 },

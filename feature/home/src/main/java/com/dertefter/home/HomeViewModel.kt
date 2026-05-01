@@ -7,15 +7,19 @@ import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
-import com.dertefter.data.repository.GroupsRepository
-import com.dertefter.data.repository.NewsRepository
-import com.dertefter.data.repository.ScheduleRepository
-import com.dertefter.home.domain.usecase.GetNewsUseCase
+import com.dertefter.home.usecase.GetCachedPromoUseCase
+import com.dertefter.home.usecase.GetCurrentGroupUseCase
+import com.dertefter.home.usecase.GetNewsUseCase
+import com.dertefter.home.usecase.GetScheduleUseCase
+import com.dertefter.home.usecase.NavigateToCalendarUseCase
+import com.dertefter.home.usecase.NavigateToNewsDetailUseCase
+import com.dertefter.home.usecase.OpenLessonDetailUseCase
+import com.dertefter.home.usecase.OpenSearchGroupUseCase
+import com.dertefter.home.usecase.UpdatePromoUseCase
+import com.dertefter.home.usecase.UpdateScheduleUseCase
 import com.dertefter.home.presentation.Event
 import com.dertefter.home.presentation.NewsState
 import com.dertefter.home.presentation.ScheduleState
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -39,11 +43,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getNewsUseCase: GetNewsUseCase,
-    private val scheduleRepository: ScheduleRepository,
-    private val groupsRepository: GroupsRepository,
-    private val newsRepository: NewsRepository,
-    private val navigator: Navigator
+    getNewsUseCase: GetNewsUseCase,
+    getCachedPromoUseCase: GetCachedPromoUseCase,
+    getCurrentGroupUseCase: GetCurrentGroupUseCase,
+    private val getScheduleUseCase: GetScheduleUseCase,
+    private val updatePromoUseCase: UpdatePromoUseCase,
+    private val updateScheduleUseCase: UpdateScheduleUseCase,
+    private val navigateToCalendarUseCase: NavigateToCalendarUseCase,
+    private val openSearchGroupUseCase: OpenSearchGroupUseCase,
+    private val navigateToNewsDetailUseCase: NavigateToNewsDetailUseCase,
+    private val openLessonDetailUseCase: OpenLessonDetailUseCase,
 ) : ViewModel() {
 
     private val _newsState = MutableStateFlow(
@@ -58,10 +67,10 @@ class HomeViewModel @Inject constructor(
     private val _scheduleError: MutableStateFlow<AppError?> = MutableStateFlow(null)
 
 
-    val promo = newsRepository.getCachedPromo().map {it ?: emptyList() }
+    val promo = getCachedPromoUseCase().map { it ?: emptyList() }
 
 
-    val currentGroup: StateFlow<GroupDto?> = groupsRepository.getCurrentGroup()
+    val currentGroup: StateFlow<GroupDto?> = getCurrentGroupUseCase()
         .distinctUntilChanged()
         .onEach { group ->
             group?.let { refreshSchedule(it) }
@@ -74,16 +83,16 @@ class HomeViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val currentSchedule: StateFlow<List<TimeSlotDto>?> = currentGroup.flatMapLatest { group ->
-            if (group != null) {
-                scheduleRepository.getSchedule(group)
-            } else {
-                flowOf(null)
-            }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = null
-        )
+        if (group != null) {
+            getScheduleUseCase(group)
+        } else {
+            flowOf(null)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
 
     private val ticker = flow {
         while (true) {
@@ -137,17 +146,17 @@ class HomeViewModel @Inject constructor(
 
             is Event.RequestLoadingPromo -> {
                 viewModelScope.launch {
-                    newsRepository.getPromo()
+                    updatePromoUseCase()
                 }
 
             }
 
             is Event.OnNavigateToCalendar -> {
-                navigator.navigate(Routes.Calendar)
+                navigateToCalendarUseCase()
             }
 
             is Event.OnNavigateToSearchGroup -> {
-                navigator.openAsBottomSheet(Routes.SearchGroup)
+                openSearchGroupUseCase()
             }
 
             is Event.RequestLoadingNews -> {
@@ -155,15 +164,13 @@ class HomeViewModel @Inject constructor(
             }
 
             is Event.OnNewsClick -> {
-                navigator.navigate(
-                    Routes.NewsDetail(
-                        event.newsId,
-                        event.previewUrl,
-                        event.type,
-                        event.tags,
-                        event.date,
-                        event.contentColor,
-                    )
+                navigateToNewsDetailUseCase(
+                    newsId = event.newsId,
+                    previewUrl = event.previewUrl,
+                    type = event.type,
+                    tags = event.tags,
+                    date = event.date,
+                    contentColor = event.contentColor,
                 )
             }
 
@@ -173,16 +180,14 @@ class HomeViewModel @Inject constructor(
             }
 
             is Event.OnOpenLessonDetail -> {
-                navigator.openAsBottomSheet(
-                    Routes.LessonDetail(
-                        name = event.name,
-                        type = event.type,
-                        aud = event.aud,
-                        personIds = event.personIds,
-                        startTimeString = event.startTime.toString(),
-                        endTimeString = event.endTime.toString(),
-                        dateString = event.date.toString()
-                    )
+                openLessonDetailUseCase(
+                    name = event.name,
+                    type = event.type,
+                    aud = event.aud,
+                    personIds = event.personIds,
+                    startTimeString = event.startTime.toString(),
+                    endTimeString = event.endTime.toString(),
+                    dateString = event.date.toString()
                 )
             }
 
@@ -194,7 +199,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _isScheduleLoading.update { true }
             _scheduleError.update { null }
-            scheduleRepository.updateScheduleForGroup(group).onFailure { e ->
+            updateScheduleUseCase(group).onFailure { e ->
                 _scheduleError.update {
                     e.toAppError()
                 }

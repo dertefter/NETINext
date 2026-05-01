@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,8 +31,7 @@ import java.time.temporal.ChronoUnit
 fun ScheduleHeader(
     scheduleState: ScheduleState,
     onEvent: (Event) -> Unit,
-    modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    modifier: Modifier = Modifier
 ) {
 
     val targetDate: LocalDate? = scheduleState.date

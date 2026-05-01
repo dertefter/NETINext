@@ -113,8 +113,7 @@ fun PromoCard(
                 .padding(MaterialTheme.spacing.extraLarge),
             verticalArrangement = Arrangement.SpaceBetween
         ){
-            Column(
-            ) {
+            Column{
                 title?.let { title ->
                     Text(
                         text = title,

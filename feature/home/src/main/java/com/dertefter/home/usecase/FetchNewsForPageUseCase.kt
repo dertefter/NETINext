@@ -1,4 +1,4 @@
-package com.dertefter.home.domain.usecase
+package com.dertefter.home.usecase
 
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.repository.NewsRepository
