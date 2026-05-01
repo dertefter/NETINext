@@ -1,7 +1,6 @@
 package com.dertefter.contact_info.presentation
 
-import com.dertefter.contact_info.domain.ContactInfo
-import com.dertefter.contact_info.domain.UserInfo
+import com.dertefter.contact_info.model.ContactInfo
 import com.dertefter.data.common.AppError
 
 data class UiState(

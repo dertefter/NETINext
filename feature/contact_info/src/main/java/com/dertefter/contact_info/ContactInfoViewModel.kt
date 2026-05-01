@@ -1,20 +1,21 @@
 package com.dertefter.contact_info
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.contact_info.domain.ContactInfo
-import com.dertefter.contact_info.domain.toContactInfo
+import com.dertefter.contact_info.model.ContactInfo
+import com.dertefter.contact_info.model.toContactInfo
 import com.dertefter.contact_info.presentation.Event
 import com.dertefter.contact_info.presentation.SavingState
 import com.dertefter.contact_info.presentation.UiState
 import com.dertefter.contact_info.presentation.ValidateFail
+import com.dertefter.contact_info.usecase.GetContactInfoFlowUseCase
+import com.dertefter.contact_info.usecase.NavigateUpUseCase
+import com.dertefter.contact_info.usecase.SaveContactInfoUseCase
+import com.dertefter.contact_info.usecase.UpdateContactInfoUseCase
 import com.dertefter.contact_info.util.PhoneFormatter
 import com.dertefter.contact_info.util.SnilsFormatter
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
-import com.dertefter.data.repository.ContactInfoRepository
-import com.dertefter.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,9 +29,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContactInfoViewModel @Inject constructor(
-    private val userInfoRepository: ContactInfoRepository,
-    private val contactInfoRepository: ContactInfoRepository,
-    private val navigator: Navigator
+    getContactInfoFlowUseCase: GetContactInfoFlowUseCase,
+    private val updateContactInfoUseCase: UpdateContactInfoUseCase,
+    private val saveContactInfoUseCase: SaveContactInfoUseCase,
+    private val navigateUpUseCase: NavigateUpUseCase
 ) : ViewModel() {
 
 
@@ -46,7 +48,7 @@ class ContactInfoViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _contactInfo.value = contactInfoRepository.getContactInfo().first()?.toContactInfo()
+            _contactInfo.value = getContactInfoFlowUseCase().first()?.toContactInfo()
         }
         updateUserInfo()
     }
@@ -89,7 +91,7 @@ class ContactInfoViewModel @Inject constructor(
         when (event) {
 
             is Event.OnNavigateUp -> {
-                navigator.navigateUp()
+                navigateUpUseCase()
             }
 
             is Event.OnSave -> {
@@ -97,7 +99,7 @@ class ContactInfoViewModel @Inject constructor(
                     val contactInfo = _contactInfo.value ?: return@launch
                     _error.value = null
                     _isSaving.value = true
-                    contactInfoRepository.saveContactInfo(
+                    saveContactInfoUseCase(
                         email = contactInfo.email,
                         address = contactInfo.address,
                         phone = contactInfo.mobilePhoneNumber,
@@ -176,7 +178,7 @@ class ContactInfoViewModel @Inject constructor(
         viewModelScope.launch {
             _error.value = null
             setLoading(true)
-            contactInfoRepository.updateContactInfo()
+            updateContactInfoUseCase()
                 .onSuccess {
                     _realContactInfo.value = it.toContactInfo()
                     _contactInfo.value = it.toContactInfo()

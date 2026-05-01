@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="contact_info_title">Личные данные</string>
+    <string name="contact_info_save">Сохранить</string>
+    <string name="contact_info_update_error">Ошибка обновления</string>
+    <string name="contact_info_section_general">Контактная информация</string>
+    <string name="contact_info_email_hint">Электронная почта</string>
+    <string name="contact_info_phone_hint">Номер телефона</string>
+    <string name="contact_info_address_hint">Адрес</string>
+    <string name="contact_info_snils_hint">СНИЛС</string>
+    <string name="contact_info_oms_hint">Полис ОМС</string>
+    <string name="contact_info_section_social">Ссылки на профили в соцсетях</string>
+    <string name="contact_info_vk_hint">ВКонтакте</string>
+    <string name="contact_info_telegram_hint">Telegram</string>
+    <string name="contact_info_leaderid_hint">Leader-ID</string>
+</resources>

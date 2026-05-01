@@ -1,4 +1,4 @@
-package com.dertefter.contact_info.domain
+package com.dertefter.contact_info.model
 
 import com.dertefter.data.dto.user.ContactInfoDto
 

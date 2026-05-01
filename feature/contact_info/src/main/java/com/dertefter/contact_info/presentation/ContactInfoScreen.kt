@@ -28,13 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.dertefter.contact_info.domain.toContactInfo
+import com.dertefter.contact_info.R
+import com.dertefter.contact_info.model.toContactInfo
 import com.dertefter.design.components.text_fields.TextFieldItem
 import com.dertefter.data.dto.user.ContactInfoDto
-import com.dertefter.data.dto.user.LksDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
@@ -58,7 +59,7 @@ fun ContactInfoScreen(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Личные данные",
+                title = stringResource(R.string.contact_info_title),
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
                     AppNavigationIcon(
@@ -85,7 +86,7 @@ fun ContactInfoScreen(
 
 
             },
-                text = { Text("Сохранить") },
+                text = { Text(stringResource(R.string.contact_info_save)) },
                 expanded = (!savingState.isLoading)
             )
         }
@@ -119,7 +120,7 @@ fun ContactInfoScreen(
                 uiState.error?.let {
                     item {
                         ErrorCard(
-                            title = "Ошибка обновления",
+                            title = stringResource(R.string.contact_info_update_error),
                             message = null,
                             onRetry = { onEvent(Event.OnRequestUpdate) })
                     }
@@ -145,7 +146,7 @@ fun ContactInfoScreen(
                                     )
                                     .padding(horizontal = MaterialTheme.rounding.large)
                                     .fillMaxWidth(),
-                                text = "Контактная информация",
+                                text = stringResource(R.string.contact_info_section_general),
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMediumEmphasized,
                                 maxLines = 1,
@@ -156,26 +157,26 @@ fun ContactInfoScreen(
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .clip(MaterialTheme.shapes.large),
+                                    .clip(MaterialTheme.shapes.largeIncreased),
                                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                             ){
 
                                 TextFieldItem(
-                                    value = contactInfo.email.orEmpty(),
+                                    value = contactInfo.email,
                                     onValueChange = {
                                         onEvent(Event.OnEmailChange(it))
                                     },
-                                    hint = "Электронная почта",
+                                    hint = stringResource(R.string.contact_info_email_hint),
                                     icon = Icons.Mail,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.mobilePhoneNumber.orEmpty(),
+                                    value = contactInfo.mobilePhoneNumber,
                                     onValueChange = {
                                         onEvent(Event.OnMobilePhoneNumberChange(it))
                                     },
-                                    hint = "Номер телефона",
+                                    hint = stringResource(R.string.contact_info_phone_hint),
                                     icon = Icons.Call,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                                     maxSymbols = 17,
@@ -183,20 +184,20 @@ fun ContactInfoScreen(
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.address.orEmpty(),
+                                    value = contactInfo.address,
                                     onValueChange = {
                                         onEvent(Event.OnAdressChange(it))
                                     },
-                                    hint = "Адрес",
+                                    hint = stringResource(R.string.contact_info_address_hint),
                                     icon = Icons.Home,
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.snils.orEmpty(),
+                                    value = contactInfo.snils,
                                     onValueChange = {
                                         onEvent(Event.OnSnilsChange(it))
                                     },
-                                    hint = "СНИЛС",
+                                    hint = stringResource(R.string.contact_info_snils_hint),
                                     icon = Icons.Subtitles,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     maxSymbols = 14,
@@ -204,11 +205,11 @@ fun ContactInfoScreen(
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.oms.orEmpty(),
+                                    value = contactInfo.oms,
                                     onValueChange = {
                                         onEvent(Event.OnOmsChange(it))
                                     },
-                                    hint = "Полис ОМС",
+                                    hint = stringResource(R.string.contact_info_oms_hint),
                                     icon = Icons.HealthCross,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                                 )
@@ -228,7 +229,7 @@ fun ContactInfoScreen(
                                     )
                                     .padding(horizontal = MaterialTheme.rounding.large)
                                     .fillMaxWidth(),
-                                text = "Ссылки на профили в соцсетях",
+                                text = stringResource(R.string.contact_info_section_social),
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMediumEmphasized,
                                 maxLines = 1,
@@ -240,35 +241,35 @@ fun ContactInfoScreen(
                                 modifier = Modifier
                                     .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
                                     .fillMaxWidth()
-                                    .clip(MaterialTheme.shapes.large),
+                                    .clip(MaterialTheme.shapes.largeIncreased),
                                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                             )
                             {
 
                                 TextFieldItem(
-                                    value = contactInfo.vk.orEmpty(),
+                                    value = contactInfo.vk,
                                     onValueChange = {
                                         onEvent(Event.OnVkChange(it))
                                     },
-                                    hint = "ВКонтакте",
+                                    hint = stringResource(R.string.contact_info_vk_hint),
                                     icon = Icons.VK,
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.telegram.orEmpty(),
+                                    value = contactInfo.telegram,
                                     onValueChange = {
                                         onEvent(Event.OnTelegramChange(it))
                                     },
-                                    hint = "Telegram",
+                                    hint = stringResource(R.string.contact_info_telegram_hint),
                                     icon = Icons.TG,
                                 )
 
                                 TextFieldItem(
-                                    value = contactInfo.leaderId.orEmpty(),
+                                    value = contactInfo.leaderId,
                                     onValueChange = {
                                         onEvent(Event.OnLeaderIdChange(it))
                                     },
-                                    hint = "Leader-ID",
+                                    hint = stringResource(R.string.contact_info_leaderid_hint),
                                     icon = Icons.LeaderID,
                                 )
 
@@ -287,7 +288,7 @@ fun ContactInfoScreen(
 @Preview(showBackground = true)
 @Composable
 private fun ContactInfoScreenPreview() {
-    AppTheme () {
+    AppTheme {
         ContactInfoScreen(
              onEvent = {}, uiState = UiState(
                 contactInfo = ContactInfoDto(
@@ -304,7 +305,7 @@ private fun ContactInfoScreenPreview() {
                     telegram = "@ivanov",
                     leaderId = "12345",
                 ).toContactInfo(), isLoading = false
-            ), savingState = SavingState(true, true)
+            ), savingState = SavingState(isLoading = true, isSaveEnabled = true)
         )
     }
 }

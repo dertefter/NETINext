@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="contact_info_title">Contact Info</string>
+    <string name="contact_info_save">Save</string>
+    <string name="contact_info_update_error">Update error</string>
+    <string name="contact_info_section_general">Contact information</string>
+    <string name="contact_info_email_hint">Email</string>
+    <string name="contact_info_phone_hint">Phone number</string>
+    <string name="contact_info_address_hint">Address</string>
+    <string name="contact_info_snils_hint">SNILS</string>
+    <string name="contact_info_oms_hint">OMS policy</string>
+    <string name="contact_info_section_social">Social media profiles</string>
+    <string name="contact_info_vk_hint">VK</string>
+    <string name="contact_info_telegram_hint">Telegram</string>
+    <string name="contact_info_leaderid_hint">Leader-ID</string>
+</resources>
