@@ -53,10 +53,6 @@ fun TimeDateCard(
         date.isBefore(LocalDate.now()) || (isToday && LocalTime.now().isAfter(endTime))
     }
 
-    val isFuture = remember(tick, date, isToday, startTime) {
-        date.isAfter(LocalDate.now()) || (isToday && LocalTime.now().isBefore(startTime))
-    }
-
     val isNow = remember(tick, isToday, startTime, endTime) {
         isToday && !LocalTime.now().isBefore(startTime) && !LocalTime.now().isAfter(endTime)
     }
@@ -149,6 +145,7 @@ fun TimeDateCard(
                 modifier = Modifier.weight(1f),
                 color = contentColor,
                 trackColor = contentColor.copy(alpha = 0.4f),
+                wavelength = 18.dp,
                 stopSize = 0.dp
             )
             

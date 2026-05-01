@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dertefter.lesson_detail.presentation.Event
 import com.dertefter.lesson_detail.presentation.LessonDetailScreen
 import java.time.LocalDate
 import java.time.LocalTime

@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="clear">Очистить</string>
-    <string name="voice_recogintion">Сказать голосом</string>
-    <string name="remove_from_history">Убрать из истории</string>
-    <string name="search_group">Поиск группы</string>
-    <string name="nothing_searched">Ничего не нашлось</string>
-    <string name="history">Недавние группы</string>
+    <string name="lesson_detail_teachers">Преподаватели</string>
 </resources>

@@ -41,7 +41,7 @@ fun PersonItem(
         modifier = modifier
             .clip(MaterialTheme.shapes.small)
             .clickable(onClick = onClick)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .padding()
             .padding(
                 vertical = MaterialTheme.spacing.large,
@@ -88,7 +88,7 @@ fun PersonItem(
             text = name,
             maxLines = 1,
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .weight(1f)

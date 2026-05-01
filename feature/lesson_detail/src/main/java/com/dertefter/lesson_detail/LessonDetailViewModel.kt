@@ -3,9 +3,9 @@ package com.dertefter.lesson_detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.dto.person.PersonDetailDto
-import com.dertefter.data.repository.PersonsRepository
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
+import com.dertefter.lesson_detail.usecase.GetPersonsByIdsUseCase
+import com.dertefter.lesson_detail.usecase.NavigateToPersonDetailUseCase
+import com.dertefter.lesson_detail.usecase.UpdatePersonDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LessonDetailViewModel @Inject constructor(
-    private val personsRepository: PersonsRepository,
-    private val navigator: Navigator,
+    private val getPersonsByIdsUseCase: GetPersonsByIdsUseCase,
+    private val updatePersonDetailUseCase: UpdatePersonDetailUseCase,
+    private val navigateToPersonDetailUseCase: NavigateToPersonDetailUseCase,
 ) : ViewModel() {
 
     private val _persons = MutableStateFlow<List<PersonDetailDto>>(emptyList())
@@ -29,13 +30,13 @@ class LessonDetailViewModel @Inject constructor(
         loadJob = viewModelScope.launch {
             val distinctIds = ids.distinct()
             launch {
-                personsRepository.getPersonsFlowByIds(distinctIds).collect { personsList ->
+                getPersonsByIdsUseCase(distinctIds).collect { personsList ->
                     _persons.value = personsList
                 }
             }
             distinctIds.forEach { id ->
                 launch {
-                    personsRepository.updatePersonDetail(id)
+                    updatePersonDetailUseCase(id)
                 }
             }
         }
@@ -43,9 +44,7 @@ class LessonDetailViewModel @Inject constructor(
 
 
     fun openPerson(personId: Long){
-        navigator.navigate(
-            Routes.PersonDetail(personId)
-        )
+        navigateToPersonDetailUseCase(personId)
     }
 
 }

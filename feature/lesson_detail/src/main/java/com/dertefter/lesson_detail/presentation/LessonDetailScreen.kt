@@ -1,6 +1,5 @@
 package com.dertefter.lesson_detail.presentation
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -19,21 +18,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.design.components.schedule.SimpleShip
-import com.dertefter.design.theme.spacing
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.rounding
+import com.dertefter.design.theme.spacing
+import com.dertefter.lesson_detail.R
 import kotlinx.coroutines.delay
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -97,7 +94,7 @@ fun LessonDetailScreen(
             item {
                 TimeDateCard(startTime, endTime, date,
                     modifier = Modifier
-                        .clip(MaterialTheme.shapes.large))
+                        .clip(MaterialTheme.shapes.largeIncreased))
             }
 
 
@@ -135,12 +132,12 @@ fun LessonDetailScreen(
             if (persons.isNotEmpty()){
                 item {
                     Text(
-                        text = "Преподаватели",
+                        text = stringResource(R.string.lesson_detail_teachers),
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleMediumEmphasized,
                         modifier = Modifier
                             .padding(top = MaterialTheme.spacing.medium)
-                            .padding(horizontal = MaterialTheme.rounding.extraLarge)
+                            .padding(horizontal = MaterialTheme.rounding.large)
                     )
                 }
                 item {
@@ -148,7 +145,7 @@ fun LessonDetailScreen(
                         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                         modifier = Modifier
                             .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
-                            .clip(MaterialTheme.shapes.large)
+                            .clip(MaterialTheme.shapes.largeIncreased)
                             .fillMaxWidth()
                     ) {
                         for (person in persons){
