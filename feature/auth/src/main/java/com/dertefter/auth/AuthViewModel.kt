@@ -2,11 +2,10 @@ package com.dertefter.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dertefter.auth.domain.usecase.AuthorizeFullUseCase
+import com.dertefter.auth.domain.usecase.LogoutUseCase
 import com.dertefter.auth.presentation.Event
 import com.dertefter.auth.presentation.UiState
-import com.dertefter.data.common.toAppError
-import com.dertefter.data.dto.auth.AuthStatus
-import com.dertefter.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
+    private val logoutUseCase: LogoutUseCase,
+    private val authorizeFullUseCase: AuthorizeFullUseCase,
 ) : ViewModel() {
 
     private val _login = MutableStateFlow("")
@@ -54,7 +54,7 @@ class AuthViewModel @Inject constructor(
         when (event) {
             is Event.OnLogout -> {
                 viewModelScope.launch {
-                    authRepository.logout()
+                    logoutUseCase()
                 }
             }
 
@@ -80,7 +80,7 @@ class AuthViewModel @Inject constructor(
             val password = _password.value
             _isLoading.value = true
             _isError.value = false
-            authRepository.authorizeFull(
+            authorizeFullUseCase(
                 login, password,
                 logoutOnFail = true,
                 removeAccountOnFail = true,

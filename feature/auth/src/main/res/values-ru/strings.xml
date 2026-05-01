@@ -3,7 +3,7 @@
     <string name="auth_guest">Гостевой режим</string>
     <string name="auth_connected">Подключено</string>
     <string name="auth_connection_error">Ошибка подключения. Нажмите чтобы повторить попытку</string>
-    <string name="auth_connecting">Подключение...</string>
+    <string name="auth_connecting">Подключение…</string>
     <string name="auth_design_retry">Повторить попытку</string>
     <string name="auth_ciu">Центр информатизации университета</string>
     <string name="auth_your_neti">YourNETI API</string>

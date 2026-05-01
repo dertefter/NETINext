@@ -2,8 +2,8 @@
 <resources>
     <string name="auth_guest">Guest mode</string>
     <string name="auth_connected">Connected</string>
-    <string name="auth_connection_error">Сonnection error. Tap to try again</string>
-    <string name="auth_connecting">Connecting...</string>
+    <string name="auth_connection_error">Connection error. Tap to try again</string>
+    <string name="auth_connecting">Connecting…</string>
     <string name="auth_design_retry">Try again</string>
     <string name="auth_ciu">Ciu</string>
     <string name="auth_your_neti">YourNETI API</string>
