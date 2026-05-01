@@ -10,6 +10,11 @@ import org.intellij.lang.annotations.Language
 @Suppress("unused")
 object Icons {
 
+    val Policy: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_policy)
+
+    val GitHub: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_github)
     val Language: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_language)
 

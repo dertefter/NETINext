@@ -14,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dertefter.settings"
+    namespace = "com.dertefter.settings_about"
     compileSdk = 37
 
     defaultConfig {
@@ -42,12 +42,6 @@ dependencies {
     implementation(project(":core:design"))
     implementation(project(":core:navigation"))
 
-    implementation(project(":feature:settings_account"))
-    implementation(project(":feature:settings_labs"))
-    implementation(project(":feature:settings_theme"))
-    implementation(project(":feature:settings_notifications"))
-    implementation(project(":feature:settings_about"))
-
     implementation(libs.core.ktx)
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -64,4 +58,5 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil)
     implementation(libs.material.kolor)
+    implementation(libs.play.services.oss.licenses)
 }

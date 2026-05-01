@@ -49,6 +49,9 @@ sealed interface Routes {
     data object SettingsAccount : Routes
 
     @Serializable
+    data object SettingsAbout : Routes
+
+    @Serializable
     data object SettingsLabs : Routes
 
     @Serializable

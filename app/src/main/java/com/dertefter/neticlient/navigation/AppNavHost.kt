@@ -31,6 +31,7 @@ import com.dertefter.search_group.SearchGroupRoute
 import com.dertefter.search_person.SearchPersonRoute
 import com.dertefter.sessia_results.SessiaResultsRoute
 import com.dertefter.settings.SettingsRoute
+import com.dertefter.settings_about.SettingsAboutRoute
 import com.dertefter.settings_account.SettingsAccountRoute
 import com.dertefter.settings_labs.SettingsLabsRoute
 import com.dertefter.settings_notifications.SettingsNotificationsRoute
@@ -100,6 +101,7 @@ fun RouteContent(route: Routes) {
         is Routes.SearchGroup -> SearchGroupRoute()
         is Routes.Calendar -> CalendarRoute()
         is Routes.SettingsAccount -> SettingsAccountRoute()
+        is Routes.SettingsAbout -> SettingsAboutRoute()
         is Routes.SettingsTheme -> SettingsThemeRoute()
         is Routes.SettingsNotifications -> SettingsNotificationsRoute()
         is Routes.Messages -> MessagesRoute()
@@ -230,6 +232,10 @@ fun NavGraphBuilder.graph() {
 
     composable<Routes.SettingsTheme> {
         RouteContent(Routes.SettingsTheme)
+    }
+
+    composable<Routes.SettingsAbout> {
+        RouteContent(Routes.SettingsAbout)
     }
 
     composable<Routes.SettingsNotifications> {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_about_title">О приложении</string>
+    <string name="settings_about_privacy_policy">Политика конфиденциальности</string>
+    <string name="settings_about_telegram">Telegram</string>
+    <string name="settings_about_github">GitHub</string>
+    <string name="settings_about_oss_licenses">Лицензии открытого ПО</string>
+</resources>

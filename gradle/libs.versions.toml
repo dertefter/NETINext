@@ -32,8 +32,10 @@ datastoreCore = "1.2.1"
 navigationCompose = "2.9.8"
 paging = "3.4.2"
 zoomable = "2.11.1"
+ossLicenses = "17.5.1"
+ossLicensesPlugin = "0.11.0"
 
-playServicesWearable = "19.0.0"
+playServicesWearable = "20.0.1"
 wearComposeMaterial3 = "1.7.0-alpha01"
 wearComposeFoundation = "1.7.0-alpha01"
 wearComposeUiTooling = "1.6.1"
@@ -99,6 +101,7 @@ wear-compose-material3 = { group = "androidx.wear.compose", name = "compose-mate
 wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "wearComposeFoundation" }
 wear-compose-ui-tooling = { group = "androidx.wear.compose", name = "compose-ui-tooling", version.ref = "wearComposeUiTooling" }
 wear-tooling-preview = { group = "androidx.wear", name = "wear-tooling-preview", version.ref = "wearToolingPreview" }
+play-services-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "ossLicenses" }
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -107,3 +110,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+oss-licenses = { id = "com.google.android.gms.oss-licenses-plugin", version.ref = "ossLicensesPlugin" }

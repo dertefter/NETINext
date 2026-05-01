@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.oss.licenses)
 }
 
 kotlin {
@@ -60,6 +61,7 @@ dependencies {
     implementation(project(":feature:calendar"))
     implementation(project(":feature:settings"))
     implementation(project(":feature:settings_account"))
+    implementation(project(":feature:settings_about"))
     implementation(project(":feature:settings_labs"))
     implementation(project(":feature:settings_theme"))
     implementation(project(":feature:settings_notifications"))

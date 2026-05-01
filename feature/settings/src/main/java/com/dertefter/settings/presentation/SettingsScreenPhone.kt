@@ -123,6 +123,9 @@ fun SettingsScreenPhone(
                     icon = Icons.Info,
                     title = stringResource(R.string.settings_item_about_title),
                     subtitle = stringResource(R.string.settings_item_about_subtitle),
+                    onClick = {
+                        onEvent(Event.OnNavigateTo(Routes.SettingsAbout))
+                    },
                     modifier = Modifier.clip(bottomShape)
                 )
             }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.dertefter.design.components.adaptive.PanelsLayout
 import com.dertefter.navigation.Routes
+import com.dertefter.settings_about.SettingsAboutRoute
 import com.dertefter.settings_account.SettingsAccountRoute
 import com.dertefter.settings_labs.SettingsLabsRoute
 import com.dertefter.settings_notifications.SettingsNotificationsRoute
@@ -48,6 +49,10 @@ fun SettingsScreenFold(
 
             is Routes.SettingsNotifications -> {
                 SettingsNotificationsRoute(isPanel = true)
+            }
+
+            is Routes.SettingsAbout -> {
+                SettingsAboutRoute(isPanel = true)
             }
 
             else -> {
