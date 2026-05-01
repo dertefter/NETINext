@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="copy">Скопировать</string>
-    <string name="new_link">Создать новую ссылку</string>
-    <string name="info">Покажите этот QR-код или отправьте ссылку тому, с кем хотите поделиться оценками</string>
-    <string name="share_score">Поделиться успеваемостью</string>
-    <string name="update_link">Обновить ссылку</string>
-    <string name="share_score_label">Ссылка на успеваемость</string>
-</resources>
