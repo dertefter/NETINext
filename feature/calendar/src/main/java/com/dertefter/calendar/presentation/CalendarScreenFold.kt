@@ -100,7 +100,7 @@ fun CalendarScreenFold(
         contentLeft = {
             Scaffold()
             { contentPadding ->
-                Column() {
+                Column {
                     CalendarTopBar(
                         uiState = uiState,
                         calendarState = calendarState.copy(isExpanded = true),

@@ -64,7 +64,6 @@ fun CalendarTopBar(
                         calendarState = calendarState,
                         onCalendarStateChange = onCalendarStateChange,
                         onWeekSelectionVisibilityChange = onWeekSelectionVisibilityChange,
-                        onEvent = onEvent,
                     )
                 } else {
                     HeaderMainContent(

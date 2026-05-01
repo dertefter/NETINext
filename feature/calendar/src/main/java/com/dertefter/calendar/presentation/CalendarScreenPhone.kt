@@ -3,7 +3,6 @@ package com.dertefter.calendar.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -39,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dertefter.calendar.R
 import com.dertefter.calendar.presentation.componets.CalendarTopBar
 import com.dertefter.calendar.presentation.componets.ScheduleDayList
@@ -112,18 +110,12 @@ fun CalendarScreenPhone(
         label = "topBarColor"
     )
 
-    val fabElevation by animateDpAsState(
-        targetValue = if (isScrolled) 6.dp else 0.dp,
-        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
-        label = "fabElevation"
-    )
-
     var isScheduleShowed by remember { mutableStateOf(true) }
     var isEventsShowed by remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
-            Column() {
+            Column {
                 CalendarTopBar(
                     uiState = uiState,
                     calendarState = calendarState,
@@ -239,7 +231,7 @@ fun CalendarScreenPhone(
 @Preview(showBackground = true)
 @Composable
 private fun CalendarScreenPhonePreview() {
-    AppTheme() {
+    AppTheme {
         CalendarScreenPhone(uiState = UiState())
     }
 }

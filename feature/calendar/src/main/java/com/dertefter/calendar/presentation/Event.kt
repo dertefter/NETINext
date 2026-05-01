@@ -1,7 +1,5 @@
 package com.dertefter.calendar.presentation
 
-import com.dertefter.calendar.presentation.componets.calendar.CalendarState
-import com.dertefter.data.dto.schedule.GroupDto
 import java.time.LocalDate
 import java.time.LocalTime
 

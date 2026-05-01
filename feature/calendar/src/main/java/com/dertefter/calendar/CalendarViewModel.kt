@@ -1,23 +1,39 @@
 package com.dertefter.calendar
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.calendar.domain.usecase.*
+import com.dertefter.calendar.domain.usecase.GetCurrentGroupUseCase
+import com.dertefter.calendar.domain.usecase.GetEventsUseCase
+import com.dertefter.calendar.domain.usecase.GetScheduleUseCase
+import com.dertefter.calendar.domain.usecase.GetSessiaScheduleUseCase
+import com.dertefter.calendar.domain.usecase.GetWeeksBoundsUseCase
+import com.dertefter.calendar.domain.usecase.NavigateBackUseCase
+import com.dertefter.calendar.domain.usecase.NavigateLessonDetailUseCase
+import com.dertefter.calendar.domain.usecase.OpenGroupSearchUseCase
+import com.dertefter.calendar.domain.usecase.UpdateEventsUseCase
+import com.dertefter.calendar.domain.usecase.UpdateScheduleUseCase
+import com.dertefter.calendar.domain.usecase.UpdateSessiaScheduleUseCase
 import com.dertefter.calendar.presentation.Event
 import com.dertefter.calendar.presentation.UiState
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
+import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
-import com.dertefter.calendar.presentation.componets.calendar.CalendarState
-import com.dertefter.data.dto.schedule.EventDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,13 +41,13 @@ class CalendarViewModel @Inject constructor(
     private val getCurrentGroupUseCase: GetCurrentGroupUseCase,
     private val getScheduleUseCase: GetScheduleUseCase,
     private val getSessiaScheduleUseCase: GetSessiaScheduleUseCase,
-    private val getWeeksBoundsUseCase: GetWeeksBoundsUseCase,
+    getWeeksBoundsUseCase: GetWeeksBoundsUseCase,
     private val updateScheduleUseCase: UpdateScheduleUseCase,
     private val updateSessiaScheduleUseCase: UpdateSessiaScheduleUseCase,
     private val navigateBackUseCase: NavigateBackUseCase,
     private val openGroupSearchUseCase: OpenGroupSearchUseCase,
     private val navigateLessonDetailUseCase: NavigateLessonDetailUseCase,
-    private val getEventsUseCase: GetEventsUseCase,
+    getEventsUseCase: GetEventsUseCase,
     private val updateEventsUseCase: UpdateEventsUseCase
 ) : ViewModel() {
 
@@ -45,6 +61,7 @@ class CalendarViewModel @Inject constructor(
         .onEach { group -> group?.let { refreshSchedule(it) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
+    @Suppress("Unchecked_cast")
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<UiState> = combine(
         _currentGroup,

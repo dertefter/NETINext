@@ -2,7 +2,6 @@ package com.dertefter.calendar.presentation.componets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -13,18 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.calendar.presentation.Event
 import com.dertefter.calendar.presentation.UiState
+import com.dertefter.calendar.presentation.componets.calendar.CalendarState
 import com.dertefter.calendar.presentation.componets.calendar.MonthTitle
+import com.dertefter.data.dto.schedule.GroupDto
+import com.dertefter.data.dto.schedule.WeekBoundsDto
 import com.dertefter.design.components.schedule.GroupButton
 import com.dertefter.design.components.schedule.WeekItem
 import com.dertefter.design.icons.Icons
-import com.dertefter.design.theme.spacing
 import com.dertefter.design.theme.AppTheme
-import com.dertefter.data.dto.schedule.GroupDto
-import com.dertefter.data.dto.schedule.WeekBoundsDto
-import java.time.YearMonth
-
-import com.dertefter.calendar.presentation.componets.calendar.CalendarState
+import com.dertefter.design.theme.spacing
 import java.time.LocalDate
+import java.time.YearMonth
 
 @Composable
 fun HeaderMainContent(
@@ -56,7 +54,7 @@ fun HeaderMainContent(
             )
         }
 
-        Row(){
+        Row {
             GroupButton(
                 modifier = Modifier
                     .padding(horizontal = MaterialTheme.spacing.small),

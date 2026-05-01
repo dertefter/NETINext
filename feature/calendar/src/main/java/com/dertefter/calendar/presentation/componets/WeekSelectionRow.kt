@@ -1,7 +1,6 @@
 package com.dertefter.calendar.presentation.componets
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -12,8 +11,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import com.dertefter.calendar.presentation.Event
 import com.dertefter.calendar.presentation.UiState
 import com.dertefter.calendar.presentation.componets.calendar.CalendarState
 import com.dertefter.design.components.schedule.WeekItem
@@ -26,7 +23,6 @@ fun WeekSelectionRow(
     calendarState: CalendarState,
     onCalendarStateChange: (CalendarState) -> Unit,
     onWeekSelectionVisibilityChange: (Boolean) -> Unit,
-    onEvent: (Event) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val weekListState = rememberLazyListState()
