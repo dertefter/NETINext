@@ -2,11 +2,13 @@ package com.dertefter.docs
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.data.repository.DocsRepository
 import com.dertefter.docs.presentation.Event
 import com.dertefter.docs.presentation.UiState
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
+import com.dertefter.docs.usecase.GetDocsListUseCase
+import com.dertefter.docs.usecase.NavigateBackUseCase
+import com.dertefter.docs.usecase.NavigateToNewDocumentUseCase
+import com.dertefter.docs.usecase.OpenDocDetailUseCase
+import com.dertefter.docs.usecase.UpdateDocsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,20 +18,22 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import okhttp3.Route
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class DocsViewModel @Inject constructor(
-    private val docsRepository: DocsRepository,
-    private val navigator: Navigator
+    getDocsListUseCase: GetDocsListUseCase,
+    private val updateDocsListUseCase: UpdateDocsListUseCase,
+    private val openDocDetailUseCase: OpenDocDetailUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase,
+    private val navigateToNewDocumentUseCase: NavigateToNewDocumentUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
     private val _isError =  MutableStateFlow(false)
 
-    private val _docs = docsRepository.getDocsList()
+    private val _docs = getDocsListUseCase()
 
 
     val uiState: StateFlow<UiState> = combine(
@@ -54,23 +58,13 @@ class DocsViewModel @Inject constructor(
                 updateDocsList()
             }
             is Event.OnOpenDocDetail -> {
-                val item = event.docItem
-                navigator.openAsBottomSheet(
-                    Routes.DocDetail(
-                        type = item.type,
-                        date = item.date,
-                        status = item.status,
-                        person = item.person,
-                        comment = item.comment,
-                        number = item.number
-                    )
-                )
+                openDocDetailUseCase(event.docItem)
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateBackUseCase()
             }
             is Event.OnNavigateToNewDocument -> {
-                navigator.navigate(Routes.NewDocument)
+                navigateToNewDocumentUseCase()
             }
         }
     }
@@ -79,8 +73,8 @@ class DocsViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.update { true }
             _isError.update { false }
-            docsRepository.updateDocsList()
-                .onFailure { error ->
+            updateDocsListUseCase()
+                .onFailure { _ ->
                     _isError.update { true }
                 }
             _isUpdating.update { false }

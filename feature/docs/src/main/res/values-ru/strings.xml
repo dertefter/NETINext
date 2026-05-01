@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_data">Нет данных</string>
-    <string name="money">Выплаты</string>
+    <string name="docs_title">Заявки на документы</string>
+    <string name="docs_create_request">Создать заявку</string>
+    <string name="docs_empty_list">Список пуст</string>
 </resources>

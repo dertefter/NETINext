@@ -1,6 +1,5 @@
 package com.dertefter.docs.presentation
 
-import com.dertefter.data.common.AppError
 import com.dertefter.data.dto.docs.DocsItemDto
 
 data class UiState(

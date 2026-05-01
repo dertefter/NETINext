@@ -24,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
@@ -34,6 +34,7 @@ import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
+import com.dertefter.docs.R
 import com.dertefter.docs.presentation.component.DocsItem
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -51,7 +52,7 @@ fun DocsScreen(
     Scaffold(
         topBar = {
             AppToolbar(
-                title = "Заявки на документы",
+                title = stringResource(R.string.docs_title),
                 navigationIcon = {
                     AppNavigationIcon(
                         onClick = {
@@ -72,7 +73,7 @@ fun DocsScreen(
                    )
                },
                 text = {
-                    Text("Создать заявку")
+                    Text(stringResource(R.string.docs_create_request))
                 },
                 onClick = {
                     onEvent(
@@ -161,7 +162,7 @@ fun DocsScreen(
                                 contentAlignment = Alignment.Center
                             ){
                                 Text(
-                                    "Список пуст"
+                                    stringResource(R.string.docs_empty_list)
                                 )
                             }
                         }
@@ -179,24 +180,6 @@ fun DocsScreen(
 @Composable
 private fun DocsScreenPreview() {
     AppTheme {
-        val d = listOf(
-            DocsItemDto(
-                type = "Справка об обучении",
-                date = "01.01.2023",
-                status = "Готово",
-                person = null,
-                comment = null,
-                number = "1"
-            ),
-            DocsItemDto(
-                type = "Зачетная книжка",
-                date = "02.01.2023",
-                status = "В обработке",
-                person = null,
-                comment = null,
-                number = "2"
-            )
-        )
         DocsScreen(
             onEvent = {},
             uiState = UiState(
