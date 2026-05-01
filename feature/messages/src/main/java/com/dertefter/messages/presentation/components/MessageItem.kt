@@ -71,9 +71,9 @@ fun MessageItem(
     next:  Long? = null
 ) {
 
-    val topRounding = if (prev == null) MaterialTheme.rounding.large else MaterialTheme.rounding.small
+    val topRounding = if (prev == null) MaterialTheme.rounding.largeIncreased else MaterialTheme.rounding.small
 
-    val bottomRounding  = if (next == null) MaterialTheme.rounding.large else MaterialTheme.rounding.small
+    val bottomRounding  = if (next == null) MaterialTheme.rounding.largeIncreased else MaterialTheme.rounding.small
 
     val shape = MaterialTheme.cornerShape(
         topStart = topRounding,
@@ -175,9 +175,9 @@ fun MessageItem(
                                 )
                                 Text(
                                     text = when (action){
-                                        SwipeAction.ARCHIVE -> stringResource(R.string.move_to_archive)
-                                        SwipeAction.DELETE -> stringResource(R.string.delete)
-                                        SwipeAction.RESTORE -> stringResource(R.string.restore)
+                                        SwipeAction.ARCHIVE -> stringResource(R.string.messages_move_to_archive)
+                                        SwipeAction.DELETE -> stringResource(R.string.messages_delete)
+                                        SwipeAction.RESTORE -> stringResource(R.string.messages_restore)
                                     },
                                     color = when (action){
                                         SwipeAction.ARCHIVE -> MaterialTheme.customColors.onSuccess
@@ -211,7 +211,7 @@ fun MessageItem(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun MessageItemPreview() {
     AppTheme {
@@ -225,7 +225,7 @@ fun MessageItemPreview() {
         )
     }
 }
-@Preview()
+@Preview
 @Composable
 fun MessageItemPreview2() {
     AppTheme {

@@ -22,17 +22,17 @@ fun FilterModeChip(
         label = {
             Text(
                 text = when (filterMode){
-                    FilterMode.ALL -> stringResource(R.string.all)
-                    FilterMode.DELETED -> stringResource(R.string.archive)
+                    FilterMode.ALL -> stringResource(R.string.messages_all)
+                    FilterMode.DELETED -> stringResource(R.string.messages_archive)
                     is FilterMode.TAB -> when (filterMode.tabId) {
-                        0 -> stringResource(R.string.other)
-                        1 -> stringResource(R.string.decan)
-                        2 -> stringResource(R.string.teachers)
-                        3 -> stringResource(R.string.services)
-                        101 -> stringResource(R.string.teacher_and_services)
-                        else -> stringResource(R.string.other)
+                        0 -> stringResource(R.string.messages_other)
+                        1 -> stringResource(R.string.messages_decan)
+                        2 -> stringResource(R.string.messages_teachers)
+                        3 -> stringResource(R.string.messages_services)
+                        101 -> stringResource(R.string.messages_teacher_and_services)
+                        else -> stringResource(R.string.messages_other)
                     }
-                    FilterMode.UNREAD -> stringResource(R.string.unread)
+                    FilterMode.UNREAD -> stringResource(R.string.messages_unread)
                 }
             )
         },

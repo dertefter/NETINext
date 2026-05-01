@@ -6,32 +6,38 @@ import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.dto.messsages.MessageDto
-import com.dertefter.data.repository.MessagesRepository
 import com.dertefter.messages.presentation.Event
 import com.dertefter.messages.presentation.FilterMode
 import com.dertefter.messages.presentation.UiState
-import com.dertefter.navigation.Navigator
-import com.dertefter.navigation.Routes
+import com.dertefter.messages.usecase.DeleteMessageForeverUseCase
+import com.dertefter.messages.usecase.GetMessagesFlowUseCase
+import com.dertefter.messages.usecase.MoveMessageToTrashUseCase
+import com.dertefter.messages.usecase.NavigateToMessageDetailUseCase
+import com.dertefter.messages.usecase.RemoveMessageFromTrashUseCase
+import com.dertefter.messages.usecase.UpdateMessagesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MessagesViewModel @Inject constructor(
-    private val messagesRepository: MessagesRepository,
-    private val navigator: Navigator
+    getMessagesFlowUseCase: GetMessagesFlowUseCase,
+    private val updateMessagesUseCase: UpdateMessagesUseCase,
+    private val moveMessageToTrashUseCase: MoveMessageToTrashUseCase,
+    private val removeMessageFromTrashUseCase: RemoveMessageFromTrashUseCase,
+    private val deleteMessageForeverUseCase: DeleteMessageForeverUseCase,
+    private val navigateToMessageDetailUseCase: NavigateToMessageDetailUseCase
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
     private val _error = MutableStateFlow<AppError?>(null)
-    private val _messages: Flow<List<MessageDto>> = messagesRepository.getMessagesFlow()
+    private val _messages: Flow<List<MessageDto>> = getMessagesFlowUseCase()
 
     private val _filterMode = MutableStateFlow<FilterMode>(FilterMode.ALL)
 
@@ -84,12 +90,7 @@ class MessagesViewModel @Inject constructor(
             }
 
             is Event.OnOpenMessageDetail -> {
-                navigator.navigate(
-                    Routes.MessagesDetail(
-                        idStudent = event.idStudent,
-                        idMessage = event.idMessage
-                    )
-                )
+                navigateToMessageDetailUseCase(event.idStudent, event.idMessage)
             }
 
         }
@@ -99,7 +100,7 @@ class MessagesViewModel @Inject constructor(
         viewModelScope.launch {
             _isUpdating.value = true
             _error.value = null
-            messagesRepository.updateMessages().onFailure {
+            updateMessagesUseCase().onFailure {
                 _error.value = it.toAppError()
             }
             _isUpdating.value = false
@@ -108,7 +109,7 @@ class MessagesViewModel @Inject constructor(
 
     private fun archiveMessage(idStudent:  Long?, idMessage:  Long) {
         viewModelScope.launch {
-            messagesRepository.moveMessageToTrash(
+            moveMessageToTrashUseCase(
                 idStudent = idStudent,
                 idMessage = idMessage
             ).onFailure {
@@ -119,7 +120,7 @@ class MessagesViewModel @Inject constructor(
 
     private fun restoreMessage(idStudent:  Long?, idMessage:  Long) {
         viewModelScope.launch {
-            messagesRepository.removeMessageFromTrash(
+            removeMessageFromTrashUseCase(
                 idStudent = idStudent,
                 idMessage = idMessage
             ).onFailure {
@@ -130,7 +131,7 @@ class MessagesViewModel @Inject constructor(
 
     private fun deleteForever(idStudent:  Long?, idMessage:  Long) {
         viewModelScope.launch {
-            messagesRepository.deleteMessageForever(
+            deleteMessageForeverUseCase(
                 idStudent = idStudent,
                 idMessage = idMessage
             ).onFailure {

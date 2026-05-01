@@ -2,7 +2,6 @@ package com.dertefter.messages.presentation
 
 import com.dertefter.data.common.AppError
 import com.dertefter.data.dto.messsages.MessageDto
-import com.dertefter.data.dto.news.NewsItem
 
 data class UiState(
     val messages: List<MessageDto> = emptyList(),

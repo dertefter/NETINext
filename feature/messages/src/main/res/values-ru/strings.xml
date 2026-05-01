@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="teachers">Преподаватели</string>
-    <string name="services">Службы</string>
-    <string name="tutor">Тьютор</string>
-    <string name="decan">Деканат</string>
-    <string name="other">Прочее</string>
-    <string name="archive">Архив сообщений</string>
-    <string name="teacher_and_services">Преподаватели и службы</string>
-    <string name="all">Все</string>
-    <string name="unread">Непрочитанное</string>
-    <string name="messages">Сообщения</string>
-    <string name="move_to_archive">В архив</string>
-    <string name="delete">Удалить</string>
-    <string name="restore">Вернуть из архива</string>
-    <string name="empty">Тут пусто</string>
+    <string name="messages_teachers">Преподаватели</string>
+    <string name="messages_services">Службы</string>
+    <string name="messages_tutor">Тьютор</string>
+    <string name="messages_decan">Деканат</string>
+    <string name="messages_other">Прочее</string>
+    <string name="messages_archive">Архив сообщений</string>
+    <string name="messages_teacher_and_services">Преподаватели и службы</string>
+    <string name="messages_all">Все</string>
+    <string name="messages_unread">Непрочитанное</string>
+    <string name="messages_title">Сообщения</string>
+    <string name="messages_move_to_archive">В архив</string>
+    <string name="messages_delete">Удалить</string>
+    <string name="messages_restore">Вернуть из архива</string>
+    <string name="messages_empty">Тут пусто</string>
 </resources>

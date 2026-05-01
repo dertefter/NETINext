@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="teachers">Teachers</string>
-    <string name="services">Services</string>
-    <string name="tutor">Tutor</string>
-    <string name="decan">Dean\'s office</string>
-    <string name="other">Other</string>
-    <string name="archive">Archive</string>
-    <string name="unread">Unread</string>
-    <string name="all">All</string>
-    <string name="messages">Messages</string>
-    <string name="teacher_and_services">Teachers and services</string>
-    <string name="move_to_archive">Move to archive</string>
-    <string name="delete">Delete</string>
-    <string name="restore">Restore from archive</string>
-    <string name="empty">Nothing here</string>
+    <string name="messages_teachers">Teachers</string>
+    <string name="messages_services">Services</string>
+    <string name="messages_tutor">Tutor</string>
+    <string name="messages_decan">Dean\'s office</string>
+    <string name="messages_other">Other</string>
+    <string name="messages_archive">Archive</string>
+    <string name="messages_unread">Unread</string>
+    <string name="messages_all">All</string>
+    <string name="messages_title">Messages</string>
+    <string name="messages_teacher_and_services">Teachers and services</string>
+    <string name="messages_move_to_archive">Move to archive</string>
+    <string name="messages_delete">Delete</string>
+    <string name="messages_restore">Restore from archive</string>
+    <string name="messages_empty">Nothing here</string>
 </resources>

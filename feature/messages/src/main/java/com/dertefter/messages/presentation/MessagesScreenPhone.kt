@@ -4,9 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -30,6 +28,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
@@ -37,6 +36,8 @@ import com.dertefter.design.components.common.ErrorCard
 import com.dertefter.design.components.common.ErrorLarge
 import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
+import com.dertefter.design.theme.AppTheme
+import com.dertefter.design.theme.rounding
 import com.dertefter.design.theme.spacing
 import com.dertefter.messages.R
 import com.dertefter.messages.presentation.components.FilterModeChip
@@ -62,13 +63,13 @@ fun MessagesScreenPhone(
 
     Scaffold(
         topBar = {
-            Column() {
+            Column {
                 AppToolbar(
                     scrollBehavior = scrollBehavior,
                     title = if (uiState.filterMode is FilterMode.DELETED) {
-                        stringResource(R.string.archive)
+                        stringResource(R.string.messages_archive)
                     } else {
-                        stringResource(R.string.messages)
+                        stringResource(R.string.messages_title)
                     },
                     actions = {
                         AppNavigationIcon(
@@ -112,7 +113,7 @@ fun MessagesScreenPhone(
                     )
                 } else {
                     Text(
-                        stringResource(R.string.empty),
+                        stringResource(R.string.messages_empty),
                         textAlign = TextAlign.Center,
                     )
                 }
@@ -145,7 +146,9 @@ fun MessagesScreenPhone(
                 if (uiState.filterMode != FilterMode.DELETED) {
                     item {
                         LazyRow(
-                            contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.defaultScreenPadding),
+                            contentPadding = PaddingValues(
+                                horizontal = MaterialTheme.spacing.defaultScreenPadding + MaterialTheme.rounding.largeIncreased
+                            ),
                             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                         ) {
                             items(uiState.filterModes, key = { it.hashCode() }) { mode ->
@@ -242,10 +245,34 @@ fun MessagesScreenPhone(
 
 @Preview(showBackground = true)
 @Composable
-private fun MessagesScreenPreview() {
-
-    MaterialTheme() {
-        MessagesScreenPhone({}, UiState())
+private fun MessagesScreenPhonePreview() {
+    AppTheme {
+        MessagesScreenPhone(
+            onEvent = {},
+            uiState = UiState(
+                messages = listOf(
+                    MessageDto(
+                        dateSent = "2023-10-27T10:00:00",
+                        fioAuthor = "Иванов Иван Иванович",
+                        id = 1,
+                        isDeleted = 0,
+                        isRead = 0,
+                        text = "Текст сообщения 1",
+                        title = "Заголовок сообщения 1"
+                    ),
+                    MessageDto(
+                        dateSent = "2023-10-27T09:00:00",
+                        fioAuthor = "Петров Петр Петрович",
+                        id = 2,
+                        isDeleted = 0,
+                        isRead = 1,
+                        text = "Текст сообщения 2",
+                        title = "Заголовок сообщения 2"
+                    )
+                ),
+                filterModes = listOf(FilterMode.ALL, FilterMode.UNREAD, FilterMode.DELETED),
+                filterMode = FilterMode.ALL
+            )
+        )
     }
-
 }

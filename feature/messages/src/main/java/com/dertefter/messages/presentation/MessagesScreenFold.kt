@@ -9,12 +9,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.design.components.adaptive.PanelsLayout
 import com.dertefter.messages_detail.MessagesDetailRoute
 import com.dertefter.navigation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@Suppress("Assigned_value_is_never_read")
 @Composable
 fun MessagesScreenFold(
     onEvent: (Event) -> Unit,
