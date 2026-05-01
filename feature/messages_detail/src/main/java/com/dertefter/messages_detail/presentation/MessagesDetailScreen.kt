@@ -78,7 +78,7 @@ fun MessagesDetailScreen(
                             ) {
                                 if (uiState.message.isDeleted == 1){
                                     DropdownMenuItem(
-                                        text = { Text(stringResource(R.string.restore)) },
+                                        text = { Text(stringResource(R.string.messages_detail_restore)) },
                                         onClick = {
                                             onEvent(Event.OnMoveToArchive(false))
                                             mExpanded = false
@@ -86,7 +86,7 @@ fun MessagesDetailScreen(
                                     )
                                 } else if (uiState.message.isDeleted == 0){
                                     DropdownMenuItem(
-                                        text = { Text(stringResource(R.string.move_to_archive)) },
+                                        text = { Text(stringResource(R.string.messages_detail_move_to_archive)) },
                                         onClick = {
                                             onEvent(Event.OnMoveToArchive(true))
                                             mExpanded = false
@@ -94,7 +94,7 @@ fun MessagesDetailScreen(
                                     )
                                 }
                                 DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.delete)) },
+                                    text = { Text(stringResource(R.string.messages_detail_delete)) },
                                     onClick = {
                                         onEvent(Event.OnDelete)
                                         mExpanded = false

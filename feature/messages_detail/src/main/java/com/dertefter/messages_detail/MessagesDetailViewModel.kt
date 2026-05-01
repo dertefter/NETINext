@@ -2,10 +2,13 @@ package com.dertefter.messages_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.data.repository.MessagesRepository
 import com.dertefter.messages_detail.presentation.Event
 import com.dertefter.messages_detail.presentation.UiState
-import com.dertefter.navigation.Navigator
+import com.dertefter.messages_detail.usecase.DeleteMessageForeverUseCase
+import com.dertefter.messages_detail.usecase.GetMessageUseCase
+import com.dertefter.messages_detail.usecase.NavigateUpUseCase
+import com.dertefter.messages_detail.usecase.ReadMessageUseCase
+import com.dertefter.messages_detail.usecase.SetMessageArchivedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +23,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MessagesDetailViewModel @Inject constructor(
-    private val messagesRepository: MessagesRepository,
-    private val navigator: Navigator,
+    getMessageUseCase: GetMessageUseCase,
+    private val readMessageUseCase: ReadMessageUseCase,
+    private val setMessageArchivedUseCase: SetMessageArchivedUseCase,
+    private val deleteMessageForeverUseCase: DeleteMessageForeverUseCase,
+    private val navigateUpUseCase: NavigateUpUseCase,
 ) : ViewModel() {
 
     private val _idMessage = MutableStateFlow<Long?>(null)
@@ -29,7 +35,7 @@ class MessagesDetailViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     private val message = _idMessage.flatMapLatest { id ->
         if (id == null) flowOf(null)
-        else messagesRepository.getMessageByIdFlow(id)
+        else getMessageUseCase(id)
     }
 
     private var idStudent: Long? = null
@@ -89,7 +95,7 @@ class MessagesDetailViewModel @Inject constructor(
                 deleteMessage()
             }
             is Event.OnNavigateBack -> {
-                navigator.navigateUp()
+                navigateUpUseCase()
             }
         }
     }
@@ -100,7 +106,7 @@ class MessagesDetailViewModel @Inject constructor(
             if (idMessage != null){
                 isLoading.value = true
                 isError.value = false
-                messagesRepository.readMessage(idStudent, idMessage).onFailure {
+                readMessageUseCase(idStudent, idMessage).onFailure {
                     isError.value = true
                 }
                 isLoading.value = false
@@ -112,11 +118,7 @@ class MessagesDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val id = _idMessage.value ?: return@launch
             isArchiving.value = true
-            if (isArchived) {
-                messagesRepository.moveMessageToTrash(idStudent, id)
-            } else {
-                messagesRepository.removeMessageFromTrash(idStudent, id)
-            }
+            setMessageArchivedUseCase(idStudent, id, isArchived)
             isArchiving.value = false
         }
     }
@@ -125,9 +127,9 @@ class MessagesDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val id = _idMessage.value ?: return@launch
             isDeleting.value = true
-            messagesRepository.deleteMessageForever(idStudent, id).onSuccess {
+            deleteMessageForeverUseCase(idStudent, id).onSuccess {
                 if (!isPanel){
-                    navigator.navigateUp()
+                    navigateUpUseCase()
                 }
             }
             isDeleting.value = false
