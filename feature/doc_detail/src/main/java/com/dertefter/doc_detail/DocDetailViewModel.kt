@@ -1,12 +1,13 @@
 package com.dertefter.doc_detail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dertefter.data.repository.DocsRepository
 import com.dertefter.doc_detail.presentation.Event
 import com.dertefter.doc_detail.presentation.UiState
-import com.dertefter.navigation.Navigator
+import com.dertefter.doc_detail.usecase.CancelClaimUseCase
+import com.dertefter.doc_detail.usecase.CheckCancelableUseCase
+import com.dertefter.doc_detail.usecase.HideBottomSheetUseCase
+import com.dertefter.doc_detail.usecase.UpdateDocsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,8 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DocDetailViewModel @Inject constructor(
-    private val docsRepository: DocsRepository,
-    private val navigator: Navigator,
+    private val checkCancelableUseCase: CheckCancelableUseCase,
+    private val cancelClaimUseCase: CancelClaimUseCase,
+    private val hideBottomSheetUseCase: HideBottomSheetUseCase,
+    private val updateDocsListUseCase: UpdateDocsListUseCase
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -50,7 +53,7 @@ class DocDetailViewModel @Inject constructor(
             }
 
             is Event.OnNavigateUp -> {
-                navigator.hideBottomSheet()
+                hideBottomSheetUseCase()
             }
 
         }
@@ -61,13 +64,11 @@ class DocDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             _cancelable.value = false
-            docsRepository.checkCancelable(docNumber)
+            checkCancelableUseCase(docNumber)
                 .onSuccess {
-                    Log.e("zzzzzzzzzzzzzz", it.toString())
                     _cancelable.value = it
                 }
                 .onFailure {
-                    Log.e("zzzzzzzzzzzzzz", it.stackTraceToString())
                     _cancelable.value = false
                 }
             _isLoading.value = false
@@ -77,13 +78,9 @@ class DocDetailViewModel @Inject constructor(
     private fun cancelClaim(docNumber: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            docsRepository.cancelClaim(docNumber)
-                .onSuccess {
-                    navigator.hideBottomSheet()
-                }
-                .onFailure {
-                    Log.e("ssss", it.stackTraceToString())
-                }
+            cancelClaimUseCase(docNumber)
+            updateDocsListUseCase()
+            hideBottomSheetUseCase()
             _isLoading.value = false
         }
     }

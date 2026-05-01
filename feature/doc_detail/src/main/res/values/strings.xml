@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="clear">Clear</string>
-    <string name="voice_recogintion">Say</string>
-    <string name="remove_from_history">Remove from history</string>
-    <string name="search_group">Search group</string>
-    <string name="nothing_searched">Nothing found</string>
-    <string name="history">Recent groups</string>
+    <string name="docs_detail_delete">Delete</string>
 </resources>

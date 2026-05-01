@@ -15,11 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.circleShape
+import com.dertefter.doc_detail.R
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -109,7 +111,9 @@ fun DocDetailScreen(
                             },
                             enabled = !uiState.isLoading
                         ){
-                            Text("Удалить заявку")
+                            Text(
+                                text = stringResource(R.string.docs_detail_delete)
+                            )
                         }
                     }
                 }
