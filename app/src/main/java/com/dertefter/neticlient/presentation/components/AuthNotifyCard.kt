@@ -119,16 +119,16 @@ fun AuthNotifyCard(
             )
             { targetAuthStatus ->
                 val title = when (targetAuthStatus) {
-                    is AuthStatus.Loading -> stringResource(R.string.loading)
-                    is AuthStatus.Authorized -> stringResource(R.string.success)
-                    is AuthStatus.Error -> stringResource(R.string.error)
+                    is AuthStatus.Loading -> stringResource(R.string.app_loading)
+                    is AuthStatus.Authorized -> stringResource(R.string.app_success)
+                    is AuthStatus.Error -> stringResource(R.string.app_error)
                     else -> null
                 }
 
                 val caption = when (targetAuthStatus) {
                     is AuthStatus.Loading -> targetAuthStatus.login
                     is AuthStatus.Authorized -> targetAuthStatus.login
-                    is AuthStatus.Error -> stringResource(R.string.learn_more)
+                    is AuthStatus.Error -> stringResource(R.string.app_learn_more)
                     else -> null
                 }
 

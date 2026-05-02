@@ -35,7 +35,7 @@ fun WeekHeaderWidgetContent(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = weekHeader ?: context.getString(R.string.loading),
+            text = weekHeader ?: context.getString(R.string.app_loading),
             style = TextStyle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

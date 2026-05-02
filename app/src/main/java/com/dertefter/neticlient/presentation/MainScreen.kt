@@ -27,8 +27,7 @@ import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.navigation.NavigationAction
 import com.dertefter.navigation.Navigator
 import com.dertefter.navigation.Routes
-import com.dertefter.neticlient.navigation.authorizedNavigationItems
-import com.dertefter.neticlient.navigation.guestNavigationItems
+import com.dertefter.neticlient.navigation.getNavigationMenu
 import com.dertefter.neticlient.presentation.content.PhoneUi
 import com.dertefter.neticlient.presentation.content.TabUI
 import com.dertefter.search_group.SearchGroupRoute
@@ -61,11 +60,7 @@ fun MainScreen(
             animationSpec = MaterialTheme.motionScheme.slowSpatialSpec()
         )
 
-        val navigationItems = if (screenState.authStatusCiu is AuthStatus.Unauthorized){
-            guestNavigationItems
-        } else {
-            authorizedNavigationItems
-        }
+        val navigationItems = getNavigationMenu(screenState.authStatusCiu !is AuthStatus.Unauthorized)
 
         LaunchedEffect(Unit) {
             navigator.navigationActions.collect { action ->

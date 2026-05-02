@@ -7,5 +7,5 @@
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen"
     android:previewImage="@drawable/near_schedule_preview_image"
-    android:description="@string/near_schedule_widget_description"
+    android:description="@string/app_near_schedule_widget_description"
     />

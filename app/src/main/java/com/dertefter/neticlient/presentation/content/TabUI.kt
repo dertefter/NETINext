@@ -28,15 +28,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.dertefter.data.dto.auth.AuthStatus
-import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 import com.dertefter.neticlient.navigation.AppNavHost
-import com.dertefter.neticlient.navigation.AppNavigationItem
+import com.dertefter.neticlient.navigation.TabRouteItem
 import com.dertefter.neticlient.presentation.Event
 import com.dertefter.neticlient.presentation.components.AuthNotifyCard
 import com.dertefter.neticlient.presentation.components.MainNavigationRail
@@ -47,10 +44,17 @@ import kotlinx.coroutines.delay
 fun TabUI(
     navController: NavHostController,
     currentDestination: NavDestination?,
-    navigationItems: List<AppNavigationItem> = emptyList(),
+    navigationItems: List<TabRouteItem> = emptyList(),
     onEvent: (Event) -> Unit,
     authStatusCiu: AuthStatus,
-    authStatusYourNeti: AuthStatus
+    authStatusYourNeti: AuthStatus,
+    navHost: @Composable (Modifier) -> Unit = { modifier ->
+        AppNavHost(
+            modifier = modifier,
+            navController = navController,
+            navigationItems
+        )
+    }
 ){
 
     var isAuthNotifyVisible by rememberSaveable(authStatusCiu.toString(), authStatusYourNeti.toString()) {
@@ -64,16 +68,14 @@ fun TabUI(
         }
     }
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-    ) { paddingValues ->
+    Scaffold() { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
         ) {
             Row(modifier = Modifier
                 .imePadding()
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 .fillMaxSize())
             {
                 MainNavigationRail(
@@ -81,17 +83,15 @@ fun TabUI(
                     currentDestination = currentDestination,
                     navigationItems = navigationItems,
                 )
-                AppNavHost(
-                    modifier = Modifier
+                navHost(
+                    Modifier
                         .consumeWindowInsets(
                             WindowInsets(
                                 left = paddingValues.calculateLeftPadding(LocalLayoutDirection.current),
                             )
                         )
                         .weight(1f)
-                        .fillMaxSize(),
-                    navController = navController,
-                    navigationItems
+                        .fillMaxSize()
                 )
             }
 
@@ -128,20 +128,4 @@ fun TabUI(
         }
     }
 
-}
-
-@Preview(showBackground = true, device = "spec:width=673dp,height=841dp,orientation=landscape",
-    showSystemUi = true
-)
-@Composable
-fun TabUIPreview() {
-    AppTheme {
-        TabUI(
-            navController = rememberNavController(),
-            currentDestination = null,
-            onEvent = {},
-            authStatusCiu = AuthStatus.Loading("djdskjdsjksd"),
-            authStatusYourNeti = AuthStatus.Unauthorized
-        )
-    }
 }

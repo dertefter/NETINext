@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import com.dertefter.data.dto.auth.AuthStatus
 import com.dertefter.design.theme.spacing
 import com.dertefter.neticlient.navigation.AppNavHost
-import com.dertefter.neticlient.navigation.AppNavigationItem
+import com.dertefter.neticlient.navigation.TabRouteItem
 import com.dertefter.neticlient.presentation.Event
 import com.dertefter.neticlient.presentation.components.AuthNotifyCard
 import com.dertefter.neticlient.presentation.components.MainBottomBar
@@ -44,7 +44,7 @@ import kotlinx.coroutines.delay
 fun PhoneUi(
     navController: NavHostController,
     currentDestination: NavDestination?,
-    navigationItems: List<AppNavigationItem> = emptyList(),
+    navigationItems: List<TabRouteItem> = emptyList(),
     onEvent: (Event) -> Unit,
     authStatusCiu: AuthStatus,
     authStatusYourNeti: AuthStatus

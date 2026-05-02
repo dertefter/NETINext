@@ -52,7 +52,7 @@ fun NearScheduleWidgetContent(groupName: String?, schedule: List<TimeSlotDto>?) 
                 .padding(8.dp)
                 .fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    text = context.getString(R.string.select_group_in_app),
+                    text = context.getString(R.string.app_select_group_in_app),
                     style = TextStyle(color = GlanceTheme.colors.onBackground, fontSize = 16.sp)
                 )
             }
@@ -64,11 +64,11 @@ fun NearScheduleWidgetContent(groupName: String?, schedule: List<TimeSlotDto>?) 
             val nowDate = LocalDate.now()
             val diff: Long? = if (date == null) null else ChronoUnit.DAYS.between(nowDate, date)
             val primaryLine: String? = when (diff) {
-                null -> context.getString(R.string.no_lessons_found)
-                0L -> context.getString(R.string.pretty_date_today)
-                1L -> context.getString(R.string.pretty_date_tomorrow)
-                2L -> context.getString(R.string.pretty_date_after_tomorrow)
-                in 3L..6L -> context.resources.getQuantityString(R.plurals.pretty_date_days, diff.toInt(), diff.toInt())
+                null -> context.getString(R.string.app_no_lessons_found)
+                0L -> context.getString(R.string.app_pretty_date_today)
+                1L -> context.getString(R.string.app_pretty_date_tomorrow)
+                2L -> context.getString(R.string.app_pretty_date_after_tomorrow)
+                in 3L..6L -> context.resources.getQuantityString(R.plurals.app_pretty_date_days, diff.toInt(), diff.toInt())
                 else -> null
             }
             val locale = context.resources.configuration.locales[0]
@@ -121,7 +121,7 @@ fun NearScheduleWidgetContent(groupName: String?, schedule: List<TimeSlotDto>?) 
 
             if (timeSlots.isEmpty()) {
                 Box(modifier = GlanceModifier.fillMaxWidth().defaultWeight(), contentAlignment = Alignment.Center) {
-                    Text(text = context.getString(R.string.no_lessons), style = TextStyle(color = GlanceTheme.colors.onSurface))
+                    Text(text = context.getString(R.string.app_no_lessons), style = TextStyle(color = GlanceTheme.colors.onSurface))
                 }
             } else {
                 LazyColumn(modifier = GlanceModifier.fillMaxWidth()) {

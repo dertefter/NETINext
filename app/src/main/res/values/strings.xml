@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NETI Client</string>
-    <string name="error">Failed to connect</string>
-    <string name="success">You are connected!</string>
-    <string name="learn_more">Learn more</string>
-    <string name="close_card">Close</string>
+    <string name="app_error">Failed to connect</string>
+    <string name="app_success">You are connected!</string>
+    <string name="app_learn_more">Learn more</string>
+    <string name="app_close_card">Close</string>
 
-    <string name="pretty_date_today">Today</string>
-    <string name="pretty_date_tomorrow">Tomorrow</string>
-    <string name="pretty_date_after_tomorrow">Day after tomorrow</string>
-    <plurals name="pretty_date_days">
+    <string name="app_pretty_date_today">Today</string>
+    <string name="app_pretty_date_tomorrow">Tomorrow</string>
+    <string name="app_pretty_date_after_tomorrow">Day after tomorrow</string>
+    <plurals name="app_pretty_date_days">
         <item quantity="one">In %d day</item>
         <item quantity="few">In %d days</item>
         <item quantity="many">In %d days</item>
     </plurals>
 
-    <string name="will_start">Will start</string>
-    <string name="ended">Ended</string>
-    <string name="going_now">Now</string>
-    <string name="in_what">in</string>
+    <string name="app_will_start">Will start</string>
+    <string name="app_ended">Ended</string>
+    <string name="app_going_now">Now</string>
+    <string name="app_in_what">in</string>
 
-    <string name="no_group">No group</string>
-    <string name="select_group_in_app">Select a group in the app</string>
-    <string name="loading">Loading…</string>
-    <string name="loading_schedule_for_group">Loading schedule for group %s</string>
-    <string name="no_lessons">No lessons</string>
-    <string name="no_lessons_near_time">No lessons in the near future</string>
-    <string name="lesson_placeholder">Lesson</string>
-    <string name="connected">Connected</string>
-    <string name="connection_error">Connection error. Tap to try again</string>
-    <string name="connecting">Connecting…</string>
-    <string name="waiting_to_connect">Waiting for connection</string>
+    <string name="app_no_group">No group</string>
+    <string name="app_select_group_in_app">Select a group in the app</string>
+    <string name="app_loading">Loading…</string>
+    <string name="app_loading_schedule_for_group">Loading schedule for group %s</string>
+    <string name="app_no_lessons">No lessons</string>
+    <string name="app_no_lessons_near_time">No lessons in the near future</string>
+    <string name="app_lesson_placeholder">Lesson</string>
+    <string name="app_connected">Connected</string>
+    <string name="app_connection_error">Connection error. Tap to try again</string>
+    <string name="app_connecting">Connecting…</string>
+    <string name="app_waiting_to_connect">Waiting for connection</string>
 
-    <string name="no_lessons_found">No lessons found</string>
-    <string name="schedule_title">Schedule</string>
-    <string name="near_schedule_widget_description">Upcoming Classes</string>
-    <string name="week_header_widget_description">Current week number</string>
+    <string name="app_no_lessons_found">No lessons found</string>
+    <string name="app_schedule_title">Schedule</string>
+    <string name="app_near_schedule_widget_description">Upcoming Classes</string>
+    <string name="app_week_header_widget_description">Current week number</string>
+    <string name="app_route_home">Home</string>
+    <string name="app_route_calendar">Calendar</string>
+    <string name="app_route_messages">Messages</string>
+    <string name="app_route_profile">Profile</string>
 </resources>

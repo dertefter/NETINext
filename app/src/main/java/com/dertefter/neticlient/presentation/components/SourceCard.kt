@@ -90,10 +90,10 @@ fun SourceCard(
             )
             Text(
                 text = when (authStatus){
-                    is AuthStatus.Authorized -> stringResource(R.string.connected)
-                    is AuthStatus.Error -> stringResource(R.string.connection_error)
-                    is AuthStatus.Loading -> stringResource(R.string.connecting)
-                    AuthStatus.Unauthorized -> stringResource(R.string.waiting_to_connect)
+                    is AuthStatus.Authorized -> stringResource(R.string.app_connected)
+                    is AuthStatus.Error -> stringResource(R.string.app_connection_error)
+                    is AuthStatus.Loading -> stringResource(R.string.app_connecting)
+                    AuthStatus.Unauthorized -> stringResource(R.string.app_waiting_to_connect)
                 },
                 style = MaterialTheme.typography.labelMedium,
                 color = textColor

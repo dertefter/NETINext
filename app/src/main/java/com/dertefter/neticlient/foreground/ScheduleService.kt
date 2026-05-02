@@ -48,7 +48,7 @@ class ScheduleService : Service() {
 
         val initialNotification = NotificationCompat.Builder(this, channelId)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText(getString(R.string.loading))
+            .setContentText(getString(R.string.app_loading))
             .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
@@ -66,11 +66,11 @@ class ScheduleService : Service() {
                     val group = groupsRepository.getCurrentGroup().first()
 
                     if (group == null) {
-                        updateNotification(getString(R.string.no_group), getString(R.string.select_group_in_app))
+                        updateNotification(getString(R.string.app_no_group), getString(R.string.app_select_group_in_app))
                     } else {
                         val schedule = scheduleRepository.getSchedule(group).first()
                         if (schedule.isNullOrEmpty()) {
-                            updateNotification(getString(R.string.loading), getString(R.string.loading_schedule_for_group, group.name))
+                            updateNotification(getString(R.string.app_loading), getString(R.string.app_loading_schedule_for_group, group.name))
                             scheduleRepository.updateScheduleForGroup(group)
                         } else {
                             val grouped = schedule.groupBy { it.getDate() }
@@ -108,8 +108,8 @@ class ScheduleService : Service() {
                                     } else -1
 
                                     updateNotification(
-                                        title = lesson?.name ?: getString(R.string.lesson_placeholder),
-                                        content = if (isCurrent) getString(R.string.going_now) else formatTargetDate(targetDate, nextOrCurrentTimeSlot.startTimeString),
+                                        title = lesson?.name ?: getString(R.string.app_lesson_placeholder),
+                                        content = if (isCurrent) getString(R.string.app_going_now) else formatTargetDate(targetDate, nextOrCurrentTimeSlot.startTimeString),
                                         aud = lesson?.aud,
                                         type = lesson?.type,
                                         startTime = nextOrCurrentTimeSlot.startTimeString,
@@ -118,10 +118,10 @@ class ScheduleService : Service() {
                                         whenTime = whenTime
                                     )
                                 } else {
-                                    updateNotification(getString(R.string.no_lessons), getString(R.string.no_lessons_near_time))
+                                    updateNotification(getString(R.string.app_no_lessons), getString(R.string.app_no_lessons_near_time))
                                 }
                             } else {
-                                updateNotification(getString(R.string.no_lessons), getString(R.string.no_lessons_near_time))
+                                updateNotification(getString(R.string.app_no_lessons), getString(R.string.app_no_lessons_near_time))
                             }
                         }
                     }
@@ -212,14 +212,14 @@ class ScheduleService : Service() {
         val nowDate = LocalDate.now()
         val diff = ChronoUnit.DAYS.between(nowDate, targetDate)
         val primaryLine: String? = when (diff) {
-            0L -> getString(R.string.pretty_date_today)
-            1L -> getString(R.string.pretty_date_tomorrow)
-            2L -> getString(R.string.pretty_date_after_tomorrow)
-            in 3L..6L -> resources.getQuantityString(R.plurals.pretty_date_days, diff.toInt(), diff.toInt())
+            0L -> getString(R.string.app_pretty_date_today)
+            1L -> getString(R.string.app_pretty_date_tomorrow)
+            2L -> getString(R.string.app_pretty_date_after_tomorrow)
+            in 3L..6L -> resources.getQuantityString(R.plurals.app_pretty_date_days, diff.toInt(), diff.toInt())
             else -> null
         }
 
-        val timeSuffix = if (startTime != null) " ${getString(R.string.in_what)} $startTime" else ""
+        val timeSuffix = if (startTime != null) " ${getString(R.string.app_in_what)} $startTime" else ""
 
         return if (primaryLine != null) {
             "$primaryLine$timeSuffix"

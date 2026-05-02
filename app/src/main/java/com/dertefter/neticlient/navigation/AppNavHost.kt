@@ -44,7 +44,7 @@ import com.dertefter.swap_lks.SwapLksRoute
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    navItems: List<AppNavigationItem>
+    navItems: List<TabRouteItem>
 ) {
     if (navItems.isEmpty()) return
 
