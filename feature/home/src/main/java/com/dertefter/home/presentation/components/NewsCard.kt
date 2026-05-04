@@ -1,16 +1,21 @@
 package com.dertefter.home.presentation.components
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,12 +27,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
@@ -67,6 +74,7 @@ fun NewsCard(
         animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
         label = "onSurface"
     )
+
     val primary by animateColorAsState(
         targetValue = colorScheme.primary,
         animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
@@ -88,58 +96,125 @@ fun NewsCard(
             .fillMaxWidth()
             .background(surfaceContainer),
     ) {
-        Column {
-            newsItem.imageUrl?.let {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(it)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .background(surfaceVariant),
-                    contentScale = ContentScale.Crop,
-                    onSuccess = { state ->
-                        if (imageBitmap == null) {
-                            imageBitmap =
-                                state.result.drawable.toBitmap().scale(10, 10).asImageBitmap()
+        BoxWithConstraints {
+            val isWide = maxWidth > 400.dp
+            val titleStyle = if (isWide) MaterialTheme.typography.titleLargeEmphasized else MaterialTheme.typography.titleMediumEmphasized
+            AnimatedContent(
+                targetState = isWide,
+                label = "NewsCardLayout"
+            ) { targetIsWide ->
+                if (targetIsWide) {
+                    Row(
+                        modifier = Modifier.height(IntrinsicSize.Min),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        newsItem.imageUrl?.let { url ->
+                            NewsCardImage(
+                                modifier = Modifier
+                                    .width(240.dp)
+                                    .fillMaxHeight(),
+                                imageUrl = url,
+                                surfaceVariant = surfaceVariant,
+                                onBitmapLoaded = { bitmap -> if (imageBitmap == null) imageBitmap = bitmap }
+                            )
                         }
+
+                        NewsCardContent(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(MaterialTheme.spacing.extraLarge),
+                            newsItem = newsItem,
+                            onSurface = onSurface,
+                            titleStyle = titleStyle,
+                            primary = primary
+                        )
                     }
-                )
-            }
-            Column(
-                modifier = Modifier.padding(MaterialTheme.spacing.large),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
-            ) {
-                Text(
-                    text = newsItem.title,
-                    style = MaterialTheme.typography.titleMediumEmphasized,
-                    color = onSurface
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = newsItem.date,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = onSurface,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    Text(
-                        text = newsItem.type,
-                        style = MaterialTheme.typography.labelMediumEmphasized,
-                        color = primary
-                    )
+                } else {
+                    Column {
+                        newsItem.imageUrl?.let { url ->
+                            NewsCardImage(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp),
+                                imageUrl = url,
+                                surfaceVariant = surfaceVariant,
+                                onBitmapLoaded = { bitmap -> if (imageBitmap == null) imageBitmap = bitmap }
+                            )
+                        }
+                        NewsCardContent(
+                            modifier = Modifier.padding(MaterialTheme.spacing.large),
+                            newsItem = newsItem,
+                            onSurface = onSurface,
+                            primary = primary,
+                            titleStyle = titleStyle,
+                        )
+                    }
                 }
             }
         }
     }
 }
+
+@Composable
+private fun NewsCardImage(
+    modifier: Modifier,
+    imageUrl: String,
+    surfaceVariant: Color,
+    onBitmapLoaded: (ImageBitmap) -> Unit
+) {
+    AsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .crossfade(true)
+            .build(),
+        contentDescription = null,
+        modifier = modifier.background(surfaceVariant),
+        contentScale = ContentScale.Crop,
+        onSuccess = { state ->
+            onBitmapLoaded(state.result.drawable.toBitmap().scale(10, 10).asImageBitmap())
+        }
+    )
+}
+
+@Composable
+private fun NewsCardContent(
+    modifier: Modifier,
+    newsItem: NewsItem,
+    onSurface: Color,
+    primary: Color,
+    titleStyle: TextStyle
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+    ) {
+        Text(
+            text = newsItem.title,
+            style = titleStyle,
+            color = onSurface
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = newsItem.date,
+                style = MaterialTheme.typography.labelMedium,
+                color = onSurface,
+                modifier = Modifier.weight(1f)
+            )
+
+            Text(
+                text = newsItem.type,
+                style = MaterialTheme.typography.labelMediumEmphasized,
+                color = primary
+            )
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -158,3 +233,23 @@ private fun NewsCardPreview() {
         NewsCard(newsItem = sampleNewsItem, modifier = Modifier.padding(12.dp))
     }
 }
+
+
+@Preview(showBackground = true, widthDp = 600)
+@Composable
+private fun NewsCardPreview2() {
+    val sampleNewsItem = NewsItem(
+        id = "1",
+        type = "news",
+        title = "НГТУ НЭТИ вошел в число победителей конкурса грантов для популяризации науки",
+        tags = "Гранты, Конкурсы",
+        date = "27 октября 2023",
+        detailUrl = "https://www.nstu.ru/news/news_more_12345",
+
+        imageUrl = "",
+    )
+    AppTheme {
+        NewsCard(newsItem = sampleNewsItem, modifier = Modifier.padding(12.dp))
+    }
+}
+

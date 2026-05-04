@@ -46,8 +46,7 @@ fun AuthRequestCard(
             modifier = modifier
                 .clip(MaterialTheme.shapes.large)
                 .background(MaterialTheme.colorScheme.primaryContainer)
-                .padding(MaterialTheme.spacing.large)
-                .widthIn(max = 400.dp),
+                .padding(MaterialTheme.spacing.large),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
         ) {
             Row(
@@ -79,14 +78,6 @@ fun AuthRequestCard(
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 text = stringResource(R.string.design_auth_req_text),
                 style = MaterialTheme.typography.bodyLarge,
-            )
-
-            Text(
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                text = stringResource(R.string.design_learn_more),
-                style = MaterialTheme.typography.bodyLarge,
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier.clickable(onClick = onMoreClick)
             )
         }
     }

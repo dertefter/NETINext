@@ -124,6 +124,10 @@ interface LocalDataSource {
 
     suspend fun saveIsNotificationEnabled(isEnabled: Boolean)
 
+    fun getIsMessagesAlertSkipped(): Flow<Boolean?>
+
+    suspend fun saveIsMessagesAlertSkipped(isSkipped: Boolean)
+
     fun getPromo(): Flow<List<PromoItem>?>
 
     suspend fun savePromo(promoList: List<PromoItem>)

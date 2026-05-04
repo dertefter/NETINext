@@ -317,6 +317,15 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(isNotificationEnabled = isEnabled))
     }
 
+    override fun getIsMessagesAlertSkipped(): Flow<Boolean?> {
+        return globalConfigDao.getIsMessagesAlertSkipped()
+    }
+
+    override suspend fun saveIsMessagesAlertSkipped(isSkipped: Boolean) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(isMessagesAlertSkipped = isSkipped))
+    }
+
     override fun getPromo(): Flow<List<PromoItem>?> {
         return globalConfigDao.getPromoList().map { it?.promoList }
     }

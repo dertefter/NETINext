@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.messages.presentation.Event
 import com.dertefter.messages.presentation.FilterMode
 import com.dertefter.messages.presentation.UiState
@@ -32,7 +33,8 @@ class MessagesViewModel @Inject constructor(
     private val moveMessageToTrashUseCase: MoveMessageToTrashUseCase,
     private val removeMessageFromTrashUseCase: RemoveMessageFromTrashUseCase,
     private val deleteMessageForeverUseCase: DeleteMessageForeverUseCase,
-    private val navigateToMessageDetailUseCase: NavigateToMessageDetailUseCase
+    private val navigateToMessageDetailUseCase: NavigateToMessageDetailUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     private val _isUpdating = MutableStateFlow(false)
@@ -41,12 +43,15 @@ class MessagesViewModel @Inject constructor(
 
     private val _filterMode = MutableStateFlow<FilterMode>(FilterMode.ALL)
 
+    private val _isAlertSkipped = settingsRepository.isMessagesAlertSkipped
+
     val uiState: StateFlow<UiState> = combine(
         _messages,
         _isUpdating,
         _error,
-        _filterMode
-    ) { messages, isUpdating, error, filterMode ->
+        _filterMode,
+        _isAlertSkipped
+    ) { messages, isUpdating, error, filterMode, isAlertSkipped ->
         val filteredMessages = when (filterMode) {
             FilterMode.ALL -> messages.filter { it.isDeleted == 0 }
             FilterMode.UNREAD -> messages.filter { it.isRead == 0 && it.isDeleted == 0 }
@@ -59,7 +64,8 @@ class MessagesViewModel @Inject constructor(
             error = error,
             filterModes = listOf(FilterMode.ALL, FilterMode.UNREAD)
                     + messages.map { FilterMode.TAB(it.senderType) }.distinct(),
-            filterMode = filterMode
+            filterMode = filterMode,
+            isAlertSkipped = isAlertSkipped == true
         )
     }.stateIn(
         scope = viewModelScope,
@@ -71,6 +77,10 @@ class MessagesViewModel @Inject constructor(
         when (event) {
             is Event.OnUpdateMessages -> {
                 updateMessages()
+            }
+
+            is Event.OnSkipAlert -> {
+                skipAlert()
             }
 
             is Event.OnUpdateFilterMode -> {
@@ -104,6 +114,12 @@ class MessagesViewModel @Inject constructor(
                 _error.value = it.toAppError()
             }
             _isUpdating.value = false
+        }
+    }
+
+    private fun skipAlert() {
+        viewModelScope.launch {
+            settingsRepository.saveIsMessagesAlertSkipped(true)
         }
     }
 

@@ -33,6 +33,9 @@ interface GlobalConfigDao {
     @Query("SELECT weekHeader FROM global_config WHERE id = 0")
     fun getWeekHeader(): Flow<String?>
 
+    @Query("SELECT isMessagesAlertSkipped FROM global_config WHERE id = 0")
+    fun getIsMessagesAlertSkipped(): Flow<Boolean?>
+
     @Query("SELECT * FROM global_config WHERE id = 0")
     fun getConfig(): Flow<GlobalConfigEntity?>
 

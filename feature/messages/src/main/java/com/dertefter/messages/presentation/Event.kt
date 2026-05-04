@@ -4,6 +4,8 @@ sealed class Event {
 
     object OnUpdateMessages : Event()
 
+    object OnSkipAlert : Event()
+
     data class OnUpdateFilterMode(val filterMode: FilterMode): Event()
 
     data class OnMoveToArchive(val idStudent:  Long? = null, val idMessage:  Long): Event()

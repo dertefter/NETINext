@@ -1,5 +1,6 @@
 package com.dertefter.messages.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,7 @@ import com.dertefter.design.theme.spacing
 import com.dertefter.messages.R
 import com.dertefter.messages.presentation.components.FilterModeChip
 import com.dertefter.messages.presentation.components.MessageItem
+import com.dertefter.messages.presentation.components.MessagesInfoAlertCard
 import com.dertefter.messages.presentation.components.SwipeAction
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -90,6 +92,16 @@ fun MessagesScreenPhone(
 
                             })
                     })
+
+                AnimatedVisibility(
+                    visible = !uiState.isAlertSkipped,
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding),
+                ) {
+                    MessagesInfoAlertCard(
+                        onClose = { onEvent(Event.OnSkipAlert) }
+                    )
+                }
 
             }
 
@@ -243,7 +255,7 @@ fun MessagesScreenPhone(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 36)
 @Composable
 private fun MessagesScreenPhonePreview() {
     AppTheme {

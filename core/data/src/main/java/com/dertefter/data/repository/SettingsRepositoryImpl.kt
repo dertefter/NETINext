@@ -45,4 +45,10 @@ class SettingsRepositoryImpl @Inject constructor(
         localDataSource.saveIsNotificationEnabled(isEnabled)
     }
 
+    override val isMessagesAlertSkipped: Flow<Boolean?> = localDataSource.getIsMessagesAlertSkipped()
+
+    override suspend fun saveIsMessagesAlertSkipped(isMessagesAlertSkipped: Boolean) {
+        localDataSource.saveIsMessagesAlertSkipped(isMessagesAlertSkipped)
+    }
+
 }

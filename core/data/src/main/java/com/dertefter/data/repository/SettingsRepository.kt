@@ -23,4 +23,10 @@ interface SettingsRepository {
 
     suspend fun saveNotificationEnabled(isEnabled: Boolean)
 
+
+    val isMessagesAlertSkipped: Flow<Boolean?>
+
+    suspend fun saveIsMessagesAlertSkipped(isMessagesAlertSkipped: Boolean)
+
+
 }
