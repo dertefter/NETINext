@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
@@ -97,7 +98,7 @@ fun NewsCard(
             .background(surfaceContainer),
     ) {
         BoxWithConstraints {
-            val isWide = maxWidth > 400.dp
+            val isWide = maxWidth > 560.dp
             val titleStyle = if (isWide) MaterialTheme.typography.titleLargeEmphasized else MaterialTheme.typography.titleMediumEmphasized
             AnimatedContent(
                 targetState = isWide,
@@ -112,7 +113,8 @@ fun NewsCard(
                         newsItem.imageUrl?.let { url ->
                             NewsCardImage(
                                 modifier = Modifier
-                                    .width(240.dp)
+                                    .height(240.dp)
+                                    .width(280.dp)
                                     .fillMaxHeight(),
                                 imageUrl = url,
                                 surfaceVariant = surfaceVariant,
@@ -120,15 +122,41 @@ fun NewsCard(
                             )
                         }
 
-                        NewsCardContent(
+                        Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .padding(MaterialTheme.spacing.extraLarge),
-                            newsItem = newsItem,
-                            onSurface = onSurface,
-                            titleStyle = titleStyle,
-                            primary = primary
-                        )
+                                .requiredHeight(240.dp)
+                                .padding(MaterialTheme.spacing.large)
+                                .weight(1f),
+                            verticalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = newsItem.title,
+                                style = titleStyle,
+                                color = onSurface
+                            )
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = newsItem.date,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
+
+                                Text(
+                                    text = newsItem.type,
+                                    style = MaterialTheme.typography.labelMediumEmphasized,
+                                    color = primary
+                                )
+                            }
+
+                        }
+
+
+
                     }
                 } else {
                     Column {
@@ -183,11 +211,12 @@ private fun NewsCardContent(
     newsItem: NewsItem,
     onSurface: Color,
     primary: Color,
-    titleStyle: TextStyle
+    titleStyle: TextStyle,
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(MaterialTheme.spacing.medium)
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        verticalArrangement = verticalArrangement
     ) {
         Text(
             text = newsItem.title,
