@@ -143,7 +143,7 @@ fun MessagesDetailScreen(
                                     .widthIn(max = 480.dp)
                                     .fillMaxWidth()
                                     .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding),
-                                style = MaterialTheme.typography.displaySmallEmphasized,
+                                style = MaterialTheme.typography.headlineMediumEmphasized,
                             )
                         }
 
