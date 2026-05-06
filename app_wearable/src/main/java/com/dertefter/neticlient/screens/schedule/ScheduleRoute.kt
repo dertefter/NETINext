@@ -11,10 +11,10 @@ import com.dertefter.neticlient.screens.schedule.presentation.ScheduleViewModel
 fun ScheduleRoute(
     viewModel: ScheduleViewModel = hiltViewModel()
 ) {
-    val scheduleState by viewModel.scheduleState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScheduleScreen(
-        scheduleState = scheduleState,
+        uiState = state,
         onEvent = viewModel::onEvent
     )
 }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.AppScaffold
+import androidx.wear.compose.material3.EdgeButton
+import androidx.wear.compose.material3.EdgeButtonSize
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.MaterialTheme
@@ -55,7 +58,7 @@ import java.time.LocalTime
 @Composable
 fun HomeScreen(
     scheduleState: ScheduleState,
-    onEvent: (HomeEvent) -> Unit
+    onEvent: (HomeEvent) -> Unit,
 ) {
     AppScaffold {
         val listState = rememberTransformingLazyColumnState()
@@ -76,7 +79,21 @@ fun HomeScreen(
         }
 
         ScreenScaffold(
-            scrollState = listState
+            scrollState = listState,
+            edgeButton = {
+                if (scheduleState.group != null){
+                    EdgeButton(
+                        onClick = { onEvent(HomeEvent.OnOpenDetails) },
+                        buttonSize = EdgeButtonSize.Small
+                    ) {
+                        Text(
+                            text = "Подробнее",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+               
+            }
         ) { contentPadding ->
             TransformingLazyColumn(contentPadding = contentPadding, state = listState) {
                 if (scheduleState.group == null) {
@@ -85,6 +102,9 @@ fun HomeScreen(
                             text = "Группа не выбрана",
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
+                                .padding(
+                                    top = LocalWindowInfo.current.containerDpSize.height / 7
+                                )
                                 .padding(horizontal = 8.dp)
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -95,6 +115,7 @@ fun HomeScreen(
                             text = "Выберите группу в мобильном приложении",
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier
+                                .padding(vertical = 2.dp)
                                 .padding(horizontal = 8.dp)
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -113,7 +134,7 @@ fun HomeScreen(
                             ) {
                                 Text(text = scheduleState.group.name)
                                 Text(
-                                    text = stringResource(R.string.wearable_home_title),
+                                    text = stringResource(R.string.wear_home_title),
                                     style = MaterialTheme.typography.titleSmall
                                 )
                             }
@@ -284,7 +305,7 @@ fun HomeScreenPreview() {
 @Composable
 fun HomeScreenPreview2() {
     val scheduleState = ScheduleState(
-        group = GroupDto("f"),
+        group = null,
         isLoading = false
     )
     HomeScreen(
@@ -292,4 +313,18 @@ fun HomeScreenPreview2() {
         onEvent = {}
     )
 }
+
+@Preview(device = WearDevices.LARGE_ROUND, showSystemUi = true)
+@Composable
+fun HomeScreenPreview3() {
+    val scheduleState = ScheduleState(
+        group = null,
+        isLoading = false
+    )
+    HomeScreen(
+        scheduleState = scheduleState,
+        onEvent = {}
+    )
+}
+
 

@@ -112,6 +112,7 @@ class HomeViewModel @Inject constructor(
                 val group = currentGroup.value ?: return
                 refreshSchedule(group)
             }
+            HomeEvent.OnOpenDetails -> {}
         }
     }
 
@@ -139,4 +140,5 @@ data class ScheduleState(
 
 sealed interface HomeEvent {
     object OnUpdateSchedule : HomeEvent
+    object OnOpenDetails : HomeEvent
 }
