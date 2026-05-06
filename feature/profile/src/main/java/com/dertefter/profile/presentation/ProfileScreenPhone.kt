@@ -39,7 +39,7 @@ import com.dertefter.profile.presentation.components.RoutesListMenu
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ProfileScreen(
+fun ProfileScreenPhone(
     onEvent: (Event) -> Unit,
     uiState: UiState,
     imageLoader: ImageLoader = LocalContext.current.imageLoader
@@ -173,9 +173,9 @@ fun ProfileScreen(
 
 @Preview(showBackground = true, locale = "ru")
 @Composable
-private fun ProfileScreenUnauthorizedPreview() {
+private fun ProfileScreenPhoneUnauthorizedPreview() {
     AppTheme {
-        ProfileScreen(
+        ProfileScreenPhone(
             onEvent = {},
             uiState = UiState(
                 authStatus = AuthStatus.Unauthorized,
@@ -194,9 +194,9 @@ private fun ProfileScreenUnauthorizedPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ProfileScreenAuthorizedPreview() {
+private fun ProfileScreenPhoneAuthorizedPreview() {
     AppTheme {
-        ProfileScreen(
+        ProfileScreenPhone(
             onEvent = {},
             uiState = UiState(
                 authStatus = AuthStatus.Authorized("ivan_ivanov"),
@@ -230,9 +230,9 @@ private fun ProfileScreenAuthorizedPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ProfileScreenLoadingPreview() {
+private fun ProfileScreenPhoneLoadingPreview() {
     AppTheme {
-        ProfileScreen(
+        ProfileScreenPhone(
             onEvent = {},
             uiState = UiState(
                 authStatus = AuthStatus.Loading("ivan_ivanov"),
