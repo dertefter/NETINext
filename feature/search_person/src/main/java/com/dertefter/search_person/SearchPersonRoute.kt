@@ -16,7 +16,7 @@ fun SearchPersonRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(Event.OnSearchQueryChanged("а"))
+        viewModel.onEvent(Event.OnSearchQueryChanged(""))
     }
 
     SearchPersonScreen(
