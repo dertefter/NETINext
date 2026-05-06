@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
@@ -163,7 +164,7 @@ fun SessiaResultItem(
         }
 
         val progress = if (sessiaResult.score != null && sessiaResult.score != 0){
-            (sessiaResult.score!! / 100f).coerceIn(0f, 1f)
+            ((sessiaResult.score!!.toFloat() - 20f) / 80f).coerceIn(0f, 1f)
         } else if ((sessiaResult.markName?: "").contains("зач", ignoreCase = true)) {
             1f
         } else {
@@ -180,7 +181,12 @@ fun SessiaResultItem(
 
             Box(
             modifier = Modifier
-                .clip(MaterialShapes.Cookie12Sided.toShape(ectsShapeAngle))
+                .shadow(
+                    elevation = 3.dp,
+                    shape = MaterialShapes.Cookie7Sided.toShape(ectsShapeAngle),
+                    spotColor = bgColor
+                )
+                .clip(MaterialShapes.Cookie7Sided.toShape(ectsShapeAngle))
                 .background(bgColor)
                 .size(ectsShapeSize)
         ){
@@ -207,16 +213,29 @@ fun SessiaResultItem(
 @Composable
 fun SessiaResultItemPreview() {
     AppTheme {
-        SessiaResultItem(
-            sessiaResult = SessiaResultDto(
-                name = "Математический анализ",
-                markName = "зачтено",
-                score = 0,
-                typeName = "зачёт",
-                europeanMarkString = null,
-                semester = 1
+        Column() {
+            SessiaResultItem(
+                sessiaResult = SessiaResultDto(
+                    name = "Математический анализ",
+                    markName = "зачтено",
+                    score = 50,
+                    typeName = "зачёт",
+                    europeanMarkString = null,
+                    semester = 1
+                )
             )
-        )
+            SessiaResultItem(
+                sessiaResult = SessiaResultDto(
+                    name = "Математический анализ",
+                    markName = "зачтено",
+                    score = 100,
+                    typeName = "зачёт",
+                    europeanMarkString = null,
+                    semester = 1
+                )
+            )
+        }
+
     }
 }
 
@@ -226,15 +245,28 @@ fun SessiaResultItemPreview() {
 @Composable
 fun SessiaResultItemPreview2() {
     AppTheme {
-        SessiaResultItem(
-            sessiaResult = SessiaResultDto(
-                name = "Математический анализ",
-                markName = "зачтено",
-                score = 0,
-                typeName = "зачёт",
-                europeanMarkString = null,
-                semester = 1
+        Column() {
+            SessiaResultItem(
+                sessiaResult = SessiaResultDto(
+                    name = "Математический анализ",
+                    markName = "зачтено",
+                    score = 70,
+                    typeName = "зачёт",
+                    europeanMarkString = null,
+                    semester = 1
+                )
             )
-        )
+            SessiaResultItem(
+                sessiaResult = SessiaResultDto(
+                    name = "Математический анализ",
+                    markName = "зачтено",
+                    score = 100,
+                    typeName = "зачёт",
+                    europeanMarkString = null,
+                    semester = 1
+                )
+            )
+        }
+
     }
 }
