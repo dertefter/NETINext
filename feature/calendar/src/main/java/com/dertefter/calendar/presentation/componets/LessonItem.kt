@@ -153,7 +153,8 @@ fun LessonItemPreview(){
             modifier = Modifier.padding(10.dp),
             title = "sdjcsjcdjk",
             aud = "4444",
-            type = "практика"
+            type = "практика",
+            personIds = listOf(1,2,3)
         )
     }
 }

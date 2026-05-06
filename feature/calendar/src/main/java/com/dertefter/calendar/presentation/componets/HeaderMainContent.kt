@@ -72,7 +72,7 @@ fun HeaderMainContent(
                     !selectedDate.isBefore(week.getStartDate()) && !selectedDate.isAfter(week.getEndDate())
                 }
                 WeekItem(
-                    weekNumber = selectedWeek?.weekNumber ?: 0,
+                    weekNumber = selectedWeek?.weekNumber,
                     isSelected = true,
                     onClick = { onWeekSelectionVisibilityChange(true) }
                 )
