@@ -1,15 +1,13 @@
 package com.dertefter.data.di
 
 import android.content.Context
+import androidx.room.Room
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.local.LocalDataSourceImpl
-import androidx.room.Room
 import com.dertefter.data.datasource.local.room.AppDatabase
 import com.dertefter.data.datasource.local.room.dao.AccountDao
 import com.dertefter.data.datasource.local.room.dao.MessageDao
 import com.dertefter.data.datasource.local.room.dao.ScheduleDao
-import com.dertefter.data.datasource.local.datastore.CoreDataStoreManager
-import com.dertefter.data.datasource.local.datastore.UserDataStoreManager
 import com.dertefter.data.datasource.remote.CiuRemoteDataSource
 import com.dertefter.data.datasource.remote.CiuRemoteDataSourceImpl
 import com.dertefter.data.datasource.remote.RemoteDataSource
@@ -39,20 +37,6 @@ object DataModule {
     @Provides
     @Singleton
     fun provideGson(): Gson = Gson()
-
-    @Provides
-    @Singleton
-    fun provideUserDataStoreManager(@ApplicationContext context: Context): UserDataStoreManager =
-        UserDataStoreManager(
-            context = context
-        )
-
-    @Provides
-    @Singleton
-    fun provideCoreDataStoreManager(@ApplicationContext context: Context): CoreDataStoreManager =
-        CoreDataStoreManager(
-            context = context
-        )
 
     @Provides
     @Singleton
