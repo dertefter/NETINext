@@ -4,11 +4,11 @@
     <string name="settings_item_account_title">Аккаунт</string>
     <string name="settings_item_account_subtitle">Авторизация, сменить аккаунт</string>
     <string name="settings_item_notifications_title">Уведомления</string>
-    <string name="settings_item_notifications_subtitle">Уведомления о занятиях</string>
+    <string name="settings_item_notifications_subtitle">Напоминания о занятиях</string>
     <string name="settings_item_theme_title">Персонализация</string>
     <string name="settings_item_theme_subtitle">Настрой под себя</string>
     <string name="settings_item_labs_title">Эксперименты</string>
-    <string name="settings_item_labs_subtitle">Не лезь сюда, оно вам не надо</string>
+    <string name="settings_item_labs_subtitle">Используйте с осторожностью</string>
     <string name="settings_item_about_title">О приложении</string>
-    <string name="settings_item_about_subtitle">Немного инфы</string>
+    <string name="settings_item_about_subtitle">Информация о приложении</string>
 </resources>
