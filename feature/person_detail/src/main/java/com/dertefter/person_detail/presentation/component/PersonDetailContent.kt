@@ -18,11 +18,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -74,12 +76,12 @@ fun PersonDetailContent(
     ) {
 
         item {
-            Row(
+            Column(
                 modifier = Modifier
                     .padding(vertical = MaterialTheme.spacing.medium)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraLarge),
-                verticalAlignment = Alignment.CenterVertically
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             )
             {
                 SubcomposeAsyncImage(
@@ -91,7 +93,7 @@ fun PersonDetailContent(
                         verticalBias = -0.2f
                     ),
                     modifier = Modifier
-                        .clip(MaterialTheme.circleShape())
+                        .clip(MaterialShapes.Cookie9Sided.toShape())
                         .clickable(
                             onClick = {
                                 if (!personDetail.avatarUrl.isNullOrEmpty()){
@@ -102,7 +104,7 @@ fun PersonDetailContent(
                             }
                         )
                         .background(MaterialTheme.colorScheme.secondaryContainer)
-                        .size(64.dp)
+                        .size(112.dp)
                 )
                 {
                     when (painter.state) {
@@ -112,8 +114,8 @@ fun PersonDetailContent(
                             ) {
                                 Icon(
                                     modifier = Modifier
-                                        .size(44.dp),
-                                    imageVector = Icons.UserFilled,
+                                        .size(48.dp),
+                                    imageVector = Icons.User,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
@@ -126,19 +128,16 @@ fun PersonDetailContent(
                     }
                 }
 
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                ) {
+                Text(
+                    text = personDetail.name ?: "",
+                    modifier = Modifier.padding(top = MaterialTheme.spacing.small),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                personDetail.post?.let {
                     Text(
-                        text = personDetail.name ?: "",
-                        style = MaterialTheme.typography.headlineSmall
+                        text = it,
+                        style = MaterialTheme.typography.labelLargeEmphasized
                     )
-                    personDetail.post?.let {
-                        Text(
-                            text = it,
-                            style = MaterialTheme.typography.labelLargeEmphasized
-                        )
-                    }
                 }
 
             }
@@ -146,7 +145,9 @@ fun PersonDetailContent(
 
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
             ) {
 

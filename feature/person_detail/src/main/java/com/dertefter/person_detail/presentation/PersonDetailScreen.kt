@@ -24,6 +24,7 @@ import com.dertefter.design.components.PullToRefreshIndicator
 import com.dertefter.design.components.appbar.AppToolbar
 import com.dertefter.design.components.buttons.AppNavigationIcon
 import com.dertefter.design.components.common.ErrorLarge
+import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.person_detail.presentation.component.PersonDetailContent
@@ -86,7 +87,7 @@ fun PersonDetailScreen(
         ) {
             if (uiState.isLoading && uiState.personDetail == null) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    LoadingIndicator()
+                    AppLoadingIndicator()
                 }
             } else if (uiState.error != null && uiState.personDetail == null) {
                 ErrorLarge(
