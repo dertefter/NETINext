@@ -10,4 +10,6 @@ sealed class Event {
 
     data class OnRemoveGroupFromHistory(val groupDto: GroupDto) : Event()
 
+    object OnClearGroupHistory : Event()
+
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,31 +24,31 @@ import androidx.compose.ui.unit.dp
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
-import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
 import com.dertefter.search_group.R
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun GroupHistoryItem(
+    modifier: Modifier = Modifier,
     group: GroupDto,
     onClick: () -> Unit,
     onRemove: () -> Unit
 ) {
 
     Row(
-        modifier = Modifier
-            .clip(MaterialTheme.circleShape())
-            .background(MaterialTheme.colorScheme.secondaryContainer),
+        modifier = modifier
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.secondary),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .padding(start = MaterialTheme.spacing.extraLarge, top = 8.dp, bottom = 8.dp, end = 4.dp),
+                .padding(start = MaterialTheme.spacing.extraLarge),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                color = MaterialTheme.colorScheme.onSecondary,
                 textAlign = TextAlign.Center,
                 text = group.name.uppercase(),
                 style = MaterialTheme.typography.bodyMedium,
@@ -57,11 +58,12 @@ fun GroupHistoryItem(
 
         IconButton(
             onClick = onRemove,
+            modifier = Modifier.size(40.dp)
         ) {
             Icon(
                 imageVector = Icons.Close,
                 contentDescription = stringResource(R.string.search_group_remove_from_history),
-                tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                tint = MaterialTheme.colorScheme.onSecondary,
             )
         }
 
@@ -93,7 +95,7 @@ fun GroupHistoryItemPreview() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             list.forEach {
-                GroupHistoryItem(group = it, {}, {})
+                GroupHistoryItem(modifier = Modifier, group = it, {}, {})
             }
         }
     }

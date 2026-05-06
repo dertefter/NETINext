@@ -6,4 +6,6 @@
     <string name="search_group_search_group">Поиск группы</string>
     <string name="search_group_nothing_searched">Ничего не нашлось</string>
     <string name="search_group_history">Недавние группы</string>
+    <string name="search_group_voice_prompt">Произнесите название группы</string>
+    <string name="search_group_clear_all">Очистить всё</string>
 </resources>

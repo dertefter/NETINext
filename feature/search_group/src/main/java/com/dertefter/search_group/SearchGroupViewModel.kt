@@ -11,6 +11,7 @@ import com.dertefter.search_group.usecase.RemoveGroupFromHistoryUseCase
 import com.dertefter.search_group.usecase.SelectGroupUseCase
 import com.dertefter.search_group.presentation.Event
 import com.dertefter.search_group.presentation.UiState
+import com.dertefter.search_group.usecase.ClearGroupHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,6 +27,7 @@ class SearchGroupViewModel @Inject constructor(
     private val navigateBackUseCase: NavigateBackUseCase,
     private val removeGroupFromHistoryUseCase: RemoveGroupFromHistoryUseCase,
     private val getSearchResultsUseCase: GetSearchResultsUseCase,
+    private val clearGroupHistoryUseCase: ClearGroupHistoryUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState("", emptyList()))
@@ -51,6 +53,12 @@ class SearchGroupViewModel @Inject constructor(
 
             is Event.OnRemoveGroupFromHistory -> {
                 removeGroupFromHistory(event.groupDto)
+            }
+
+            is Event.OnClearGroupHistory -> {
+                viewModelScope.launch {
+                    clearGroupHistoryUseCase()
+                }
             }
         }
     }

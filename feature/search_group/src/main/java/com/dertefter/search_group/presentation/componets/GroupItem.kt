@@ -33,7 +33,7 @@ fun GroupItem(
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(MaterialTheme.circleShape())
+            .clip(MaterialTheme.shapes.medium)
             .clickable(onClick = onClick)
             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .padding(MaterialTheme.spacing.large),

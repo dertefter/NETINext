@@ -1,17 +1,21 @@
 package com.dertefter.search_group.presentation
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -28,6 +32,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,6 +70,8 @@ fun SearchGroupScreen(
         }
     }
 
+    val voicePromptString = stringResource(R.string.search_group_voice_prompt)
+
     Scaffold(
       containerColor = Color.Transparent,
         topBar = {
@@ -96,12 +103,14 @@ fun SearchGroupScreen(
                             IconButton(
                                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
                                 onClick = {
-                                    val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                                        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                                        putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-                                        putExtra(RecognizerIntent.EXTRA_PROMPT, "Произнесите название группы")
-                                    }
-                                    speechRecognizerLauncher.launch(intent)
+                                    try {
+                                        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                                            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                                            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                                            putExtra(RecognizerIntent.EXTRA_PROMPT, voicePromptString)
+                                        }
+                                        speechRecognizerLauncher.launch(intent)
+                                    } catch (_: ActivityNotFoundException) { }
                                 }
                             ) {
                                 Icon(Icons.Mic, contentDescription = stringResource(R.string.search_group_voice_recogintion))
@@ -121,33 +130,61 @@ fun SearchGroupScreen(
                     ),
                 )
 
-                if (uiState.groupHistory.isNotEmpty()){
-                    LazyRow(
-                        contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.defaultScreenPadding),
-                        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        item {
-                            Icon(
-                                imageVector = Icons.History,
-                                contentDescription = stringResource(R.string.search_group_history),
-                                modifier = Modifier
-                                    .clip(MaterialTheme.circleShape())
-                                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                                    .padding(MaterialTheme.spacing.medium)
-                            )
-                        }
 
-                        items(uiState.groupHistory) { group ->
-                            GroupHistoryItem(
-                                group = group,
-                                onClick = {
-                                    onEvent(Event.OnSelectGroup(group))
-                                },
-                                {
-                                    onEvent(Event.OnRemoveGroupFromHistory(group))
-                                }
-                            )
+                AnimatedVisibility(
+                    visible =  uiState.groupHistory.isNotEmpty()
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(MaterialTheme.spacing.defaultScreenPadding)
+                            .clip(MaterialTheme.shapes.largeIncreased)
+                            .background(MaterialTheme.colorScheme.secondaryContainer)
+                            .fillMaxWidth(),
+                    ) {
+
+                        Text(
+                            text = stringResource(R.string.search_group_history),
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            style = MaterialTheme.typography.titleMediumEmphasized,
+                            modifier = Modifier
+                                .padding(top = MaterialTheme.spacing.extraLarge)
+                                .padding(horizontal = MaterialTheme.spacing.extraLarge)
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(MaterialTheme.spacing.large)
+                        )
+
+                        LazyRow(
+                            contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.extraLarge,),
+                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            items(
+                                items = uiState.groupHistory,
+                                key = { it.name }
+                            ) { group ->
+                                GroupHistoryItem(
+                                    modifier = Modifier.animateItem(),
+                                    group = group,
+                                    onClick = {
+                                        onEvent(Event.OnSelectGroup(group))
+                                    },
+                                    onRemove = {
+                                        onEvent(Event.OnRemoveGroupFromHistory(group))
+                                    }
+                                )
+                            }
+                        }
+                        TextButton(
+                            onClick = {
+                                onEvent(
+                                    Event.OnClearGroupHistory
+                                )
+                            },
+                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            Text(stringResource(R.string.search_group_clear_all))
                         }
                     }
                 }
@@ -217,27 +254,25 @@ fun SearchGroupScreen(
 @Composable
 @Preview(showBackground = true)
 fun SearchGroupScreenPreview() {
-    AppTheme (
-        isCut = true
-    ) {
+    AppTheme () {
 
         val l = listOf(
             GroupDto("ПММ-51"),
             GroupDto("ПММ-52"),
             GroupDto("ПМ-11"),
             GroupDto("ПМ-12"),
-            GroupDto("ПММ-51"),
-            GroupDto("ПММ-52"),
-            GroupDto("ПМ-11"),
-            GroupDto("ПМ-12"),
-            GroupDto("ПММ-51"),
-            GroupDto("ПММ-52"),
-            GroupDto("ПМ-11"),
-            GroupDto("ПМ-12"),
-            GroupDto("ПММ-51"),
-            GroupDto("ПММ-52"),
-            GroupDto("ПМ-11"),
-            GroupDto("ПМ-12"),
+            GroupDto("ПММ-53"),
+            GroupDto("ПММ-54"),
+            GroupDto("ПМ-13"),
+            GroupDto("ПМ-14"),
+            GroupDto("ПММ-55"),
+            GroupDto("ПММ-56"),
+            GroupDto("ПМ-15"),
+            GroupDto("ПМ-16"),
+            GroupDto("ПММ-57"),
+            GroupDto("ПММ-58"),
+            GroupDto("ПМ-17"),
+            GroupDto("ПМ-18"),
         )
 
         SearchGroupScreen(

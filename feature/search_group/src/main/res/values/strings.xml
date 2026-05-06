@@ -6,4 +6,6 @@
     <string name="search_group_search_group">Search group</string>
     <string name="search_group_nothing_searched">Nothing found</string>
     <string name="search_group_history">Recent groups</string>
+    <string name="search_group_voice_prompt">Say the group name</string>
+    <string name="search_group_clear_all">Clear all</string>
 </resources>
