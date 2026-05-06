@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
@@ -65,7 +66,7 @@ fun GroupButton(
             }
         ) { loading ->
             if (loading) {
-                LoadingIndicator(
+                AppLoadingIndicator(
                     modifier = Modifier.size(40.dp),
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )

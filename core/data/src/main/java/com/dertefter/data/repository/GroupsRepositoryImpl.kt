@@ -30,6 +30,10 @@ class GroupsRepositoryImpl @Inject constructor(
         localDataSource.saveGroupHistory(newHistory)
     }
 
+    override suspend fun clearGroupHistory() {
+        localDataSource.saveGroupHistory(emptyList())
+    }
+
     private suspend fun addGroupToHistory(group: GroupDto) {
         val currentHistory = localDataSource.getGroupHistory().first()
         val newHistory = listOf(group) + currentHistory.filter { it.name != group.name }

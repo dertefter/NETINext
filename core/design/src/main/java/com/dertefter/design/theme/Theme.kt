@@ -1,7 +1,6 @@
 package com.dertefter.design.theme
 
 import android.os.Build
-import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -17,8 +16,12 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -30,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import com.materialkolor.DynamicMaterialExpressiveTheme
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
-import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.harmonize
 import com.materialkolor.rememberDynamicMaterialThemeState
+import kotlinx.coroutines.delay
 
 private val DarkColorScheme = darkColorScheme()
 
@@ -43,6 +46,8 @@ val LocalIsFold = staticCompositionLocalOf { false }
 val LocalIsTab = staticCompositionLocalOf { false }
 
 val LocalSeedColor = staticCompositionLocalOf<Long?> { null }
+
+val LocalIsLessonHintExpanded = staticCompositionLocalOf { true }
 
 @Immutable
 data class CustomColors(
@@ -83,6 +88,11 @@ val MaterialTheme.seedColor: Long?
     @Composable
     @ReadOnlyComposable
     get() = LocalSeedColor.current
+
+val MaterialTheme.isLessonHintExpanded: Boolean
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalIsLessonHintExpanded.current
 
 val MaterialTheme.isCut: Boolean
     @Composable
@@ -142,6 +152,12 @@ fun AppTheme(
 
     val context = LocalContext.current
 
+    var isLessonHintExpanded by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(8000L)
+        isLessonHintExpanded = false
+    }
+
     val colorScheme = if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (darkTheme) {
             dynamicDarkColorScheme(context)
@@ -181,7 +197,8 @@ fun AppTheme(
         LocalIsFold provides isFold,
         LocalIsTab provides isTab,
         LocalIsCut provides isCut,
-        LocalSeedColor provides seedColor
+        LocalSeedColor provides seedColor,
+        LocalIsLessonHintExpanded provides isLessonHintExpanded
     ) {
         DynamicMaterialExpressiveTheme(
             state = dynamicThemeState,

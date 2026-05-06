@@ -25,6 +25,8 @@ object Icons {
     val SwapVert: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_swap_vert)
 
+    val SwapHoriz: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_swap_horiz)
     val Star: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_star)
     val ArrowWarmUp: ImageVector

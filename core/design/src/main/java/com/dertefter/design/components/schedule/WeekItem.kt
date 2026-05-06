@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.Morph
+import com.dertefter.design.icons.Icons
 import com.dertefter.design.shape.MorphPolygonShape
 import com.dertefter.design.theme.AppTheme
 
@@ -39,7 +41,7 @@ import com.dertefter.design.theme.AppTheme
 @Composable
 fun WeekItem(
     modifier: Modifier = Modifier,
-    weekNumber: Int,
+    weekNumber: Int?,
     isSelected: Boolean = false,
     isCurrentWeek: Boolean = false,
     onClick: () -> Unit = {}
@@ -47,14 +49,14 @@ fun WeekItem(
 
     val backgroundColor by animateColorAsState(
         targetValue = when {
-            isCurrentWeek -> MaterialTheme.colorScheme.tertiary
+            (isCurrentWeek || weekNumber == null) -> MaterialTheme.colorScheme.tertiary
             isSelected -> MaterialTheme.colorScheme.tertiaryContainer
             else -> MaterialTheme.colorScheme.surfaceVariant
         }, label = "backgroundColor"
     )
 
     val morph = remember {
-        if (isCurrentWeek) {
+        if (isCurrentWeek || weekNumber == null) {
             Morph(MaterialShapes.Pill, MaterialShapes.Cookie4Sided)
         } else {
             Morph(MaterialShapes.Pill, MaterialShapes.Circle)
@@ -63,7 +65,7 @@ fun WeekItem(
     }
 
     val shapeProgress by animateFloatAsState(
-        targetValue = if (isSelected) 0f else 1f,
+        targetValue = if (isSelected && weekNumber != null) 0f else 1f,
         animationSpec = MaterialTheme.motionScheme.fastSpatialSpec(),
         label = "shapeProgress"
     )
@@ -74,7 +76,7 @@ fun WeekItem(
 
     val textColor by animateColorAsState(
         targetValue = when {
-            isCurrentWeek -> MaterialTheme.colorScheme.onTertiary
+            (isCurrentWeek || weekNumber == null)  -> MaterialTheme.colorScheme.onTertiary
             isSelected -> MaterialTheme.colorScheme.onTertiaryContainer
             else -> MaterialTheme.colorScheme.onSurfaceVariant
         }, label = "textColor"
@@ -94,28 +96,28 @@ fun WeekItem(
             .size(40.dp)
     ) {
         AnimatedContent(
-
             weekNumber,
-            transitionSpec = {
-                if (targetState > initialState) {
-                    (slideInVertically { height -> height } + fadeIn()) togetherWith
-                            (slideOutVertically { height -> -height } + fadeOut())
-                } else {
-                    (slideInVertically { height -> -height } + fadeIn()) togetherWith
-                            (slideOutVertically { height -> height } + fadeOut())
-                }
-            },
             modifier = Modifier.align(Alignment.Center)
         ) { weekNumber ->
-            Text(
-                color = textColor,
-                text = weekNumber.toString(),
-                maxLines = 1,
-                style = MaterialTheme.typography.titleMedium,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight(fontWeight)
-            )
+            if (weekNumber != null){
+                Text(
+                    color = textColor,
+                    text = weekNumber.toString(),
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight(fontWeight)
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Calendar,
+                    contentDescription = null,
+                    tint = textColor,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+
         }
 
     }
@@ -150,8 +152,7 @@ fun WeekItemPreview2() {
 
             WeekItem(weekNumber = 10, isSelected = false)
 
-            WeekItem(weekNumber = 11, isSelected = false)
-            GroupButton()
+            WeekItem(weekNumber = null, isSelected = true)
         }
 
     }

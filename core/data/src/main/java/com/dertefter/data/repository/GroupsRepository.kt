@@ -11,6 +11,8 @@ interface GroupsRepository {
 
     suspend fun removeGroupFromHistory(group: GroupDto)
 
+    suspend fun clearGroupHistory()
+
     fun getCurrentGroup(): Flow<GroupDto?>
 
     suspend fun setCurrentGroup(group: GroupDto)
