@@ -6,29 +6,29 @@ import com.dertefter.data.common.AppException
 import com.dertefter.data.datasource.remote.api.BaseApiService
 import com.dertefter.data.datasource.remote.api.CiuApiService
 import com.dertefter.data.datasource.remote.api.Login2ApiService
-import com.dertefter.data.datasource.remote.api.parsers.parseFormParams
-import com.dertefter.data.datasource.remote.api.parsers.parseMessages
-import com.dertefter.data.datasource.remote.api.parsers.parseNews
-import com.dertefter.data.datasource.remote.api.parsers.parseNewsDetail
-import com.dertefter.data.datasource.remote.api.parsers.parsePersonDetail
-import com.dertefter.data.datasource.remote.api.parsers.parsePersonShorts
-import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
-import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
 import com.dertefter.data.datasource.remote.api.parsers.parseDocCancelable
 import com.dertefter.data.datasource.remote.api.parsers.parseDocsList
 import com.dertefter.data.datasource.remote.api.parsers.parseDocsOptionsList
 import com.dertefter.data.datasource.remote.api.parsers.parseEvents
+import com.dertefter.data.datasource.remote.api.parsers.parseFormParamsAuth
 import com.dertefter.data.datasource.remote.api.parsers.parseLksList
+import com.dertefter.data.datasource.remote.api.parsers.parseMessages
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyItems
 import com.dertefter.data.datasource.remote.api.parsers.parseMoneyYearList
+import com.dertefter.data.datasource.remote.api.parsers.parseNews
+import com.dertefter.data.datasource.remote.api.parsers.parseNewsDetail
+import com.dertefter.data.datasource.remote.api.parsers.parsePersonDetail
+import com.dertefter.data.datasource.remote.api.parsers.parsePersonShorts
 import com.dertefter.data.datasource.remote.api.parsers.parsePromo
+import com.dertefter.data.datasource.remote.api.parsers.parseSchedule
+import com.dertefter.data.datasource.remote.api.parsers.parseSearchGroupResults
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaResults
 import com.dertefter.data.datasource.remote.api.parsers.parseSessiaSchedule
 import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
 import com.dertefter.data.datasource.remote.api.parsers.parseWeekHeader
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
-import com.dertefter.data.dto.auth.Login2FormParams
+import com.dertefter.data.dto.auth.Login2FormParamsAuth
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.docs.DocumentOptionItem
 import com.dertefter.data.dto.docs.DocumentRequestItem
@@ -66,8 +66,8 @@ class CiuRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun authorizeCiu(login: String, password: String): Result<Unit> {
         return runCatching {
-            ciuSessionCookieJar.cleanUp()
-            getLogin2FormParams().onSuccess { params ->
+            logout()
+            getLogin2FormParamsAuth().onSuccess { params ->
                 return requestAuthenticate(params, login, password)
             }.onFailure {
                 throw AppException(AppError.Network.Unauthorized)
@@ -354,18 +354,17 @@ class CiuRemoteDataSourceImpl @Inject constructor(
 
 
 
-    private suspend fun getLogin2FormParams(): Result<Login2FormParams> {
+    private suspend fun getLogin2FormParamsAuth(): Result<Login2FormParamsAuth> {
         return runCatching {
-            val response = login2ApiService.getLogin2FromParams()
+            val response = login2ApiService.getLogin2FormParamsAuth()
             val bodyString = response.string()
-            val formParams = parseFormParams(bodyString)
+            val formParams = parseFormParamsAuth(bodyString)
             formParams
         }
 
     }
-
     private suspend fun requestAuthenticate(
-        login2FormParams: Login2FormParams, login: String, password: String
+        login2FormParamsAuth: Login2FormParamsAuth, login: String, password: String
     ): Result<Unit> {
 
         return runCatching {
@@ -377,11 +376,11 @@ class CiuRemoteDataSourceImpl @Inject constructor(
             paramLoginPassword["credentialId"] = ""
 
             val response = login2ApiService.authenticate(
-                sessionCode = login2FormParams.sessionCode,
-                execution = login2FormParams.execution,
-                clientId = login2FormParams.clientId,
-                tabId = login2FormParams.tabId,
-                clientData = login2FormParams.clientData,
+                sessionCode = login2FormParamsAuth.sessionCode,
+                execution = login2FormParamsAuth.execution,
+                clientId = login2FormParamsAuth.clientId,
+                tabId = login2FormParamsAuth.tabId,
+                clientData = login2FormParamsAuth.clientData,
                 username = login,
                 password = password,
                 usernameVisible = login,
@@ -391,8 +390,6 @@ class CiuRemoteDataSourceImpl @Inject constructor(
                 throw AppException(AppError.Network.Unauthorized)
             }
         }
-
-
     }
 
 }

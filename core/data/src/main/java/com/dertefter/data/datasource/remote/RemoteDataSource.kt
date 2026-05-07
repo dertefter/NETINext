@@ -29,7 +29,7 @@ interface RemoteDataSource  {
 
     suspend fun authorizeYourNeti(login: String, password: String): Result<Unit>
 
-    fun logout()
+    suspend fun logout()
 
     suspend fun getUserInfo(): Result<UserInfoDto?>
 

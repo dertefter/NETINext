@@ -45,7 +45,8 @@ import com.dertefter.data.dto.money.MoneyItemDto
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LocalDataSourceImpl @Inject constructor(
-    private val appDatabase: AppDatabase
+    private val appDatabase: AppDatabase,
+    private val encryptedAuthStorage: EncryptedAuthStorage
 ) : LocalDataSource {
 
     private val accountDao = appDatabase.accountDao()
@@ -178,15 +179,21 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override fun getAuthCreds(): Flow<AuthCreditions?> {
-        return getCurrentLogin().flatMapLatest { login ->
-            accountDao.getAccount(login ?: GUEST_LOGIN).map { it?.authCreds }
+        return getCurrentLogin().map { login ->
+            if (login == null) null
+            else encryptedAuthStorage.getAuthCreds(login)
         }
     }
 
     override suspend fun saveAuthCreds(authCreds: AuthCreditions?) {
         val login = getCurrentLoginValue()
-        val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
-        accountDao.insertAccount(account.copy(authCreds = authCreds))
+        if (login != GUEST_LOGIN) {
+            if (authCreds != null) {
+                encryptedAuthStorage.saveAuthCreds(login, authCreds)
+            } else {
+                encryptedAuthStorage.deleteAuthCreds(login)
+            }
+        }
     }
 
     override fun getGroupHistory(): Flow<List<GroupDto>> {
@@ -203,6 +210,7 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun removeFromAccountHistory(login: String) {
         accountDao.deleteAccount(login)
+        encryptedAuthStorage.deleteAuthCreds(login)
     }
 
     override suspend fun addToAccountHistory(login: String) {

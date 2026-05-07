@@ -115,8 +115,8 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout() {
-        localDataSource.logout()
         remoteDataSource.logout()
+        localDataSource.logout()
         setCiuAuthStatus(AuthStatus.Unauthorized)
         setYourNetiAuthStatus(AuthStatus.Unauthorized)
     }

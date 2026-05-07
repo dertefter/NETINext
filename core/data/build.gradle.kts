@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.datastore.preferences)
     implementation(libs.androidx.datastore.core)
+    implementation(libs.encryptedprefs)
     ksp(libs.hilt.compiler)
 
     implementation(libs.room.runtime)

@@ -20,9 +20,7 @@ class SessionCookieJar () : CookieJar {
                 hostCookies.add(newCookie)
 
                 if (newCookie.name == "NSTUPHPSESSID") {
-                    if (NSTUPHPSESSID.isEmpty()) {
-                        NSTUPHPSESSID = newCookie.value
-                    }
+                    NSTUPHPSESSID = newCookie.value
                 }
             }
         }
@@ -32,19 +30,22 @@ class SessionCookieJar () : CookieJar {
         synchronized(this) {
             val hostCookies = cookieStore.getOrPut(url.host) { mutableListOf() }
             hostCookies.removeAll { it.name == "NSTUPHPSESSID" }
-            val newCookie = Cookie.Builder()
-                .name("NSTUPHPSESSID")
-                .value(NSTUPHPSESSID)
-                .domain(url.host)
-                .path("/")
-                .build()
-            hostCookies.add(newCookie)
+            if (NSTUPHPSESSID.isNotEmpty()) {
+                val newCookie = Cookie.Builder()
+                    .name("NSTUPHPSESSID")
+                    .value(NSTUPHPSESSID)
+                    .domain(url.host)
+                    .path("/")
+                    .build()
+                hostCookies.add(newCookie)
+            }
             return ArrayList(hostCookies)
         }
     }
 
     fun cleanUp() {
         synchronized(this) {
+            NSTUPHPSESSID = ""
             cookieStore.clear()
         }
     }

@@ -43,7 +43,7 @@ class RemoteDataSourceImpl @Inject constructor(
 
     }
 
-    override fun logout() {
+    override suspend fun logout() {
         ciuRemoteDataSource.logout()
         yourNetiRemoteDataSource.logout()
     }

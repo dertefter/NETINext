@@ -1,11 +1,11 @@
 package com.dertefter.data.datasource.remote.api.parsers
 
-import com.dertefter.data.dto.auth.Login2FormParams
+import com.dertefter.data.dto.auth.Login2FormParamsAuth
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.LksDto
 import org.jsoup.Jsoup
 
-fun parseFormParams(html: String): Login2FormParams {
+fun parseFormParamsAuth(html: String): Login2FormParamsAuth {
     val actionUrl = Jsoup.parse(html).selectFirst("form.login-form")?.attr("action")
     val params = actionUrl?.substringAfter("?", "")
         ?.split("&")
@@ -15,7 +15,7 @@ fun parseFormParams(html: String): Login2FormParams {
         }.orEmpty()
 
     if (params.isEmpty()) throw NullPointerException()
-    return Login2FormParams(
+    return Login2FormParamsAuth(
         sessionCode = params["session_code"].orEmpty(),
         execution = params["execution"].orEmpty(),
         clientId = params["client_id"].orEmpty(),
@@ -23,7 +23,6 @@ fun parseFormParams(html: String): Login2FormParams {
         clientData = params["client_data"].orEmpty(),
     )
 }
-
 
 
 fun verifyAuth(html: String): Boolean {
@@ -53,7 +52,7 @@ fun parseContactInfo(html: String): ContactInfoDto {
     val lksList = mutableListOf<LksDto>()
     val elements = doc.select("div#other_lks_content > div.other_lks")
 
-    for (element in elements.orEmpty()) {
+    for (element in elements) {
         val id = element.select("a[onclick]").first()?.let { a ->
             val onclick = a.attr("onclick")
             Regex("selectOtherLks\\((\\d+)\\)").find(onclick)?.groupValues?.get(1)?.toInt()
@@ -90,7 +89,7 @@ fun parseLksList(html: String): List<LksDto> {
     val lksList = mutableListOf<LksDto>()
     val elements = doc.select("div#other_lks_content > div.other_lks")
 
-    for (element in elements.orEmpty()) {
+    for (element in elements) {
         val id = element.select("a[onclick]").first()?.let { a ->
             val onclick = a.attr("onclick")
             Regex("selectOtherLks\\((\\d+)\\)").find(onclick)?.groupValues?.get(1)?.toInt()

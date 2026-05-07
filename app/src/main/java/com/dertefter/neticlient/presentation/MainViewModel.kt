@@ -1,5 +1,6 @@
 package com.dertefter.neticlient.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.dto.auth.AuthStatus
@@ -115,7 +116,6 @@ class MainViewModel @Inject constructor(
                     if (authRepository.ciuAuthStatus.first() != AuthStatus.Authorized(it.xLogin)){
                         authRepository.authorizeFull(it.xLogin, it.xPassword)
                     }
-
                     wearClient.sendData("xLogin", it.xLogin)
                     wearClient.sendData("xPassword", it.xPassword)
                 }
