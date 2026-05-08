@@ -22,6 +22,8 @@ sealed class Event {
 
     object OnNavigateToCalendar : Event()
 
+    object OnHideTg : Event()
+
     data class OnOpenLessonDetail(
         val name: String,
         val type: String? = null,

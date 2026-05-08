@@ -11,4 +11,5 @@ data class ScheduleState(
     val timeSlots: List<TimeSlotDto> = emptyList(),
     val isLoading: Boolean = false,
     val error: AppError? = null,
+    val isTgShow: Boolean = false
 )

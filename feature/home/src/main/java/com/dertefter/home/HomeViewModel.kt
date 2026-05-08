@@ -20,6 +20,8 @@ import com.dertefter.home.usecase.UpdateScheduleUseCase
 import com.dertefter.home.presentation.Event
 import com.dertefter.home.presentation.NewsState
 import com.dertefter.home.presentation.ScheduleState
+import com.dertefter.home.usecase.GetIsTgShowUseCase
+import com.dertefter.home.usecase.SetIsTgShowUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -53,6 +55,8 @@ class HomeViewModel @Inject constructor(
     private val openSearchGroupUseCase: OpenSearchGroupUseCase,
     private val navigateToNewsDetailUseCase: NavigateToNewsDetailUseCase,
     private val openLessonDetailUseCase: OpenLessonDetailUseCase,
+    private val getIsTgShowUseCase: GetIsTgShowUseCase,
+    private val setIsTgShowUseCase: SetIsTgShowUseCase
 ) : ViewModel() {
 
     private val _newsState = MutableStateFlow(
@@ -65,6 +69,8 @@ class HomeViewModel @Inject constructor(
     private val _isScheduleLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     private val _scheduleError: MutableStateFlow<AppError?> = MutableStateFlow(null)
+
+    private val _isTgShow = getIsTgShowUseCase().map { it != false }
 
 
     val promo = getCachedPromoUseCase().map { it ?: emptyList() }
@@ -126,14 +132,16 @@ class HomeViewModel @Inject constructor(
         nextDayData,
         _isScheduleLoading,
         _scheduleError,
-        currentGroup
-    ) { data, isLoading, error, group ->
+        currentGroup,
+        _isTgShow
+    ) { data, isLoading, error, group, isTgShow ->
         ScheduleState(
             date = data?.first,
             timeSlots = data?.second ?: emptyList(),
             group = group,
             isLoading = isLoading,
-            error = error
+            error = error,
+            isTgShow = isTgShow
         )
     }.stateIn(
         scope = viewModelScope,
@@ -159,8 +167,12 @@ class HomeViewModel @Inject constructor(
                 openSearchGroupUseCase()
             }
 
-            is Event.RequestLoadingNews -> {
-                // Paging 3 handles loading automatically, but we can trigger refresh if needed
+            is Event.RequestLoadingNews -> {}
+
+            is Event.OnHideTg -> {
+                viewModelScope.launch {
+                    setIsTgShowUseCase(false)
+                }
             }
 
             is Event.OnNewsClick -> {
