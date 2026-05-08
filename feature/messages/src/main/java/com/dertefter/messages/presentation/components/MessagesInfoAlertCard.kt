@@ -6,27 +6,38 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.dertefter.messages.R
 import com.dertefter.design.icons.Icons
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.spacing
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MessagesInfoAlertCard(
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {}
 ) {
+    val descriptionText = stringResource(R.string.messages_info_alert_description)
+    val linkText = stringResource(R.string.messages_info_alert_link)
 
     Column(
         modifier = modifier
@@ -57,26 +68,37 @@ fun MessagesInfoAlertCard(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
                 Text(
-                    text = "Это не почтовый ящик!",
+                    text = stringResource(R.string.messages_info_alert_title),
                     style = MaterialTheme.typography.titleMediumEmphasized
                 )
                 Text(
-                    text = "Здесь вы можете ознакомиться с сообщениями от преподавателей и служб",
+                    text = buildAnnotatedString {
+                        append(descriptionText)
+                        withLink(LinkAnnotation.Url("https://id.nstu.ru/email")) {
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            ) {
+                                append(linkText)
+                            }
+                        }
+                    },
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
 
-        Button(
+        TextButton(
             onClick = onClose,
             modifier = Modifier
                 .align(Alignment.End),
-            colors = ButtonDefaults.textButtonColors().copy(
-                containerColor =  MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.primary
-            )
         ) {
-            Text("Понятно")
+            Text(
+                text = stringResource(R.string.messages_info_alert_dismiss),
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+            )
         }
 
     }
