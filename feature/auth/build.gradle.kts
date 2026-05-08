@@ -40,6 +40,7 @@ dependencies {
 
     implementation(project(":core:data"))
     implementation(project(":core:design"))
+    implementation(project(":core:navigation"))
 
     implementation(libs.core.ktx)
     implementation(platform(libs.compose.bom))

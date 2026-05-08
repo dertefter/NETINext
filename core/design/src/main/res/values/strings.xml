@@ -10,6 +10,7 @@
         <item quantity="one">In %d day</item>
         <item quantity="few">In %d days</item>
         <item quantity="many">In %d days</item>
+        <item quantity="other">In %d days</item>
     </plurals>
     <string name="design_auth_req_title">Sign in to your NSTU NETI student account</string>
     <string name="design_auth_req_text">This will enable you to use some features</string>

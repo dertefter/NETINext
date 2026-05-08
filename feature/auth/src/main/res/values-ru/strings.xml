@@ -13,4 +13,9 @@
     <string name="auth_saved_accounts">Сохранённые аккаунты</string>
     <string name="auth_your_account">Ваш аккаунт</string>
     <string name="auth_waiting_to_connect">Ожидание подключения</string>
+    <string name="auth_login_title">Авторизация</string>
+    <string name="auth_login_hint">Логин</string>
+    <string name="auth_password_hint">Пароль</string>
+    <string name="auth_error_login_failed">Не удалось войти в аккаунт</string>
+    <string name="auth_login_button">Войти</string>
 </resources>

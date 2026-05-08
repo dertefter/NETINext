@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.auth.domain.usecase.AuthorizeFullUseCase
 import com.dertefter.auth.domain.usecase.LogoutUseCase
+import com.dertefter.auth.domain.usecase.NavigateBackUseCase
 import com.dertefter.auth.presentation.Event
 import com.dertefter.auth.presentation.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val authorizeFullUseCase: AuthorizeFullUseCase,
+    private val navigateBackUseCase: NavigateBackUseCase,
 ) : ViewModel() {
 
     private val _login = MutableStateFlow("")
@@ -42,7 +44,7 @@ class AuthViewModel @Inject constructor(
             password = password,
             isPasswordVisible = isPasswordVisible,
             isLoading = isLoading,
-            isError = isError
+            isError = isError,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -71,6 +73,9 @@ class AuthViewModel @Inject constructor(
             }
 
             Event.OnSubmit -> submit()
+
+            Event.OnNavigateBack -> navigateBackUseCase()
+
         }
     }
 

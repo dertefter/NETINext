@@ -13,4 +13,9 @@
     <string name="auth_saved_accounts">Saved accounts</string>
     <string name="auth_your_account">Your account</string>
     <string name="auth_waiting_to_connect">Waiting for connection</string>
+    <string name="auth_login_title">Log in</string>
+    <string name="auth_login_hint">Login</string>
+    <string name="auth_password_hint">Password</string>
+    <string name="auth_error_login_failed">Failed to log in</string>
+    <string name="auth_login_button">Log in</string>
 </resources>

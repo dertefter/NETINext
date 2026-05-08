@@ -5,5 +5,5 @@ data class UiState(
     val password: String = "",
     val isPasswordVisible: Boolean = false,
     val isLoading: Boolean = false,
-    val isError: Boolean = false,
+    val isError: Boolean = false
 )
