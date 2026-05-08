@@ -4,21 +4,25 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -82,20 +86,6 @@ fun SettingsAccountScreen(
                 }
 
             } else {
-
-                item {
-                    Text(
-                        text = stringResource(R.string.settings_account_logged_in_as),
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.labelLargeEmphasized,
-                        modifier = Modifier
-                            .padding(top = MaterialTheme.spacing.small)
-                            .padding(vertical = MaterialTheme.spacing.small)
-                            .padding(horizontal = MaterialTheme.rounding.large)
-                            .fillMaxWidth()
-                    )
-                }
-
                 item {
                     Column(
                         modifier = Modifier
@@ -107,31 +97,47 @@ fun SettingsAccountScreen(
                                     )
                                 }
                             )
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
-                            .padding(MaterialTheme.spacing.extraLarge)
+                            .background(MaterialTheme.colorScheme.surfaceContainer)
                             .fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
                     ) {
                         Text(
                             text = uiState.login,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyLargeEmphasized,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Start,
                             modifier = Modifier
+                                .padding(horizontal = MaterialTheme.spacing.extraLarge)
+                                .padding(top = MaterialTheme.spacing.extraLarge)
                                 .fillMaxWidth()
                         )
 
-                        Text(
-                            text = stringResource(R.string.settings_account_logout),
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.onError,
-                            style = MaterialTheme.typography.bodyMediumEmphasized,
+                        Row(
                             modifier = Modifier
-                                .clip(MaterialTheme.shapes.medium)
-                                .background(MaterialTheme.colorScheme.error)
-                                .padding(MaterialTheme.spacing.medium)
-                                .fillMaxWidth()
-                        )
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+
+                            TextButton(
+                                onClick = { onEvent(Event.OnNavigateToAuth) }
+                            ){
+                                Text(
+                                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
+                                    text = stringResource(R.string.settings_account_switch_account),
+                                    color = MaterialTheme.colorScheme.secondary
+                                )
+                            }
+
+                            TextButton(
+                                onClick = { onEvent(Event.OnLogOut) }
+                            ){
+                                Text(
+                                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
+                                    text = stringResource(R.string.settings_account_logout),
+                                    color = MaterialTheme.colorScheme.error
+
+                                )
+                            }
+                        }
                     }
 
                 }

@@ -9,6 +9,6 @@
     <string name="settings_account_source_yourneti">YourNETI API</string>
     <string name="settings_account_auth_status_authorized">Connected</string>
     <string name="settings_account_auth_status_error">Connection error. Tap to try again</string>
-    <string name="settings_account_auth_status_loading">Connecting…;</string>
+    <string name="settings_account_auth_status_loading">Connecting…</string>
     <string name="settings_account_auth_status_unauthorized">Waiting for connection…</string>
 </resources>
