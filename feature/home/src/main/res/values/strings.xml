@@ -3,5 +3,6 @@
     <string name="home_no_group_selected">Study group not selected</string>
     <string name="home_tap_to_add_group">Tap here to add your group</string>
     <string name="home_no_near_lessons">No upcoming classes found</string>
-    <string name="home_news_title">News</string>
+    <string name="home_news_title">University Life</string>
+    <string name="home_scroll_to_top">To the top</string>
 </resources>

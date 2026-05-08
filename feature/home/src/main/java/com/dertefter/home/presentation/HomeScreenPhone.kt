@@ -109,8 +109,8 @@ fun HomeScreenPhone(
                         }
                     },
                     expanded = expandButton,
-                    icon = { Icon(Icons.ArrowWarmUp, "Up") },
-                    text = { Text(text = "Наверх") },
+                    icon = { Icon(Icons.ArrowWarmUp, null) },
+                    text = { Text(text = stringResource(R.string.home_scroll_to_top)) },
                 )
             }
         }

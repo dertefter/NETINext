@@ -39,10 +39,12 @@ package com.dertefter.home.presentation
  import androidx.compose.ui.Modifier
  import androidx.compose.ui.input.nestedscroll.nestedScroll
  import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.res.stringResource
  import androidx.compose.ui.tooling.preview.Preview
  import androidx.compose.ui.unit.Dp
  import androidx.paging.LoadState
  import androidx.paging.compose.collectAsLazyPagingItems
+ import com.dertefter.home.R
  import com.dertefter.data.dto.news.NewsItem
  import com.dertefter.data.dto.news.PromoItem
  import com.dertefter.data.dto.schedule.GroupDto
@@ -125,7 +127,7 @@ fun HomeScreenFold(
                             },
                             expanded = expandButton,
                             icon = { Icon(Icons.ArrowWarmUp, "Up") },
-                            text = { Text(text = "Наверх") },
+                            text = { Text(text = stringResource(R.string.home_scroll_to_top)) },
                         )
                     }
                 }
@@ -177,7 +179,7 @@ fun HomeScreenFold(
                             modifier = Modifier
                                 .padding(top = MaterialTheme.spacing.small)
                                 .padding(vertical = MaterialTheme.spacing.medium, horizontal = MaterialTheme.rounding.medium),
-                            text = "Жизнь университета"
+                            text = stringResource(R.string.home_news_title)
                         )
                     }
 
