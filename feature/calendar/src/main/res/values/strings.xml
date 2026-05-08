@@ -9,6 +9,8 @@
     <string name="calendar_week_number">Study week number</string>
     <string name="calendar_calendar">Calendar</string>
     <string name="calendar_to_today">Jump to today</string>
-    <string name="calendar_schedule">Schedule</string>
-    <string name="calendar_session">Session</string>
+    <string name="calendar_session_schedule">Session schedule</string>
+    <string name="calendar_lessons_schedule">Class schedule</string>
+    <string name="calendar_events">Events</string>
+    <string name="calendar_more_lessons">More lessons</string>
 </resources>

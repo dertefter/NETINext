@@ -9,6 +9,8 @@
     <string name="calendar_week_number">Номер учебной недели</string>
     <string name="calendar_calendar">Календарь</string>
     <string name="calendar_to_today">К текущей дате</string>
-    <string name="calendar_schedule">Занятия</string>
-    <string name="calendar_session">Сессия</string>
+    <string name="calendar_session_schedule">Расписание сессии</string>
+    <string name="calendar_lessons_schedule">Расписание занятий</string>
+    <string name="calendar_events">События</string>
+    <string name="calendar_more_lessons">Ещё занятия</string>
 </resources>

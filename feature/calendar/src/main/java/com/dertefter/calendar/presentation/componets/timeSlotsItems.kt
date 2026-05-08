@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.dertefter.calendar.R
 import com.dertefter.calendar.presentation.Event
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
@@ -44,6 +47,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 fun LazyListScope.timeSlotsItems(
     timeSlots: List<TimeSlotDto> = emptyList(),
     onEvent: (Event) -> Unit = {}
@@ -130,7 +134,7 @@ fun LazyListScope.timeSlotsItems(
                             ){
                                 Icon(
                                     imageVector = Icons.SwapHoriz,
-                                    contentDescription = "Ещё занятия",
+                                    contentDescription = stringResource(R.string.calendar_more_lessons),
                                     tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier
                                         .clip(MaterialShapes.Cookie9Sided.toShape())
@@ -141,7 +145,7 @@ fun LazyListScope.timeSlotsItems(
                                     MaterialTheme.isLessonHintExpanded
                                 ) {
                                     Text(
-                                        "Ещё занятия",
+                                        stringResource(R.string.calendar_more_lessons),
                                         style = MaterialTheme.typography.labelMedium,
                                         color = MaterialTheme.colorScheme.onBackground
                                     )

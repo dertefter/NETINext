@@ -137,7 +137,7 @@ fun CalendarScreenFold(
                                         selectedLabelColor = MaterialTheme.colorScheme.onTertiaryContainer
                                     ),
                                     label = {
-                                        Text("Расписание сессии")
+                                        Text(stringResource(R.string.calendar_session_schedule))
                                     },
                                     selected = true,
                                 )
@@ -148,7 +148,7 @@ fun CalendarScreenFold(
                             FilterChip(
                                 onClick = { isScheduleShowed = !isScheduleShowed },
                                 label = {
-                                    Text("Расписание занятий")
+                                    Text(stringResource(R.string.calendar_lessons_schedule))
                                 },
                                 selected = isScheduleShowed,
                             )
@@ -158,7 +158,7 @@ fun CalendarScreenFold(
                             FilterChip(
                                 onClick = { isEventsShowed = !isEventsShowed },
                                 label = {
-                                    Text("События")
+                                    Text(stringResource(R.string.calendar_events))
                                 },
                                 selected = isEventsShowed,
                             )

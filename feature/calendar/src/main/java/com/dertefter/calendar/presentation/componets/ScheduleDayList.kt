@@ -100,7 +100,7 @@ fun ScheduleDayList(
                 ) {
 
                     Text(
-                        text = "События",
+                        text = stringResource(R.string.calendar_events),
                         modifier = Modifier
                             .padding(
                                 vertical = MaterialTheme.spacing.medium,
