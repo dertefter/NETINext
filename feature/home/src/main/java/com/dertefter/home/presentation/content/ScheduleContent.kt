@@ -58,13 +58,10 @@ fun LazyListScope.scheduleContent(
         onEvent = onEvent
     )
 
-    if (scheduleState.timeSlots.isEmpty() && !scheduleState.isLoading && scheduleState.error == null){
+    if (scheduleState.timeSlots.isEmpty() && !scheduleState.isLoading && scheduleState.error == null && scheduleState.group != null){
         item {
             NoLessons(
                 text = stringResource(R.string.home_no_near_lessons),
-                onClick = {
-                    onEvent(Event.OnNavigateToSearchGroup)
-                },
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
             )
         }
