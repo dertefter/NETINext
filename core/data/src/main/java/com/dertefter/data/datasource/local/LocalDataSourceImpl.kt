@@ -334,6 +334,15 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(isMessagesAlertSkipped = isSkipped))
     }
 
+    override fun getIsTgLinkShow(): Flow<Boolean?> {
+        return globalConfigDao.getIsTgLinkShow()
+    }
+
+    override suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(isTgLinkShow = isTgLinkShow))
+    }
+
     override fun getPromo(): Flow<List<PromoItem>?> {
         return globalConfigDao.getPromoList().map { it?.promoList }
     }

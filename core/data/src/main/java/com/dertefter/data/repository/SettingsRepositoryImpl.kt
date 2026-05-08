@@ -51,4 +51,10 @@ class SettingsRepositoryImpl @Inject constructor(
         localDataSource.saveIsMessagesAlertSkipped(isMessagesAlertSkipped)
     }
 
+    override val isTgLinkShow: Flow<Boolean?> = localDataSource.getIsTgLinkShow()
+
+    override suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean) {
+        localDataSource.saveIsTgLinkShow(isTgLinkShow)
+    }
+
 }

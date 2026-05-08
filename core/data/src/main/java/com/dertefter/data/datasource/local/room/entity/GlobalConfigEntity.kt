@@ -18,5 +18,6 @@ data class GlobalConfigEntity(
     val promoList: List<PromoItem>? = null,
     val eventList: List<EventDto>? = null,
     val weekHeader: String? = null,
-    val isMessagesAlertSkipped: Boolean? = null
+    val isMessagesAlertSkipped: Boolean? = null,
+    val isTgLinkShow: Boolean? = null
 )

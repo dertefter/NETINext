@@ -128,6 +128,10 @@ interface LocalDataSource {
 
     suspend fun saveIsMessagesAlertSkipped(isSkipped: Boolean)
 
+    fun getIsTgLinkShow(): Flow<Boolean?>
+
+    suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean)
+
     fun getPromo(): Flow<List<PromoItem>?>
 
     suspend fun savePromo(promoList: List<PromoItem>)

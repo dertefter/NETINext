@@ -28,5 +28,9 @@ interface SettingsRepository {
 
     suspend fun saveIsMessagesAlertSkipped(isMessagesAlertSkipped: Boolean)
 
+    val isTgLinkShow: Flow<Boolean?>
+
+    suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean)
+
 
 }
