@@ -2,7 +2,6 @@
 
 
 <resources>
-    <string name="app_name">NETI Client</string>
     <string name="app_error">Не удалось подключиться</string>
     <string name="app_success">Вы подключены!</string>
     <string name="app_learn_more">Попробовать ещё раз</string>

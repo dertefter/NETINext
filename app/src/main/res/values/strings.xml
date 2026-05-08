@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NETI Client</string>
+    <string name="app_name" translatable="false">NETI Next</string>
     <string name="app_error">Failed to connect</string>
     <string name="app_success">You are connected!</string>
     <string name="app_learn_more">Learn more</string>
