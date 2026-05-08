@@ -1,5 +1,6 @@
 package com.dertefter.new_document.presentation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -79,181 +80,190 @@ fun NewDocumentScreen(
             )
         }
     ) { contentPadding ->
-
-        if (uiState.isError){
-            Box(
-                modifier = Modifier
-                    .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
-                    .padding(MaterialTheme.spacing.defaultScreenPadding)
-                    .padding(contentPadding)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                ErrorLarge(
-                    onRetry = {
-                        onEvent(
-                            Event.OnUpdateOptions
-                        )
-                    }
-                )
-            }
-
-        } else if (uiState.isLoading) {
-            Box(
-                modifier = Modifier
-                    .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
-                    .padding(MaterialTheme.spacing.defaultScreenPadding)
-                    .padding(contentPadding)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                AppLoadingIndicator()
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .padding(contentPadding)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
-            )
-            {
-                var expanded by remember { mutableStateOf(false) }
-
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                {
-                    OutlinedTextField(
+        Crossfade(
+            targetState = when {
+                uiState.isError -> 0
+                uiState.isLoading -> 1
+                else -> 2
+            },
+            label = "ScreenTransition",
+            modifier = Modifier.padding(contentPadding)
+        ) { state ->
+            when (state) {
+                0 -> {
+                    Box(
                         modifier = Modifier
-                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
-                            .fillMaxWidth(),
-                        value = uiState.selectedOption?.text ?: "",
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(R.string.new_document_select_type_label)) },
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                        },
-                        shape = MaterialTheme.shapes.large,
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-                    )
-
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                            .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
+                            .padding(MaterialTheme.spacing.defaultScreenPadding)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        uiState.optionList.forEach { option ->
-                            val isSelected = option == uiState.selectedOption
-                            DropdownMenuItem(
-                                modifier = if (isSelected) {
-                                    Modifier
-                                        .padding(horizontal = 8.dp)
-                                        .background(
-                                            color = MaterialTheme.colorScheme.primaryContainer,
-                                            shape = MaterialTheme.shapes.medium
-                                        )
-                                } else {
-                                    Modifier
-                                },
-                                text = { Text(text = option.text) },
-                                onClick = {
-                                    onEvent(Event.OnSelectOption(option))
-                                    expanded = false
-                                },
-                                leadingIcon = if (isSelected) {
-                                    {
-                                        Icon(
-                                            imageVector = Icons.Check,
-                                            contentDescription = null
-                                        )
-                                    }
-                                } else null,
-                                colors = if (isSelected) {
-                                    MenuDefaults.itemColors(
-                                        textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                        leadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                    )
-                                } else {
-                                    MenuDefaults.itemColors()
-                                }
-                            )
-                        }
+                        ErrorLarge(
+                            onRetry = {
+                                onEvent(
+                                    Event.OnUpdateOptions
+                                )
+                            }
+                        )
                     }
                 }
 
-                uiState.documentRequest?.let { documentRequest ->
+                1 -> {
+                    Box(
+                        modifier = Modifier
+                            .padding(bottom = MaterialTheme.spacing.defaultScreenPadding)
+                            .padding(MaterialTheme.spacing.defaultScreenPadding)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        AppLoadingIndicator()
+                    }
+                }
 
+                else -> {
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
                     ) {
-                        OutlinedTextField(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            value = uiState.comment,
-                            onValueChange = {
-                                onEvent(
-                                    Event.OnCommentChanged(it)
-                                )
-                            },
-                            label = {
-                                Text(stringResource(R.string.new_document_comment_label))
-                            },
-                            supportingText = {
-                                Text(documentRequest.text_comm ?: "")
-                            },
-                            shape = MaterialTheme.shapes.large,
-                            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-                        )
+                        var expanded by remember { mutableStateOf(false) }
 
-                        if (!documentRequest.text_doc.isNullOrEmpty()){
-                            Row(
+                        ExposedDropdownMenuBox(
+                            expanded = expanded,
+                            onExpandedChange = { expanded = !expanded },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            OutlinedTextField(
                                 modifier = Modifier
+                                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
                                     .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-                                verticalAlignment = Alignment.Top
+                                value = uiState.selectedOption?.text ?: "",
+                                onValueChange = {},
+                                readOnly = true,
+                                label = { Text(stringResource(R.string.new_document_select_type_label)) },
+                                trailingIcon = {
+                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                                },
+                                shape = MaterialTheme.shapes.large,
+                                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+                            )
+
+                            ExposedDropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false }
                             ) {
-                                Icon(
-                                    imageVector = Icons.Info,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .padding(vertical = MaterialTheme.spacing.extraSmall)
-                                        .size(20.dp),
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                                Text(
-                                    text = documentRequest.text_doc ?: "",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                uiState.optionList.forEach { option ->
+                                    val isSelected = option == uiState.selectedOption
+                                    DropdownMenuItem(
+                                        modifier = if (isSelected) {
+                                            Modifier
+                                                .padding(horizontal = 8.dp)
+                                                .background(
+                                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                                    shape = MaterialTheme.shapes.medium
+                                                )
+                                        } else {
+                                            Modifier
+                                        },
+                                        text = { Text(text = option.text) },
+                                        onClick = {
+                                            onEvent(Event.OnSelectOption(option))
+                                            expanded = false
+                                        },
+                                        leadingIcon = if (isSelected) {
+                                            {
+                                                Icon(
+                                                    imageVector = Icons.Check,
+                                                    contentDescription = null
+                                                )
+                                            }
+                                        } else null,
+                                        colors = if (isSelected) {
+                                            MenuDefaults.itemColors(
+                                                textColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                                leadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                            )
+                                        } else {
+                                            MenuDefaults.itemColors()
+                                        }
+                                    )
+                                }
                             }
                         }
 
-                        Button(
-                            onClick = {
-                                onEvent(
-                                    Event.OnConfirmClaim
+                        uiState.documentRequest?.let { documentRequest ->
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+                            ) {
+                                OutlinedTextField(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    value = uiState.comment,
+                                    onValueChange = {
+                                        onEvent(
+                                            Event.OnCommentChanged(it)
+                                        )
+                                    },
+                                    label = {
+                                        Text(stringResource(R.string.new_document_comment_label))
+                                    },
+                                    supportingText = {
+                                        Text(documentRequest.text_comm ?: "")
+                                    },
+                                    shape = MaterialTheme.shapes.large,
+                                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
                                 )
-                            },
-                            modifier = Modifier
-                                .align(Alignment.End),
-                            shape = MaterialTheme.circleShape(),
-                            enabled = documentRequest.is_avail == "1"
-                        ){
-                            Text(
-                                stringResource(R.string.new_document_create_button)
-                            )
+
+                                if (!documentRequest.text_doc.isNullOrEmpty()) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                                        verticalAlignment = Alignment.Top
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Info,
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .padding(vertical = MaterialTheme.spacing.extraSmall)
+                                                .size(20.dp),
+                                            tint = MaterialTheme.colorScheme.primary
+                                        )
+                                        Text(
+                                            text = documentRequest.text_doc ?: "",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+
+                                Button(
+                                    onClick = {
+                                        onEvent(
+                                            Event.OnConfirmClaim
+                                        )
+                                    },
+                                    modifier = Modifier
+                                        .align(Alignment.End),
+                                    shape = MaterialTheme.circleShape(),
+                                    enabled = documentRequest.is_avail == "1"
+                                ) {
+                                    Text(
+                                        stringResource(R.string.new_document_create_button)
+                                    )
+                                }
+
+                            }
+
+
                         }
 
+
                     }
-
-
                 }
-
-
             }
         }
 
