@@ -67,7 +67,7 @@ fun UserInfoCard(
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.medium)
                     .clip(MaterialTheme.circleShape())
-                    .background(MaterialTheme.colorScheme.surface)
+                    .background(MaterialTheme.colorScheme.secondary)
                     .size(74.dp)
             ) {
                 when (painter.state) {
@@ -77,9 +77,9 @@ fun UserInfoCard(
                         ) {
                             Icon(
                                 modifier = Modifier.size(32.dp),
-                                imageVector = Icons.UserFilled,
+                                imageVector = Icons.User,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = MaterialTheme.colorScheme.onSecondary
                             )
                         }
                     }
