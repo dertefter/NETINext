@@ -1,5 +1,12 @@
 # NETI Next
 
+<a href="https://play.google.com/store/apps/details?id=com.dertefter.neticlient">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png" alt="Доступно в Google Play" height="60">
+</a>
+<a href="https://t.me/neticlient">
+  <img src="https://img.shields.io/badge/Telegram-26A6E1?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" height="60">
+</a>
+
 **NETI Next** - это неофициальное приложение с открытым исходным кодом для студентов НГТУ (НЭТИ), созданное студентами этого учебного заведения!
 
 **Важно:** _Данное приложение не является официальным приложением университета НГТУ (НЭТИ) и не пытается выдавать себя за него.
