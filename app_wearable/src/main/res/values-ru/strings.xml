@@ -14,4 +14,8 @@
     <string name="wear_home_title">Ближайшие занятия</string>
     <string name="wear_loading_error">Не удалось загрузить данные</string>
     <string name="wear_no_lessons">На ближайшее время не найдено занятий</string>
+    <string name="wear_home_details">Подробнее</string>
+    <string name="wear_home_group_not_selected">Группа не выбрана</string>
+    <string name="wear_home_select_group_on_mobile">Выберите группу в мобильном приложении</string>
+    <string name="wear_home_next_lesson_cd">Следующее занятие</string>
 </resources>

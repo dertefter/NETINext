@@ -149,9 +149,10 @@ fun WearTimeSlot(
                     progress = progressLambda,
                     modifier = Modifier.weight(1f),
                     colors = ProgressIndicatorDefaults.colors().copy(
-                        indicatorColor = textColor
+                        indicatorColor = textColor,
+                        trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
                     ),
-                    strokeWidth = LinearProgressIndicatorDefaults.StrokeWidthSmall
+                    strokeWidth = LinearProgressIndicatorDefaults.StrokeWidthSmall,
                 )
 
                 Text(
@@ -185,7 +186,7 @@ fun TimeSlotPreview() {
             WearTimeSlot(
                 startTime = LocalTime.now().minusMinutes(30),
                 endTime = LocalTime.now().plusMinutes(30),
-                date = LocalDate.now(),
+                date = LocalDate.now().plusDays(1),
                 content = {
                     Text(
                         text = "Высшая математика",

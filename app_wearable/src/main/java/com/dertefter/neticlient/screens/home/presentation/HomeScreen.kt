@@ -42,6 +42,7 @@ import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
 import androidx.wear.tooling.preview.devices.WearDevices
+import com.dertefter.data.common.AppError
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
@@ -87,7 +88,7 @@ fun HomeScreen(
                         buttonSize = EdgeButtonSize.Small
                     ) {
                         Text(
-                            text = "Подробнее",
+                            text = stringResource(R.string.wear_home_details),
                             style = MaterialTheme.typography.labelSmall
                         )
                     }
@@ -99,72 +100,28 @@ fun HomeScreen(
                 if (scheduleState.group == null) {
                     item {
                         Text(
-                            text = "Группа не выбрана",
+                            text = stringResource(R.string.wear_home_group_not_selected),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(
                                     top = LocalWindowInfo.current.containerDpSize.height / 7
                                 )
-                                .padding(horizontal = 8.dp)
+                                .padding(horizontal = 10.dp)
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
                     }
                     item {
                         Text(
-                            text = "Выберите группу в мобильном приложении",
+                            text = stringResource(R.string.wear_home_select_group_on_mobile),
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier
                                 .padding(vertical = 2.dp)
-                                .padding(horizontal = 8.dp)
+                                .padding(horizontal = 10.dp)
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
                     }
-                }
-                else if (scheduleState.timeSlots.isEmpty()) {
-                    item {
-                        ListHeader(
-                            modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
-                            transformation = SurfaceTransformation(transformationSpec),
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
-                            ) {
-                                Text(text = scheduleState.group.name)
-                                Text(
-                                    text = stringResource(R.string.wear_home_title),
-                                    style = MaterialTheme.typography.titleSmall
-                                )
-                            }
-
-                        }
-                    }
-                    if (scheduleState.isLoading) {
-                        item {
-                            AppLoadingIndicator(
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    } else if (scheduleState.error != null) {
-                        item {
-                            Text(
-                                text = stringResource(R.string.wear_loading_error),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    } else {
-                        item {
-                            Text(
-                                text = stringResource(R.string.wear_no_lessons),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-
-
-
                 }
                 else {
                     item {
@@ -176,83 +133,140 @@ fun HomeScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text(text = scheduleState.group.name.uppercase())
-                                scheduleState.date?.let { date ->
+                                Text(
+                                    text = scheduleState.group.name.uppercase(),
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+
+                                if (scheduleState.date == null){
+                                    Text(
+                                        text = stringResource(R.string.wear_home_title)
+                                    )
+                                }else{
                                     PrettyDate(
-                                        date = date
+                                        date = scheduleState.date
                                     )
                                 }
-
                             }
                         }
                     }
 
-                    items(scheduleState.timeSlots.size) { index ->
-                        val timeSlot = scheduleState.timeSlots[index]
+                    if (scheduleState.timeSlots.isEmpty()) {
 
-                        WearTimeSlot(
-                            modifier = Modifier
-                                .transformedHeight(this, transformationSpec),
-                            startTime = timeSlot.getStartTime(),
-                            endTime = timeSlot.getEndTime(),
-                            date = timeSlot.getDate(),
-                            transformation = SurfaceTransformation(transformationSpec),
-                            content = {
-                                val lessons = timeSlot.lessons
-                                var currentIndex by rememberSaveable(timeSlot) { mutableIntStateOf(0) }
+                        if (scheduleState.isLoading) {
+                            item {
+                                AppLoadingIndicator(
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        } else if (scheduleState.error != null) {
+                            item {
+                                Text(
+                                    text = stringResource(R.string.wear_loading_error),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        } else {
+                            item {
+                                Text(
+                                    text = stringResource(R.string.wear_no_lessons),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
 
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(IntrinsicSize.Min),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    AnimatedContent(
-                                        targetState = currentIndex,
-                                        modifier = Modifier.weight(1f),
-                                        label = "lesson_switch",
-                                    ) { i ->
-                                        val lesson = lessons.getOrNull(i)
-                                        if (lesson != null) {
-                                            LessonItem(
-                                                title = lesson.name,
-                                                aud = lesson.aud,
-                                                type = lesson.type,
-                                                isHighlight = isNow,
-                                                personIds = lesson.persons?.map { it.personId } ?: emptyList(),
-                                            )
-                                        }
-                                    }
 
-                                    if (lessons.size > 1) {
-                                        Box(
-                                            modifier = Modifier
-                                                .width(32.dp)
-                                                .fillMaxHeight()
-                                                .clip(CircleShape)
-                                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                                                .clickable {
-                                                    currentIndex = (currentIndex + 1) % lessons.size
-                                                },
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.MoreVert,
-                                                contentDescription = "Next lesson",
-                                                tint =MaterialTheme.colorScheme.onSurfaceVariant
-                                            )
-                                        }
-                                    }
-                                }
-                            },
-                        )
 
                     }
+
+                    else {
+
+
+                        items(scheduleState.timeSlots.size) { index ->
+                            val timeSlot = scheduleState.timeSlots[index]
+
+                            WearTimeSlot(
+                                modifier = Modifier
+                                    .transformedHeight(this, transformationSpec),
+                                startTime = timeSlot.getStartTime(),
+                                endTime = timeSlot.getEndTime(),
+                                date = timeSlot.getDate(),
+                                transformation = SurfaceTransformation(transformationSpec),
+                                content = {
+                                    val lessons = timeSlot.lessons
+                                    var currentIndex by rememberSaveable(timeSlot) { mutableIntStateOf(0) }
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(IntrinsicSize.Min),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        AnimatedContent(
+                                            targetState = currentIndex,
+                                            modifier = Modifier.weight(1f),
+                                            label = "lesson_switch",
+                                        ) { i ->
+                                            val lesson = lessons.getOrNull(i)
+                                            if (lesson != null) {
+                                                LessonItem(
+                                                    title = lesson.name,
+                                                    aud = lesson.aud,
+                                                    type = lesson.type,
+                                                    isHighlight = isNow,
+                                                    personIds = lesson.persons?.map { it.personId } ?: emptyList(),
+                                                )
+                                            }
+                                        }
+
+                                        if (lessons.size > 1) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .width(32.dp)
+                                                    .fillMaxHeight()
+                                                    .clip(CircleShape)
+                                                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                                    .clickable {
+                                                        currentIndex = (currentIndex + 1) % lessons.size
+                                                    },
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.SwapHoriz,
+                                                    contentDescription = stringResource(R.string.wear_home_next_lesson_cd),
+                                                    tint =MaterialTheme.colorScheme.onSurfaceVariant
+                                                )
+                                            }
+                                        }
+                                    }
+                                },
+                            )
+
+                        }
+                    }
                 }
+
+
             }
         }
     }
+}
+
+
+@Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
+@Composable
+fun HomeScreenPreview4() {
+    val scheduleState = ScheduleState(
+        group = GroupDto("ФБТХ-32"),
+        timeSlots = emptyList(),
+        error = AppError.Unknown
+    )
+    HomeScreen(
+        scheduleState = scheduleState,
+        onEvent = {}
+    )
 }
 
 @Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
