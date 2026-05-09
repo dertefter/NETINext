@@ -51,7 +51,7 @@
   <img src="art/screenshot-05.jpg" width="32%" alt="Screenshot 5"/>
   <img src="art/screenshot-06.jpg" width="32%" alt="Screenshot 6"/>
 </p>
-<p>
+<p align="center">
   <img src="art/screenshot-07.jpg" width="32%" alt="Screenshot 7"/>
 </p>
 
