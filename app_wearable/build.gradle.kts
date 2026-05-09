@@ -8,16 +8,14 @@ plugins {
 
 android {
     namespace = "com.dertefter.neticlient"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.dertefter.neticlient"
         minSdk = 30
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 36000
+        versionName = "5.0.1"
 
     }
 
