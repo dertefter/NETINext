@@ -26,3 +26,5 @@ captures/
 # Misc
 .DS_Store
 .kotlin
+/app/release/
+/app_wearable/release/
