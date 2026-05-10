@@ -9,6 +9,9 @@
 <a href="https://www.rustore.ru/catalog/app/com.dertefter.neticlient">
   <img src="https://img.shields.io/badge/RuStore-005BFF?style=for-the-badge&logo=rustore&logoColor=white" alt="RuStore" height="60">
 </a>
+<a href="README-ENG.md">
+  <img src="https://img.shields.io/badge/English-blue?style=for-the-badge" alt="English" height="60">
+</a>
 
 
 
