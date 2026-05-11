@@ -51,17 +51,16 @@ View your class schedule on your smartwatch.
 ## Screenshots
 
 <p align="center">
-  <img src="art/screenshot-01.jpg" width="32%" alt="Screenshot 1"/>
-  <img src="art/screenshot-02.jpg" width="32%" alt="Screenshot 2"/>
-  <img src="art/screenshot-03.jpg" width="32%" alt="Screenshot 3"/>
+  <img src="art/gp-mobile-1.jpg" width="24%" alt="Screenshot 1">
+  <img src="art/gp-mobile-2.jpg" width="24%" alt="Screenshot 2">
+  <img src="art/gp-mobile-3.jpg" width="24%" alt="Screenshot 3">
+  <img src="art/gp-mobile-4.jpg" width="24%" alt="Screenshot 4">
 </p>
 <p align="center">
-  <img src="art/screenshot-04.jpg" width="32%" alt="Screenshot 4"/>
-  <img src="art/screenshot-05.jpg" width="32%" alt="Screenshot 5"/>
-  <img src="art/screenshot-06.jpg" width="32%" alt="Screenshot 6"/>
-</p>
-<p align="center">
-  <img src="art/screenshot-07.jpg" width="32%" alt="Screenshot 7"/>
+  <img src="art/gp-mobile-5.jpg" width="24%" alt="Screenshot 5">
+  <img src="art/gp-mobile-6.jpg" width="24%" alt="Screenshot 6">
+  <img src="art/gp-mobile-7.jpg" width="24%" alt="Screenshot 7">
+  <img src="art/gp-mobile-8.jpg" width="24%" alt="Screenshot 8">
 </p>
 
 The application is under active development. You can send your feedback, suggestions, and bug reports to the developer.
