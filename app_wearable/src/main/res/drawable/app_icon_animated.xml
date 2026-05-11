@@ -32,8 +32,8 @@
                                     android:endX="388"
                                     android:endY="159"
                                     android:type="linear">
-                                    <item android:offset="0" android:color="#FF204F39"/>
-                                    <item android:offset="1" android:color="#FF1A1A1C"/>
+                                    <item android:offset="0" android:color="#3A43E4"/>
+                                    <item android:offset="1" android:color="#191140"/>
                                 </gradient>
                             </aapt:attr>
                         </path>
@@ -45,7 +45,7 @@
                         <path
                             android:name="path_pt1"
                             android:pathData="M178.9,19.8C167.96,8.86 150.24,8.86 139.3,19.8L19.8,139.3C8.86,150.24 8.86,167.96 19.8,178.9L139.3,298.4C150.24,309.33 167.96,309.33 178.9,298.4L209.8,267.5C220.74,256.56 220.74,238.83 209.8,227.9L160.8,178.9C149.86,167.96 149.86,150.24 160.8,139.3L209.8,90.3C220.74,79.36 220.74,61.64 209.8,50.7L178.9,19.8Z"
-                            android:fillColor="#4BD383"
+                            android:fillColor="#9097FF"
                             android:fillType="evenOdd"/>
                     </group>
                 </group>
