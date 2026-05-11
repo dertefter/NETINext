@@ -34,10 +34,10 @@ class SettingsRepositoryImpl @Inject constructor(
         localDataSource.saveThemeColor(color)
     }
 
-    override val newColorSpecVersion: Flow<Boolean?> = localDataSource.getNewColorSpecVersion()
+    override val oldColorSpecVersion: Flow<Boolean?> = localDataSource.getNewColorSpecVersion()
 
-    override suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean) {
-        localDataSource.saveNewColorSpecVersion(newColorSpecVersion)
+    override suspend fun saveOldColorSpecVersion(oldColorSpecVersion: Boolean) {
+        localDataSource.saveNewColorSpecVersion(oldColorSpecVersion)
     }
 
     override val themeStyle: Flow<ThemeStyle?> = localDataSource.getThemeStyle()

@@ -1,10 +1,11 @@
 package com.dertefter.settings_theme.usecase
 
 import com.dertefter.data.repository.SettingsRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class SaveNewColorSpecVersionUseCase @Inject constructor(
+class GetOldColorSpecVersionUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) {
-    suspend operator fun invoke(newColorSpecVersion: Boolean) = settingsRepository.saveNewColorSpecVersion(newColorSpecVersion)
+    operator fun invoke(): Flow<Boolean?> = settingsRepository.oldColorSpecVersion
 }

@@ -7,12 +7,12 @@ import com.dertefter.settings_theme.presentation.UiState
 import com.dertefter.settings_theme.usecase.GetIsShapeCutUseCase
 import com.dertefter.settings_theme.usecase.GetThemeColorUseCase
 import com.dertefter.settings_theme.usecase.GetThemeStyleUseCase
-import com.dertefter.settings_theme.usecase.GetNewColorSpecVersionUseCase
+import com.dertefter.settings_theme.usecase.GetOldColorSpecVersionUseCase
 import com.dertefter.settings_theme.usecase.NavigateBackUseCase
 import com.dertefter.settings_theme.usecase.SaveIsShapeCutUseCase
 import com.dertefter.settings_theme.usecase.SaveThemeColorUseCase
 import com.dertefter.settings_theme.usecase.SaveThemeStyleUseCase
-import com.dertefter.settings_theme.usecase.SaveNewColorSpecVersionUseCase
+import com.dertefter.settings_theme.usecase.SaveOldColorSpecVersionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,11 +26,11 @@ class SettingsThemeViewModel @Inject constructor(
     getThemeColorUseCase: GetThemeColorUseCase,
     getIsShapeCutUseCase: GetIsShapeCutUseCase,
     getThemeStyleUseCase: GetThemeStyleUseCase,
-    getNewColorSpecVersionUseCase: GetNewColorSpecVersionUseCase,
+    getOldColorSpecVersionUseCase: GetOldColorSpecVersionUseCase,
     private val saveThemeColorUseCase: SaveThemeColorUseCase,
     private val saveIsShapeCutUseCase: SaveIsShapeCutUseCase,
     private val saveThemeStyleUseCase: SaveThemeStyleUseCase,
-    private val saveNewColorSpecVersionUseCase: SaveNewColorSpecVersionUseCase,
+    private val saveOldColorSpecVersionUseCase: SaveOldColorSpecVersionUseCase,
     private val navigateBackUseCase: NavigateBackUseCase
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class SettingsThemeViewModel @Inject constructor(
 
     private val themeStyle = getThemeStyleUseCase()
 
-    private val newColorSpecVersion = getNewColorSpecVersionUseCase()
+    private val newColorSpecVersion = getOldColorSpecVersionUseCase()
 
     val uiState: StateFlow<UiState> = combine(
         selectedColor,
@@ -72,7 +72,7 @@ class SettingsThemeViewModel @Inject constructor(
 
             is Event.OnSetNewColorSpecVersion -> {
                 viewModelScope.launch {
-                    saveNewColorSpecVersionUseCase(event.isNew)
+                    saveOldColorSpecVersionUseCase(event.isNew)
                 }
             }
 

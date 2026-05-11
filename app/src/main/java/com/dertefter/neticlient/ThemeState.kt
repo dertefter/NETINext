@@ -6,5 +6,5 @@ data class ThemeState(
     val seedColor: Long? = null,
     val isShapeCut: Boolean? = null,
     val themeStyle: ThemeStyle? = null,
-    val newColorSpecVersion: Boolean? = null
+    val oldColorSpecVersion: Boolean? = null
 )

@@ -167,7 +167,7 @@ fun SettingsThemeScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Использовать новую цветовую палитру",
+                            text = "Использовать старую палитру",
                             modifier = Modifier.weight(1f),
                             style = MaterialTheme.typography.bodyLargeEmphasized
                         )
@@ -203,6 +203,7 @@ fun SettingsThemeScreen(
                             Text(
                                 text = uiState.themeStyle?.name ?: ThemeStyle.Vibrant.name,
                                 modifier = Modifier
+                                    .padding(vertical = MaterialTheme.spacing.small)
                                     .clip(MaterialTheme.shapes.medium)
                                     .clickable(
                                         onClick = {

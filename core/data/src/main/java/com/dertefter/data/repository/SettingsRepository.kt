@@ -15,9 +15,9 @@ interface SettingsRepository {
 
     suspend fun saveThemeColor(color: Long?)
 
-    val newColorSpecVersion: Flow<Boolean?>
+    val oldColorSpecVersion: Flow<Boolean?>
 
-    suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean)
+    suspend fun saveOldColorSpecVersion(oldColorSpecVersion: Boolean)
 
     val themeStyle: Flow<ThemeStyle?>
 

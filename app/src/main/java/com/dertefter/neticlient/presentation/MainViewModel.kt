@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
 
     private val _themeColor = settingsRepository.themeColor
     private val _isShapeCut = settingsRepository.isShapeCut
-    private val _newColorSpecVersion = settingsRepository.newColorSpecVersion
+    private val _newColorSpecVersion = settingsRepository.oldColorSpecVersion
     private val _themeStyle = settingsRepository.themeStyle
 
     val themeState: StateFlow<ThemeState> = combine(

@@ -50,7 +50,7 @@ fun MainScreen(
     AppTheme(
         seedColor = themeState.seedColor,
         isCut = themeState.isShapeCut,
-        specVersion = if (themeState.newColorSpecVersion == true) ColorSpec.SpecVersion.SPEC_2025 else ColorSpec.SpecVersion.SPEC_2021,
+        specVersion = if (themeState.oldColorSpecVersion == true) ColorSpec.SpecVersion.SPEC_2021 else ColorSpec.SpecVersion.SPEC_2025,
         paletteStyle = when (themeState.themeStyle){
             ThemeStyle.Neutral -> PaletteStyle.Neutral
             ThemeStyle.TonalSpot -> PaletteStyle.TonalSpot

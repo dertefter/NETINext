@@ -168,7 +168,7 @@ fun AppTheme(
     val context = LocalContext.current
 
     val paletteStyle = paletteStyle ?: PaletteStyle.Vibrant
-    val specVersion = specVersion ?: ColorSpec.SpecVersion.SPEC_2021
+    val specVersion = specVersion ?: ColorSpec.SpecVersion.SPEC_2025
     val isCut = isCut ?: false
 
     var isLessonHintExpanded by remember { mutableStateOf(true) }
