@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="art/banner.png" alt="NETI Next Banner">
+</p>
+
 # NETI Next
 
 <a href="https://play.google.com/store/apps/details?id=com.dertefter.neticlient">
