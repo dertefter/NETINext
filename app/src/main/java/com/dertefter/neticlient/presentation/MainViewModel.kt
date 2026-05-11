@@ -1,6 +1,5 @@
 package com.dertefter.neticlient.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dertefter.data.dto.auth.AuthStatus
@@ -11,6 +10,7 @@ import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.ScheduleRepository
 import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.data.repository.UserRepository
+import com.dertefter.neticlient.ThemeState
 import com.dertefter.neticlient.WearCommunicationClient
 import com.dertefter.neticlient.widgets.near_schedule.WidgetUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     private val groupRepository: GroupsRepository,
     private val userRepository: UserRepository,
     private val scheduleRepository: ScheduleRepository,
@@ -43,6 +43,21 @@ class MainViewModel @Inject constructor(
 
     private val _themeColor = settingsRepository.themeColor
     private val _isShapeCut = settingsRepository.isShapeCut
+    private val _newColorSpecVersion = settingsRepository.newColorSpecVersion
+    private val _themeStyle = settingsRepository.themeStyle
+
+    val themeState: StateFlow<ThemeState> = combine(
+        _themeColor,
+        _isShapeCut,
+        _themeStyle,
+        _newColorSpecVersion
+    ) { themeColor, isShapeCut, themeStyle, newColorSpecVersion ->
+        ThemeState(themeColor, isShapeCut, themeStyle, newColorSpecVersion)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = ThemeState()
+    )
 
     private val _isNotificationEnabled = settingsRepository.isNotificationEnabled
 
@@ -128,11 +143,9 @@ class MainViewModel @Inject constructor(
     val screenState: StateFlow<MainScreenState?> = combine(
         authRepository.ciuAuthStatus,
         authRepository.yourNetiAuthStatus,
-        _themeColor,
-        _isShapeCut,
         _isNotificationEnabled,
-    ) { authStatusCiu, authStatusYourNeti, themeColor, isShapeCut, isNotificationEnabled ->
-        MainScreenState(authStatusCiu, authStatusYourNeti, themeColor,isShapeCut, isNotificationEnabled ?: false )
+    ) { authStatusCiu, authStatusYourNeti, isNotificationEnabled ->
+        MainScreenState(authStatusCiu, authStatusYourNeti, isNotificationEnabled ?: false )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),

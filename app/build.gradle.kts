@@ -102,7 +102,7 @@ dependencies {
     implementation(libs.androidx.glance.material3)
 
     implementation(libs.kotlinx.serialization.json)
-
+    implementation(libs.material.kolor)
     implementation(libs.haze)
     implementation(libs.haze.materials)
     implementation(libs.coil)

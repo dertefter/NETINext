@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dertefter.data.dto.auth.AuthStatus
+import com.dertefter.data.dto.settings.ThemeStyle
 import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.cornerShape
 import com.dertefter.design.theme.isTab
@@ -27,12 +28,15 @@ import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.navigation.NavigationAction
 import com.dertefter.navigation.Navigator
 import com.dertefter.navigation.Routes
+import com.dertefter.neticlient.ThemeState
 import com.dertefter.neticlient.navigation.getNavigationMenu
 import com.dertefter.neticlient.presentation.content.PhoneUi
 import com.dertefter.neticlient.presentation.content.TabUI
 import com.dertefter.search_group.SearchGroupRoute
 import com.dertefter.share_score.ShareScoreRoute
 import com.dertefter.swap_lks.SwapLksRoute
+import com.materialkolor.PaletteStyle
+import com.materialkolor.dynamiccolor.ColorSpec
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -40,11 +44,20 @@ fun MainScreen(
     navigator: Navigator,
     screenState: MainScreenState,
     onEvent: (Event) -> Unit,
+    themeState: ThemeState,
 ) {
 
     AppTheme(
-        seedColor = screenState.themeColor,
-        isCut = screenState.isShapeCut == true,
+        seedColor = themeState.seedColor,
+        isCut = themeState.isShapeCut,
+        specVersion = if (themeState.newColorSpecVersion == true) ColorSpec.SpecVersion.SPEC_2025 else ColorSpec.SpecVersion.SPEC_2021,
+        paletteStyle = when (themeState.themeStyle){
+            ThemeStyle.Neutral -> PaletteStyle.Neutral
+            ThemeStyle.TonalSpot -> PaletteStyle.TonalSpot
+            ThemeStyle.Vibrant ->  PaletteStyle.Vibrant
+            ThemeStyle.Expressive -> PaletteStyle.Expressive
+            else -> PaletteStyle.Vibrant
+        }
     ) {
 
         val navController = rememberNavController()

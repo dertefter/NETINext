@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_theme_title">Appearance</string>
-    <string name="settings_theme_default_color">Default</string>
+    <string name="settings_theme_default_color">Default color</string>
     <string name="settings_theme_color_title">Theme color</string>
     <string name="settings_theme_shape_title">Corner shape</string>
     <string name="settings_theme_shape_round">Rounding</string>

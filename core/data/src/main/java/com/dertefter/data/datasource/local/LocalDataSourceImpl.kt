@@ -22,6 +22,7 @@ import com.dertefter.data.dto.schedule.asLowercase
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
+import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -305,6 +306,24 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun saveThemeColor(color: Long?) {
         val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
         globalConfigDao.insertConfig(currentConfig.copy(themeColor = color))
+    }
+
+    override fun getThemeStyle(): Flow<ThemeStyle?> {
+        return globalConfigDao.getThemeStyle()
+    }
+
+    override suspend fun saveThemeStyle(themeStyle: ThemeStyle) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(themeStyle = themeStyle))
+    }
+
+    override fun getNewColorSpecVersion(): Flow<Boolean?> {
+        return globalConfigDao.getNewColorSpecVersion()
+    }
+
+    override suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean) {
+        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
+        globalConfigDao.insertConfig(currentConfig.copy(newColorSpecVersion = newColorSpecVersion))
     }
 
     override fun getIsShapeCut(): Flow<Boolean?> {

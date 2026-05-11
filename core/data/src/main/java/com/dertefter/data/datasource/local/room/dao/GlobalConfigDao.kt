@@ -5,6 +5,7 @@ import androidx.room.*
 import com.dertefter.data.datasource.local.room.converter.Converters
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
 import com.dertefter.data.dto.news.PromoItem
+import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,6 +18,12 @@ interface GlobalConfigDao {
 
     @Query("SELECT themeColor FROM global_config WHERE id = 0")
     fun getThemeColor(): Flow<Long?>
+
+    @Query("SELECT themeStyle FROM global_config WHERE id = 0")
+    fun getThemeStyle(): Flow<ThemeStyle?>
+
+    @Query("SELECT newColorSpecVersion FROM global_config WHERE id = 0")
+    fun getNewColorSpecVersion(): Flow<Boolean?>
 
     @Query("SELECT isShapeCut FROM global_config WHERE id = 0")
     fun getIsShapeCut(): Flow<Boolean?>

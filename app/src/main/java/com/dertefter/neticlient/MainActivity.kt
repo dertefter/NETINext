@@ -59,9 +59,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-            screenState?.let {
+            val themeState by viewModel.themeState.collectAsStateWithLifecycle()
+            screenState?.let { screenState ->
                 MainScreen(
-                    navigator, it,
+                    navigator,
+                    screenState = screenState,
+                    themeState = themeState,
                     onEvent = { event ->
                         viewModel.onEvent(event)
                     },

@@ -1,9 +1,9 @@
-package com.dertefter.settings_theme.presentation
+package com.dertefter.neticlient
 
 import com.dertefter.data.dto.settings.ThemeStyle
 
-data class UiState (
-    val color: Long? = null,
+data class ThemeState(
+    val seedColor: Long? = null,
     val isShapeCut: Boolean? = null,
     val themeStyle: ThemeStyle? = null,
     val newColorSpecVersion: Boolean? = null

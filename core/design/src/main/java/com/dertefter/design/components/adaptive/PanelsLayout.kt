@@ -150,13 +150,7 @@ fun PanelsLayout(
                 .weight(1f - leftWeight)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            AppTheme(
-                isPanel = true,
-                isCut = MaterialTheme.isCut,
-                seedColor = MaterialTheme.seedColor
-            ) {
-                contentRight()
-            }
+            contentRight()
 
         }
     }

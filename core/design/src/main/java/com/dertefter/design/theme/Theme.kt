@@ -49,6 +49,10 @@ val LocalSeedColor = staticCompositionLocalOf<Long?> { null }
 
 val LocalIsLessonHintExpanded = staticCompositionLocalOf { true }
 
+val LocalPaletteStyle = staticCompositionLocalOf { PaletteStyle.Vibrant }
+
+val LocalSpecVersion = staticCompositionLocalOf { ColorSpec.SpecVersion.SPEC_2021 }
+
 @Immutable
 data class CustomColors(
     val success: Color = Color.Unspecified,
@@ -99,6 +103,16 @@ val MaterialTheme.isCut: Boolean
     @ReadOnlyComposable
     get() = LocalIsCut.current
 
+val MaterialTheme.paletteStyle: PaletteStyle
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalPaletteStyle.current
+
+val MaterialTheme.specVersion: ColorSpec.SpecVersion
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalSpecVersion.current
+
 @Composable
 fun MaterialTheme.cornerShape(
     topStart: Dp = 0.dp,
@@ -137,9 +151,10 @@ fun MaterialTheme.circleShape(): Shape {
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
-    isPanel: Boolean = false,
+    paletteStyle: PaletteStyle? = null,
+    specVersion: ColorSpec.SpecVersion? = null,
     seedColor: Long? = null,
-    isCut: Boolean = false,
+    isCut: Boolean? = false,
     content: @Composable () -> Unit
 ) {
 
@@ -152,9 +167,13 @@ fun AppTheme(
 
     val context = LocalContext.current
 
+    val paletteStyle = paletteStyle ?: PaletteStyle.Vibrant
+    val specVersion = specVersion ?: ColorSpec.SpecVersion.SPEC_2021
+    val isCut = isCut ?: false
+
     var isLessonHintExpanded by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
-        delay(8000L)
+        delay(14000L)
         isLessonHintExpanded = false
     }
 
@@ -175,8 +194,8 @@ fun AppTheme(
     val dynamicThemeState = if (seedColor == null) {
         rememberDynamicMaterialThemeState(
             isDark = darkTheme,
-            style = PaletteStyle.Expressive,
-            specVersion = ColorSpec.SpecVersion.SPEC_2025,
+            style = paletteStyle,
+            specVersion = specVersion,
             seedColor = colorScheme.primary,
             primary = colorScheme.primary,
             secondary = colorScheme.secondary,
@@ -185,8 +204,8 @@ fun AppTheme(
     } else {
         rememberDynamicMaterialThemeState(
             isDark = darkTheme,
-            style = PaletteStyle.Expressive,
-            specVersion = ColorSpec.SpecVersion.SPEC_2025,
+            style = paletteStyle,
+            specVersion = specVersion,
             seedColor = Color(seedColor),
         )
     }
@@ -198,7 +217,9 @@ fun AppTheme(
         LocalIsTab provides isTab,
         LocalIsCut provides isCut,
         LocalSeedColor provides seedColor,
-        LocalIsLessonHintExpanded provides isLessonHintExpanded
+        LocalIsLessonHintExpanded provides isLessonHintExpanded,
+        LocalPaletteStyle provides paletteStyle,
+        LocalSpecVersion provides specVersion
     ) {
         DynamicMaterialExpressiveTheme(
             state = dynamicThemeState,

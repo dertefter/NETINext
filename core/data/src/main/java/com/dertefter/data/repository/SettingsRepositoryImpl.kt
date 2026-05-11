@@ -3,6 +3,7 @@ package com.dertefter.data.repository
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.datasource.remote.RemoteDataSource
+import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -31,6 +32,18 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override suspend fun saveThemeColor(color: Long?) {
         localDataSource.saveThemeColor(color)
+    }
+
+    override val newColorSpecVersion: Flow<Boolean?> = localDataSource.getNewColorSpecVersion()
+
+    override suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean) {
+        localDataSource.saveNewColorSpecVersion(newColorSpecVersion)
+    }
+
+    override val themeStyle: Flow<ThemeStyle?> = localDataSource.getThemeStyle()
+
+    override suspend fun saveThemeStyle(themeStyle: ThemeStyle) {
+        localDataSource.saveThemeStyle(themeStyle)
     }
 
     override val isShapeCut: Flow<Boolean?> = localDataSource.getIsShapeCut()

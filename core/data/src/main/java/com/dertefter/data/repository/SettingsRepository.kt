@@ -1,6 +1,7 @@
 package com.dertefter.data.repository
 
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
+import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
@@ -14,6 +15,13 @@ interface SettingsRepository {
 
     suspend fun saveThemeColor(color: Long?)
 
+    val newColorSpecVersion: Flow<Boolean?>
+
+    suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean)
+
+    val themeStyle: Flow<ThemeStyle?>
+
+    suspend fun saveThemeStyle(themeStyle: ThemeStyle)
 
     val isShapeCut: Flow<Boolean?>
 

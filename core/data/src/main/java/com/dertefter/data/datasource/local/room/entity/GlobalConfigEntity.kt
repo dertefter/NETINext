@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.schedule.EventDto
+import com.dertefter.data.dto.settings.ThemeStyle
 
 @Entity(tableName = "global_config")
 data class GlobalConfigEntity(
@@ -13,6 +14,8 @@ data class GlobalConfigEntity(
     val currentLogin: String? = null,
     val preferredRemoteSource: PreferredRemoteSource = PreferredRemoteSource.AUTO,
     val themeColor: Long? = null,
+    val themeStyle: ThemeStyle? = null,
+    val newColorSpecVersion: Boolean? = null,
     val isShapeCut: Boolean? = null,
     val isNotificationEnabled: Boolean? = null,
     val promoList: List<PromoItem>? = null,

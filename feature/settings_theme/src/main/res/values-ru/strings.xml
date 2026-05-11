@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_theme_title">Персонализация</string>
-    <string name="settings_theme_default_color">По умолчанию</string>
+    <string name="settings_theme_default_color">Цвет по умолчанию</string>
     <string name="settings_theme_color_title">Цвет темы</string>
     <string name="settings_theme_shape_title">Форма углов</string>
     <string name="settings_theme_shape_round">Закругление</string>

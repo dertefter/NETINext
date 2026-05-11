@@ -18,6 +18,7 @@ import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
+import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 import androidx.paging.PagingSource
 
@@ -115,6 +116,14 @@ interface LocalDataSource {
     fun getThemeColor(): Flow<Long?>
 
     suspend fun saveThemeColor(color: Long?)
+
+    fun getThemeStyle(): Flow<ThemeStyle?>
+
+    suspend fun saveThemeStyle(themeStyle: ThemeStyle)
+
+    fun getNewColorSpecVersion(): Flow<Boolean?>
+
+    suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean)
 
     fun getIsShapeCut(): Flow<Boolean?>
 
