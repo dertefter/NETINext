@@ -175,8 +175,8 @@ fun AppTheme(
     val dynamicThemeState = if (seedColor == null) {
         rememberDynamicMaterialThemeState(
             isDark = darkTheme,
-            style = PaletteStyle.TonalSpot,
-            specVersion = ColorSpec.SpecVersion.SPEC_2021,
+            style = PaletteStyle.Expressive,
+            specVersion = ColorSpec.SpecVersion.SPEC_2025,
             seedColor = colorScheme.primary,
             primary = colorScheme.primary,
             secondary = colorScheme.secondary,
@@ -185,8 +185,8 @@ fun AppTheme(
     } else {
         rememberDynamicMaterialThemeState(
             isDark = darkTheme,
-            style = PaletteStyle.TonalSpot,
-            specVersion = ColorSpec.SpecVersion.SPEC_2021,
+            style = PaletteStyle.Expressive,
+            specVersion = ColorSpec.SpecVersion.SPEC_2025,
             seedColor = Color(seedColor),
         )
     }

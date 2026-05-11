@@ -57,7 +57,6 @@
                 <data android:pathPrefix="/news/news_more" />
             </intent-filter>
         </activity>
-
         <receiver
             android:name=".widgets.near_schedule.ScheduleWidgetReceiver"
             android:exported="true">

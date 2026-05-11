@@ -34,8 +34,8 @@ datastoreCore = "1.2.1"
 navigationCompose = "2.9.8"
 paging = "3.5.0"
 zoomable = "2.11.1"
-ossLicenses = "17.5.1"
-ossLicensesPlugin = "0.11.0"
+ossLicensesPlugin = "0.12.0"
+droibitOssLicenses = "0.10.0"
 
 wearTiles = "1.6.0"
 wearProtolayout = "1.4.0"
@@ -110,7 +110,7 @@ wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-fou
 wear-compose-navigation = { group = "androidx.wear.compose", name = "compose-navigation", version.ref = "wearComposeNavigation" }
 wear-compose-ui-tooling = { group = "androidx.wear.compose", name = "compose-ui-tooling", version.ref = "wearComposeUiTooling" }
 wear-tooling-preview = { group = "androidx.wear", name = "wear-tooling-preview", version.ref = "wearToolingPreview" }
-play-services-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "ossLicenses" }
+oss-licenses-droibit = { group = "io.github.droibit.oss-licenses-android", name = "ui-compose-material3", version.ref = "droibitOssLicenses" }
 androidx-wear-tiles = { group = "androidx.wear.tiles", name = "tiles", version.ref = "wearTiles" }
 androidx-wear-tiles-material = { group = "androidx.wear.tiles", name = "tiles-material", version.ref = "wearTiles" }
 androidx-wear-tiles-tooling-preview = { group = "androidx.wear.tiles", name = "tiles-tooling-preview", version.ref = "wearTiles" }

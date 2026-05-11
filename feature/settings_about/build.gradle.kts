@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.oss.licenses)
 }
 
 android {
@@ -58,5 +59,5 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil)
     implementation(libs.material.kolor)
-    implementation(libs.play.services.oss.licenses)
+    implementation(libs.oss.licenses.droibit)
 }
