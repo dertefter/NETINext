@@ -2,16 +2,16 @@
     xmlns:aapt="http://schemas.android.com/aapt">
     <aapt:attr name="android:drawable">
         <vector
-            android:width="288dp"
-            android:height="288dp"
+            android:width="48dp"
+            android:height="48dp"
             android:viewportWidth="480"
             android:viewportHeight="480">
             <group
                 android:name="pt_all_wrapper"
                 android:translateX="46"
                 android:translateY="81"
-                android:scaleX="0.85"
-                android:scaleY="0.85"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
                 android:pivotX="194.1"
                 android:pivotY="159.1">
                 <group
