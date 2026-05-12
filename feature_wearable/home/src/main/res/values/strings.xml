@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="wear_home_pretty_date_today">Today</string>
+    <string name="wear_home_pretty_date_tomorrow">Tomorrow</string>
+    <string name="wear_home_pretty_date_after_tomorrow">Day after tomorrow</string>
+    <string name="wear_home_title">Upcoming Classes</string>
+    <string name="wear_home_loading_error">Failed to load data</string>
+    <string name="wear_home_no_lessons">No upcoming classes found</string>
+    <string name="wear_home_details">Details</string>
+    <string name="wear_home_group_not_selected">Group not selected</string>
+    <string name="wear_home_select_group_on_mobile">Select group in the mobile app</string>
+    <string name="wear_home_next_lesson_cd">Next lesson</string>
+    <plurals name="wear_home_pretty_date_days">
+        <item quantity="one">In %d day</item>
+        <item quantity="few">In %d days</item>
+        <item quantity="many">In %d days</item>
+        <item quantity="other">In %d days</item>
+    </plurals>
+
+</resources>

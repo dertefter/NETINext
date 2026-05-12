@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="wear_home_pretty_date_today">Сегодня</string>
+    <string name="wear_home_pretty_date_tomorrow">Завтра</string>
+    <string name="wear_home_pretty_date_after_tomorrow">Послезавтра</string>
+    <plurals name="wear_home_pretty_date_days">
+        <item quantity="one">Через %d день</item>
+        <item quantity="few">Через %d дня</item>
+        <item quantity="many">Через %d дней</item>
+    </plurals>
+    <string name="wear_home_title">Ближайшие занятия</string>
+    <string name="wear_home_loading_error">Не удалось загрузить данные</string>
+    <string name="wear_home_no_lessons">На ближайшее время не найдено занятий</string>
+    <string name="wear_home_details">Подробнее</string>
+    <string name="wear_home_group_not_selected">Группа не выбрана</string>
+    <string name="wear_home_select_group_on_mobile">Выберите группу в мобильном приложении</string>
+    <string name="wear_home_next_lesson_cd">Следующее занятие</string>
+</resources>

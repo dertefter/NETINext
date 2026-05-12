@@ -1,4 +1,4 @@
-package com.dertefter.neticlient.screens.schedule.presentation
+package com.dertefter.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.dertefter.neticlient.screens.home.presentation
+package com.dertefter.home.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -48,10 +48,10 @@ import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.design.components.loading.AppLoadingIndicator
 import com.dertefter.design.icons.Icons
-import com.dertefter.neticlient.R
-import com.dertefter.neticlient.screens.home.presentation.components.LessonItem
-import com.dertefter.neticlient.screens.home.presentation.components.PrettyDate
-import com.dertefter.neticlient.screens.home.presentation.components.WearTimeSlot
+import com.dertefter.home.R
+import com.dertefter.home.presentation.components.LessonItem
+import com.dertefter.home.presentation.components.PrettyDate
+import com.dertefter.home.presentation.components.WearTimeSlot
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.LocalTime
@@ -59,7 +59,7 @@ import java.time.LocalTime
 @Composable
 fun HomeScreen(
     scheduleState: ScheduleState,
-    onEvent: (HomeEvent) -> Unit,
+    onEvent: (Event) -> Unit,
 ) {
     AppScaffold {
         val listState = rememberTransformingLazyColumnState()
@@ -84,7 +84,7 @@ fun HomeScreen(
             edgeButton = {
                 if (scheduleState.group != null){
                     EdgeButton(
-                        onClick = { onEvent(HomeEvent.OnOpenDetails) },
+                        onClick = { onEvent(Event.OnOpenDetails) },
                         buttonSize = EdgeButtonSize.Small
                     ) {
                         Text(
@@ -163,14 +163,14 @@ fun HomeScreen(
                         } else if (scheduleState.error != null) {
                             item {
                                 Text(
-                                    text = stringResource(R.string.wear_loading_error),
+                                    text = stringResource(R.string.wear_home_loading_error),
                                     textAlign = TextAlign.Center
                                 )
                             }
                         } else {
                             item {
                                 Text(
-                                    text = stringResource(R.string.wear_no_lessons),
+                                    text = stringResource(R.string.wear_home_no_lessons),
                                     textAlign = TextAlign.Center
                                 )
                             }
@@ -195,7 +195,11 @@ fun HomeScreen(
                                 transformation = SurfaceTransformation(transformationSpec),
                                 content = {
                                     val lessons = timeSlot.lessons
-                                    var currentIndex by rememberSaveable(timeSlot) { mutableIntStateOf(0) }
+                                    var currentIndex by rememberSaveable(timeSlot) {
+                                        mutableIntStateOf(
+                                            0
+                                        )
+                                    }
 
                                     Row(
                                         modifier = Modifier
@@ -229,14 +233,15 @@ fun HomeScreen(
                                                     .clip(CircleShape)
                                                     .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                                                     .clickable {
-                                                        currentIndex = (currentIndex + 1) % lessons.size
+                                                        currentIndex =
+                                                            (currentIndex + 1) % lessons.size
                                                     },
                                                 contentAlignment = Alignment.Center
                                             ) {
                                                 Icon(
                                                     imageVector = Icons.SwapHoriz,
                                                     contentDescription = stringResource(R.string.wear_home_next_lesson_cd),
-                                                    tint =MaterialTheme.colorScheme.onSurfaceVariant
+                                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
                                             }
                                         }

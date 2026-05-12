@@ -39,7 +39,7 @@ droibitOssLicenses = "0.10.0"
 
 wearTiles = "1.6.0"
 wearProtolayout = "1.4.0"
-
+horologist = "0.7.15"
 playServicesWearable = "20.0.1"
 wearComposeMaterial3 = "1.7.0-alpha02"
 wearComposeFoundation = "1.7.0-alpha02"
@@ -117,6 +117,7 @@ androidx-wear-tiles-tooling-preview = { group = "androidx.wear.tiles", name = "t
 androidx-wear-protolayout = { group = "androidx.wear.protolayout", name = "protolayout", version.ref = "wearProtolayout" }
 androidx-wear-protolayout-material3 = { group = "androidx.wear.protolayout", name = "protolayout-material3", version.ref = "wearProtolayout" }
 androidx-wear-protolayout-expression = { group = "androidx.wear.protolayout", name = "protolayout-expression", version.ref = "wearProtolayout" }
+horologist-compose-layout = { module = "com.google.android.horologist:horologist-compose-layout", version.ref = "horologist" }
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }

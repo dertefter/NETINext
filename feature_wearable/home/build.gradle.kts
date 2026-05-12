@@ -1,23 +1,24 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.oss.licenses)
 }
 
 android {
-    namespace = "com.dertefter.neticlient"
-    compileSdk = 37
+    namespace = "com.dertefter.home"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.dertefter.neticlient"
-        minSdk = 30
-        targetSdk = 36
-        versionCode = 37000
-        versionName = "5.0.2"
-
+        minSdk = 26
     }
 
     buildTypes {
@@ -30,8 +31,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    useLibrary("wear-sdk")
-
     buildFeatures {
         compose = true
     }
@@ -43,8 +42,6 @@ dependencies {
     implementation(project(":core:design"))
     implementation(project(":core:navigation_wearable"))
 
-    implementation(project(":feature_wearable:home"))
-    implementation(project(":feature_wearable:calendar"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.activity.compose)
@@ -66,9 +63,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.navigation.compose)
     implementation(libs.hilt.lifecycle.viewmodel.compose)
-    implementation(libs.horologist.compose.layout)
+
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.material)
     implementation(libs.androidx.wear.protolayout)

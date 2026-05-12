@@ -1,4 +1,4 @@
-package com.dertefter.neticlient.screens.schedule.presentation
+package com.dertefter.calendar.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -36,11 +36,11 @@ import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
+import com.dertefter.calendar.presentation.components.LessonItem
+import com.dertefter.calendar.presentation.components.PrettyDate
+import com.dertefter.calendar.presentation.components.WearTimeSlot
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.design.icons.Icons
-import com.dertefter.neticlient.screens.home.presentation.components.LessonItem
-import com.dertefter.neticlient.screens.home.presentation.components.PrettyDate
-import com.dertefter.neticlient.screens.home.presentation.components.WearTimeSlot
 import java.time.LocalDate
 
 @Composable

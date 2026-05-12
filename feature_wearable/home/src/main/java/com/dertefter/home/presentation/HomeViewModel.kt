@@ -1,4 +1,4 @@
-package com.dertefter.neticlient.screens.home.presentation
+package com.dertefter.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +8,8 @@ import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.ScheduleRepository
+import com.dertefter.navigation_wearable.Navigator
+import com.dertefter.navigation_wearable.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -30,7 +32,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
-    private val groupsRepository: GroupsRepository
+    private val groupsRepository: GroupsRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _isScheduleLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -106,13 +109,15 @@ class HomeViewModel @Inject constructor(
         initialValue = ScheduleState()
     )
 
-    fun onEvent(event: HomeEvent) {
+    fun onEvent(event: Event) {
         when (event) {
-            is HomeEvent.OnUpdateSchedule -> {
+            is Event.OnUpdateSchedule -> {
                 val group = currentGroup.value ?: return
                 refreshSchedule(group)
             }
-            HomeEvent.OnOpenDetails -> {}
+            Event.OnOpenDetails -> {
+                navigator.navigate(Routes.Calendar)
+            }
         }
     }
 
@@ -138,7 +143,4 @@ data class ScheduleState(
     val error: AppError? = null,
 )
 
-sealed interface HomeEvent {
-    object OnUpdateSchedule : HomeEvent
-    object OnOpenDetails : HomeEvent
-}
+

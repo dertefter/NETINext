@@ -1,4 +1,4 @@
-package com.dertefter.neticlient.screens.home.presentation.components
+package com.dertefter.home.presentation.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeOut
