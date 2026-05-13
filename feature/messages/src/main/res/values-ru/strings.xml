@@ -16,6 +16,6 @@
     <string name="messages_empty">Тут пусто</string>
     <string name="messages_info_alert_title">Это не почтовый ящик!</string>
     <string name="messages_info_alert_description">Здесь вы можете ознакомиться с сообщениями от преподавателей и служб. Для работы с корпоративной почтой перейдите </string>
-    <string name="messages_info_alert_link">по ссылке</string>
+    <string name="messages_info_alert_link">" по ссылке"</string>
     <string name="messages_info_alert_dismiss">Понятно</string>
 </resources>

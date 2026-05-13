@@ -17,6 +17,6 @@
     <string name="messages_empty">Nothing here</string>
     <string name="messages_info_alert_title">This is not a mailbox!</string>
     <string name="messages_info_alert_description">Here you can read messages from teachers and services. To work with corporate email, follow </string>
-    <string name="messages_info_alert_link">this link</string>
+    <string name="messages_info_alert_link">" this link"</string>
     <string name="messages_info_alert_dismiss">Understood</string>
 </resources>
