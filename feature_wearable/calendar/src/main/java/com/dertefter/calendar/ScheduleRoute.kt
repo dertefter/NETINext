@@ -14,7 +14,6 @@ fun ScheduleRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     ScheduleScreen(
-        uiState = state,
-        onEvent = viewModel::onEvent
+        uiState = state
     )
 }

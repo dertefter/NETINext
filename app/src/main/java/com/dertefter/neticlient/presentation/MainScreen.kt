@@ -28,7 +28,7 @@ import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.navigation.NavigationAction
 import com.dertefter.navigation.Navigator
 import com.dertefter.navigation.Routes
-import com.dertefter.neticlient.ThemeState
+import com.dertefter.neticlient.presentation.ThemeState
 import com.dertefter.neticlient.navigation.getNavigationMenu
 import com.dertefter.neticlient.presentation.content.PhoneUi
 import com.dertefter.neticlient.presentation.content.TabUI

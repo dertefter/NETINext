@@ -45,9 +45,6 @@ class ScheduleViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = ScheduleState(isLoading = true)
     )
-
-    fun onEvent(event: ScheduleEvent) {
-    }
 }
 
 data class ScheduleState(

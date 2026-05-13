@@ -11,11 +11,18 @@ import javax.inject.Singleton
 
 @Singleton
 class EncryptedAuthStorage @Inject constructor(
-    @ApplicationContext context: Context
+    @param:ApplicationContext private val context: Context
 ) {
     private val masterKey = MasterKey(context = context)
 
-    private val sharedPreferences = EncryptedSharedPreferences(
+    private val sharedPreferences = try {
+        createSharedPreferences()
+    } catch (_: Exception) {
+        context.deleteSharedPreferences("auth_prefs")
+        createSharedPreferences()
+    }
+
+    private fun createSharedPreferences() = EncryptedSharedPreferences(
         context = context,
         fileName = "auth_prefs",
         masterKey = masterKey
@@ -28,7 +35,11 @@ class EncryptedAuthStorage @Inject constructor(
     }
 
     fun getAuthCreds(login: String): AuthCreditions? {
-        val password = sharedPreferences.getString("${login}_password", null) ?: return null
+        val password = try {
+            sharedPreferences.getString("${login}_password", null)
+        } catch (_: Exception) {
+            null
+        } ?: return null
         return AuthCreditions(login, password)
     }
 

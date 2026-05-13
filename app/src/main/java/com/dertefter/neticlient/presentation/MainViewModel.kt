@@ -10,7 +10,7 @@ import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.ScheduleRepository
 import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.data.repository.UserRepository
-import com.dertefter.neticlient.ThemeState
+import com.dertefter.neticlient.presentation.ThemeState
 import com.dertefter.neticlient.WearCommunicationClient
 import com.dertefter.neticlient.widgets.near_schedule.WidgetUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel

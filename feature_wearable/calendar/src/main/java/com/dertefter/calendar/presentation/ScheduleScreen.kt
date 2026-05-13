@@ -45,8 +45,7 @@ import java.time.LocalDate
 
 @Composable
 fun ScheduleScreen(
-    uiState: ScheduleState,
-    onEvent: (ScheduleEvent) -> Unit
+    uiState: ScheduleState
 ) {
     val listState = rememberTransformingLazyColumnState()
     val transformationSpec = rememberTransformationSpec()

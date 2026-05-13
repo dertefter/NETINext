@@ -1,4 +1,4 @@
-package com.dertefter.neticlient
+package com.dertefter.neticlient.presentation
 
 import com.dertefter.data.dto.settings.ThemeStyle
 

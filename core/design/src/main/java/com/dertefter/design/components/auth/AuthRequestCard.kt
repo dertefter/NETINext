@@ -36,8 +36,7 @@ import com.dertefter.design.theme.spacing
 @Composable
 fun AuthRequestCard(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    onMoreClick: () -> Unit = {}
+    onClick: () -> Unit = {}
 ) {
 
 
