@@ -187,7 +187,7 @@ class ScheduleService : Service() {
         )
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.app_icon)
             .setPriority(if (progress != -1) NotificationCompat.PRIORITY_HIGH else NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .setOnlyAlertOnce(true)

@@ -69,23 +69,25 @@
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:background="@drawable/chip_background"
-        android:backgroundTint="?attr/colorPrimaryContainer"
+        android:divider="@drawable/divider"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:divider="@drawable/divider"
+        android:padding="4dp"
         android:showDividers="middle">
 
         <TextView
             android:id="@+id/timeStart"
-            style="@style/TextAppearance.Compat.Notification.Line2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:layout_weight="0"
-            tools:text="12:00"
-            android:textSize="14sp"
+            android:background="@drawable/chip_background"
+            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall.Emphasized"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:paddingHorizontal="12dp" />
+            android:textSize="14sp"
+            tools:text="12:00" />
 
 
         <ProgressBar
@@ -99,16 +101,17 @@
 
         <TextView
             android:id="@+id/timeEnd"
-            style="@style/TextAppearance.Compat.Notification.Line2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:layout_weight="0"
-            android:gravity="end"
-            tools:text="13:30"
-            android:textSize="14sp"
+            android:background="@drawable/chip_background"
+            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall.Emphasized"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:paddingHorizontal="12dp" />
+            android:textSize="14sp"
+            tools:text="12:00" />
     </LinearLayout>
 
 </LinearLayout>
