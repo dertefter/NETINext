@@ -57,7 +57,7 @@ fun LazyListScope.timeSlotsItems(
     itemsIndexed(timeSlots) { index, timeSlot ->
 
         val cornerSmall = MaterialTheme.rounding.small
-        val cornerLarge = MaterialTheme.rounding.extraLarge
+        val cornerLarge = MaterialTheme.rounding.largeIncreased
 
         TimeSlot(
             startTime = timeSlot.getStartTime(),
@@ -67,8 +67,8 @@ fun LazyListScope.timeSlotsItems(
                 .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
                 .clip(
                 MaterialTheme.cornerShape(
-                    topStart = cornerSmall,
-                    bottomStart = cornerSmall,
+                    topStart =  if (index == 0) cornerLarge else cornerSmall,
+                    bottomStart = if (index == timeSlots.size - 1) cornerLarge else cornerSmall,
                     topEnd = if (index == 0) cornerLarge else cornerSmall,
                     bottomEnd = if (index == timeSlots.size - 1) cornerLarge else cornerSmall
                 )

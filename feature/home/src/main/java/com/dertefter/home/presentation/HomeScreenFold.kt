@@ -85,11 +85,6 @@ fun HomeScreenFold(
                     contentPadding = contentPadding,
                     verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
                 ){
-                    item{
-                        Spacer(
-                            modifier = Modifier.height(MaterialTheme.spacing.defaultScreenPadding)
-                        )
-                    }
                     scheduleContent(scheduleState, onEvent)
                 }
             }

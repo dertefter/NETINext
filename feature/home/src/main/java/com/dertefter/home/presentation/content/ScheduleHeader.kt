@@ -38,7 +38,7 @@ fun ScheduleHeader(
     val nowDate = LocalDate.now()
     val diff: Long? = if (targetDate == null) null else ChronoUnit.DAYS.between(nowDate, targetDate)
     val primaryLine: String? = when (diff) {
-        null -> "Расписание занятий"
+        null -> stringResource(R.string.design_schedule_title)
         0L -> stringResource(R.string.design_pretty_date_today)
         1L -> stringResource(R.string.design_pretty_date_tomorrow)
         2L -> stringResource(R.string.design_pretty_date_after_tomorrow)
@@ -66,7 +66,7 @@ fun ScheduleHeader(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.headlineSmallEmphasized
             )
             subtitle?.let {
                 Text(

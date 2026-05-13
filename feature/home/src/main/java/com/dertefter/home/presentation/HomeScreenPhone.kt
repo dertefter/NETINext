@@ -152,7 +152,7 @@ fun HomeScreenPhone(
                         HorizontalPager(
                             state = pagerState,
                             modifier = Modifier
-                                .padding(top = MaterialTheme.spacing.medium)
+                                .padding(vertical = MaterialTheme.spacing.medium)
                                 .fillMaxWidth(),
                             pageSpacing = MaterialTheme.spacing.small,
                             contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.defaultScreenPadding)
@@ -179,9 +179,10 @@ fun HomeScreenPhone(
 
                 item(key = "news_title") {
                     Text(
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLargeEmphasized,
                         modifier = Modifier
                             .padding(top = MaterialTheme.spacing.small)
+                            .padding(horizontal = MaterialTheme.spacing.large)
                             .padding(
                                 vertical = MaterialTheme.spacing.medium,
                                 horizontal = MaterialTheme.rounding.medium

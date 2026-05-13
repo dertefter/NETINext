@@ -47,6 +47,8 @@ fun LazyListScope.scheduleContent(
         ScheduleHeader(
             scheduleState = scheduleState,
             onEvent = onEvent,
+            modifier = Modifier
+                .padding(start = MaterialTheme.spacing.large)
         )
     }
 
