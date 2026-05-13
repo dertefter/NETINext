@@ -7,5 +7,5 @@ data class NewsItem(
     val tags: String,
     val date: String,
     val imageUrl: String?,
-    val detailUrl: String
+    val detailUrl: String,
 )

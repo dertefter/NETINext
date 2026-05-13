@@ -19,10 +19,11 @@ fun parseNews(body: ResponseBody?): List<NewsItem> {
     val newsElements = doc.select("a")
 
     return newsElements.mapNotNull { element ->
-        val detailUrl = element.attr("data-type")
-        if (detailUrl == "video") return@mapNotNull null
+        val dataType = element.attr("data-type")
+        if (dataType == "video") return@mapNotNull null
 
         val link = element.attr("href")
+        val fullUrl = if (link.startsWith("http")) link else "https://www.nstu.ru$link"
         val id = link.substringAfter("idnews=", "").substringBefore("&")
         if (id.isEmpty()) return@mapNotNull null
 
@@ -43,7 +44,7 @@ fun parseNews(body: ResponseBody?): List<NewsItem> {
             tags = element.select("div.main-events__item-tags").text(),
             date = element.select("div.main-events__item-date").text(),
             imageUrl = imageUrl,
-            detailUrl = detailUrl
+            detailUrl = fullUrl
         )
     }
 }
