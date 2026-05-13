@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -18,7 +19,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RotatedLinearWavyProgressIndicator(
     modifier: Modifier = Modifier,
-    progress: (() -> Float)? = null
+    progress: (() -> Float)? = null,
+    color: Color = MaterialTheme.colorScheme.primary,
+    trackColor: Color = MaterialTheme.colorScheme.surfaceVariant,
 ) {
     BoxWithConstraints(
         modifier = modifier,
@@ -33,8 +36,8 @@ fun RotatedLinearWavyProgressIndicator(
             LinearWavyProgressIndicator(
                 modifier = indicatorModifier,
                 progress = progress,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                color = color,
+                trackColor = trackColor,
                 waveSpeed = 12.dp,
                 wavelength = 18.dp,
                 stopSize = 0.dp

@@ -29,7 +29,7 @@ fun SimpleShip(
     label: String,
     type: SimpleShipType = SimpleShipType.AUTO,
     isHighlight: Boolean = false,
-    textStyle: TextStyle = MaterialTheme.typography.labelLarge
+    textStyle: TextStyle = MaterialTheme.typography.titleMediumEmphasized
 ){
 
     val type = if (type == SimpleShipType.AUTO){
@@ -84,7 +84,7 @@ fun SimpleShip(
         modifier = modifier
             .clip(MaterialTheme.circleShape())
             .background(containerColor)
-            .padding(vertical = MaterialTheme.spacing.small, horizontal = MaterialTheme.spacing.large)
+            .padding(vertical = MaterialTheme.spacing.medium, horizontal = MaterialTheme.spacing.extraLarge)
     )
 
 }

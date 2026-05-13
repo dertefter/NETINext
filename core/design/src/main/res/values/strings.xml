@@ -3,6 +3,7 @@
     <string name="design_update_failed">Failed to load data</string>
     <string name="design_retry">Retry</string>
     <string name="design_back_content_desc">Back</string>
+    <string name="design_schedule_title">Schedule</string>
     <string name="design_pretty_date_today">Today</string>
     <string name="design_pretty_date_tomorrow">Tomorrow</string>
     <string name="design_pretty_date_after_tomorrow">Day after tomorrow</string>

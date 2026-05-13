@@ -4,6 +4,7 @@
     <string name="design_retry">Повторить попытку</string>
 
     <string name="design_back_content_desc">Вернуться назад</string>
+    <string name="design_schedule_title">Расписание занятий</string>
     <string name="design_pretty_date_today">Сегодня</string>
     <string name="design_pretty_date_tomorrow">Завтра</string>
     <string name="design_pretty_date_after_tomorrow">Послезавтра</string>

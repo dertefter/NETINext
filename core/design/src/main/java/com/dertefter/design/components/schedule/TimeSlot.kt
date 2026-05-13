@@ -1,5 +1,6 @@
 package com.dertefter.design.components.schedule
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -101,38 +102,55 @@ fun TimeSlot(
         }
     }
 
-    val spacing = MaterialTheme.spacing.medium
-    val timeColumnWidth = 56.dp
+    val spacing = MaterialTheme.spacing.small
+    val timeColumnWidth = 68.dp
+
+    val timeBgColor by animateColorAsState(
+        targetValue = if (isNow)
+            MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.surfaceContainer,
+        label = "backgroundColor"
+    )
+
+    val timeContentColor by animateColorAsState(
+        targetValue = if (isNow)
+            MaterialTheme.colorScheme.onPrimaryContainer
+        else MaterialTheme.colorScheme.onBackground,
+        label = "backgroundColor"
+    )
+
 
     Layout(
         modifier = modifier.fillMaxWidth(),
         content = {
             Column(
                 modifier = Modifier
-                    .padding(vertical = MaterialTheme.spacing.small)
+                    .clip(MaterialTheme.shapes.small)
+                    .background(timeBgColor)
+                    .padding(vertical = MaterialTheme.spacing.large)
                     .width(timeColumnWidth),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
             ) {
                 Text(
                     text = startTime.format(timeFormatter),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.titleMediumEmphasized,
+                    color = timeContentColor,
                 )
 
                 RotatedLinearWavyProgressIndicator(
                     progress = progressLambda,
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(1f),
+                    color = timeContentColor,
+                    trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                 )
 
 
                 Text(
                     text = endTime.format(timeFormatter),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 16.sp
+                    style = MaterialTheme.typography.titleMediumEmphasized,
+                    color = timeContentColor,
                 )
             }
 
