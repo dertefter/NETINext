@@ -23,12 +23,12 @@ fun EventItem(
         modifier = modifier
             .clip(MaterialTheme.shapes.small)
             .clickable(onClick = onClick)
-            .background(MaterialTheme.colorScheme.tertiaryContainer)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(MaterialTheme.spacing.extraLarge)
             .fillMaxWidth(),
         text = title,
         style = MaterialTheme.typography.titleMediumEmphasized,
-        color = MaterialTheme.colorScheme.onTertiaryContainer
+        color = MaterialTheme.colorScheme.onBackground
 
     )
 }

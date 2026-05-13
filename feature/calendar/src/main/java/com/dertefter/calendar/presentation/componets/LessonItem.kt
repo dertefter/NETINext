@@ -46,7 +46,7 @@ fun LessonItem(
 ){
 
     val titleFontWeight by animateIntAsState(
-        targetValue = if (isHighlight) 800 else 400,
+        targetValue = if (isHighlight) 800 else 500,
         label = "titleWeight"
     )
 
@@ -114,7 +114,7 @@ fun LessonItem(
 
 
         Spacer(
-            Modifier.height(MaterialTheme.spacing.medium)
+            Modifier.height(MaterialTheme.spacing.extraLarge)
         )
 
         FlowRow(

@@ -40,7 +40,7 @@ fun CalendarTopBar(
 ) {
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
         modifier = modifier
     ) {
         Row(
