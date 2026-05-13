@@ -13,7 +13,8 @@ sealed class Event {
         val type: String?,
         val tags: String?,
         val date: String?,
-        val contentColor: Long?
+        val contentColor: Long?,
+        val link: String?,
     ) : Event()
 
     object OnNavigateToSearchGroup : Event()

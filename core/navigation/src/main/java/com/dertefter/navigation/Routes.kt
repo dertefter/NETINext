@@ -97,6 +97,7 @@ sealed interface Routes {
         val tags: String? = null,
         val date: String? = null,
         val contentColor: Long? = null,
+        val link: String? = null
     ) : Routes
 
     @Serializable

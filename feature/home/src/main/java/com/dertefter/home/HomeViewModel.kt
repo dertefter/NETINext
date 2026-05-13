@@ -183,6 +183,7 @@ class HomeViewModel @Inject constructor(
                     tags = event.tags,
                     date = event.date,
                     contentColor = event.contentColor,
+                    link = event.link
                 )
             }
 

@@ -1,5 +1,6 @@
 package com.dertefter.news_detail.presentation
 
+import android.content.Intent
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -44,17 +45,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.dertefter.data.common.AppError
 import com.dertefter.data.dto.news.NewsDetailDto
@@ -68,8 +67,6 @@ import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.isCut
 import com.dertefter.design.theme.spacing
 import com.dertefter.news_detail.presentation.components.ImagesCarousel
-import kotlin.math.max
-import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -80,9 +77,13 @@ fun NewsDetailScreen(
     type: String?,
     tags: String?,
     date: String?,
+    link: String?,
     seedColor: Long? = null,
 ) {
 
+    Log.e("dettt", "$link")
+
+    val context = LocalContext.current
     AppTheme(
         isCut = MaterialTheme.isCut,
         seedColor = seedColor
@@ -103,12 +104,23 @@ fun NewsDetailScreen(
                         )
                     },
                     actions = {
-                        AppNavigationIcon(
-                            icon = Icons.Share,
-                            onClick = {},
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        )
+                        link?.let{ link ->
+                            AppNavigationIcon(
+                                icon = Icons.Share,
+                                onClick = {
+                                    val sendIntent: Intent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        putExtra(Intent.EXTRA_TEXT, link)
+                                        this.type = "text/plain"
+                                    }
+                                    val shareIntent = Intent.createChooser(sendIntent, null)
+                                    context.startActivity(shareIntent)
+                                },
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                containerColor = MaterialTheme.colorScheme.primaryContainer
+                            )
+                        }
+
                     },
                     scrollBehavior = scrollBehavior
                 )
@@ -364,6 +376,7 @@ private fun NewsDetailScreenPreview() {
         type = "Новости",
         tags = "Гранты, Конкурсы",
         date = "27 октября 2023",
+        link = ""
 
     )
 }

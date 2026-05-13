@@ -15,6 +15,7 @@ fun NewsDetailRoute(
     tags: String?,
     date: String?,
     contentColor: Long?,
+    link: String?,
     viewModel: NewsDetailViewModel = hiltViewModel(),
 ) {
 
@@ -36,6 +37,7 @@ fun NewsDetailRoute(
             viewModel.onEvent(event)
         },
         seedColor = contentColor,
+        link = link
     )
 
 }

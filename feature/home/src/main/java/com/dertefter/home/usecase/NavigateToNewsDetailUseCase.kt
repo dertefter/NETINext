@@ -14,6 +14,7 @@ class NavigateToNewsDetailUseCase @Inject constructor(
         tags: String? = null,
         date: String? = null,
         contentColor: Long? = null,
+        link: String? = null,
     ) {
         navigator.navigate(
             Routes.NewsDetail(
@@ -23,6 +24,7 @@ class NavigateToNewsDetailUseCase @Inject constructor(
                 tags = tags,
                 date = date,
                 contentColor = contentColor,
+                link = link
             )
         )
     }

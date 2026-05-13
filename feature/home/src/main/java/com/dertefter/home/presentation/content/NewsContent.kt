@@ -59,6 +59,7 @@ fun LazyListScope.newsContent(
                             newsItem.tags,
                             newsItem.date,
                             contentColor,
+                            newsItem.detailUrl
 
                         )
                     )

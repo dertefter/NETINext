@@ -85,7 +85,8 @@ fun RouteContent(route: Routes) {
             type = route.type,
             tags = route.tags,
             date = route.date,
-            contentColor = route.contentColor
+            contentColor = route.contentColor,
+            link = route.link
         )
         is Routes.Auth -> AuthRoute()
         is Routes.Docs -> DocsRoute()
