@@ -1,6 +1,7 @@
 package com.dertefter.neticlient.presentation.content
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -25,6 +26,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import com.dertefter.data.dto.auth.AuthStatus
@@ -47,7 +49,8 @@ fun PhoneUi(
     navigationItems: List<TabRouteItem> = emptyList(),
     onEvent: (Event) -> Unit,
     authStatusCiu: AuthStatus,
-    authStatusYourNeti: AuthStatus
+    authStatusYourNeti: AuthStatus,
+    isFullScreen: Boolean
 ){
 
 
@@ -59,28 +62,36 @@ fun PhoneUi(
 
     LaunchedEffect(authStatusCiu, authStatusYourNeti) {
         if (authStatusCiu !is AuthStatus.Unauthorized && isAuthNotifyVisible) {
-            delay(4000)
+            delay(8000)
             isAuthNotifyVisible = false
         }
     }
 
+
     Scaffold(
         bottomBar = {
-            MainBottomBar(
-                navController = navController,
-                currentDestination = currentDestination,
-                navigationItems = navigationItems,
-            )
+            AnimatedVisibility(
+                visible = !isFullScreen,
+                enter = slideInVertically { it },
+                exit = slideOutVertically { it },
+            ){
+                MainBottomBar(
+                    navController = navController,
+                    currentDestination = currentDestination,
+                    navigationItems = navigationItems,
+                )
+            }
+
         }
     ) { paddingValues ->
+        val bottomPadding by animateDpAsState(
+            if (isFullScreen) 0.dp else paddingValues.calculateBottomPadding()
+        )
+
         Box(
             modifier = Modifier
-                .padding(bottom =  paddingValues.calculateBottomPadding())
-                .consumeWindowInsets(
-                    WindowInsets(
-                        bottom = paddingValues.calculateBottomPadding()
-                    )
-                )
+                .consumeWindowInsets(WindowInsets(bottom = bottomPadding))
+                .padding(bottom = bottomPadding)
                 .imePadding()
                 .fillMaxSize()
         ) {

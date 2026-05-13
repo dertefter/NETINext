@@ -100,7 +100,6 @@ fun MoneyScreen(
         PullToRefreshBox(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = contentPadding.calculateTopPadding())
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             state = pullToRefreshState,
             isRefreshing = uiState.isLoading,
@@ -115,6 +114,7 @@ fun MoneyScreen(
             indicator = {
                 PullToRefreshIndicator(
                     modifier = Modifier
+                        .padding(top = contentPadding.calculateTopPadding())
                         .align(Alignment.TopCenter),
                     state = pullToRefreshState,
                     isRefreshing = uiState.isLoading
@@ -128,6 +128,7 @@ fun MoneyScreen(
             } else {
                 HorizontalPager(
                     state = pagerState,
+                    contentPadding = contentPadding,
                     modifier = Modifier.fillMaxSize(),
                     verticalAlignment = Alignment.Top
                 ) { pageIndex ->

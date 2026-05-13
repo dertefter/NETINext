@@ -16,8 +16,13 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.waterfallPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LocalContentColor
@@ -130,9 +135,8 @@ fun AppToolbar(
     ) {
         Row(
             modifier = Modifier
-                .verticalFadingEdges(FadingEdgesGravity.Start)
-                .statusBarsPadding()
-                .displayCutoutPadding()
+                .safeDrawingPadding()
+                .waterfallPadding()
                 .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding, vertical = MaterialTheme.spacing.medium)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically

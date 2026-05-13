@@ -156,14 +156,14 @@ fun SessiaResultScreen(
 
         PullToRefreshBox(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = contentPadding.calculateTopPadding()),
+                .fillMaxSize(),
             state = pullToRefreshState,
             isRefreshing = uiState.isLoading && uiState.sessiaResults != null,
             onRefresh = { onEvent(Event.OnUpdateSessiaResults) },
             indicator = {
                 PullToRefreshIndicator(
                     modifier = Modifier
+                        .padding(top = contentPadding.calculateTopPadding())
                         .align(Alignment.TopCenter),
                     state = pullToRefreshState,
                     isRefreshing = uiState.isLoading
@@ -200,22 +200,22 @@ fun SessiaResultScreen(
                 else -> {
                     HorizontalPager(
                         state = pagerState,
+                        contentPadding = contentPadding,
                         modifier = Modifier.fillMaxSize(),
                     ) { pageIndex ->
                         val semester = semesters.getOrNull(pageIndex) ?: return@HorizontalPager
                         val results = groupedResults[semester] ?: emptyList()
 
                         LazyColumn(
-                            contentPadding = PaddingValues(
-                                bottom = contentPadding.calculateBottomPadding(),
-                                top = MaterialTheme.spacing.medium
-                            ),
                             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                             modifier = Modifier
                                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                                 .fillMaxSize()
                                 .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
                         ) {
+
+                            item{}
+
                             if (results.isEmpty()) {
                                 item {
                                     Box(

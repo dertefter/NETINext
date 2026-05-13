@@ -6,10 +6,15 @@ import androidx.compose.animation.core.snap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -80,6 +85,7 @@ fun PanelsLayout(
         Box(
             modifier = Modifier
                 .weight(leftWeight)
+                .consumeWindowInsets(WindowInsets.systemBars.only(WindowInsetsSides.Right))
         ) {
             contentLeft()
         }
@@ -149,9 +155,9 @@ fun PanelsLayout(
             modifier = Modifier
                 .weight(1f - leftWeight)
                 .background(MaterialTheme.colorScheme.background)
+                .consumeWindowInsets(WindowInsets.systemBars.only(WindowInsetsSides.Left))
         ) {
             contentRight()
-
         }
     }
 

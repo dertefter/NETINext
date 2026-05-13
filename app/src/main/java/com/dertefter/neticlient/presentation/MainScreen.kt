@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dertefter.data.dto.auth.AuthStatus
@@ -28,7 +29,6 @@ import com.dertefter.lesson_detail.LessonDetailRoute
 import com.dertefter.navigation.NavigationAction
 import com.dertefter.navigation.Navigator
 import com.dertefter.navigation.Routes
-import com.dertefter.neticlient.presentation.ThemeState
 import com.dertefter.neticlient.navigation.getNavigationMenu
 import com.dertefter.neticlient.presentation.content.PhoneUi
 import com.dertefter.neticlient.presentation.content.TabUI
@@ -46,6 +46,8 @@ fun MainScreen(
     onEvent: (Event) -> Unit,
     themeState: ThemeState,
 ) {
+
+
 
     AppTheme(
         seedColor = themeState.seedColor,
@@ -66,6 +68,15 @@ fun MainScreen(
 
         var bottomSheetRoute by remember { mutableStateOf<Routes?>(null) }
         val sheetState = rememberModalBottomSheetState()
+
+
+
+
+        val isFullScreen = when {
+            currentDestination?.hasRoute<Routes.NewsDetail>() == true -> true
+            currentDestination?.hasRoute<Routes.ImageViewer>() == true -> true
+            else -> false
+        }
 
         val bottomSheetCornerRadius by animateDpAsState(
             targetValue = if (sheetState.targetValue == SheetValue.Expanded) 0.dp else MaterialTheme.rounding.extraLargeIncreased,
@@ -115,7 +126,8 @@ fun MainScreen(
                 navigationItems = navigationItems,
                 authStatusCiu = screenState.authStatusCiu,
                 authStatusYourNeti = screenState.authStatusYourNeti,
-                onEvent = onEvent
+                onEvent = onEvent,
+                isFullScreen = isFullScreen
             )
         }
         else {
@@ -125,7 +137,8 @@ fun MainScreen(
                 navigationItems = navigationItems,
                 authStatusCiu = screenState.authStatusCiu,
                 authStatusYourNeti = screenState.authStatusYourNeti,
-                onEvent = onEvent
+                onEvent = onEvent,
+                isFullScreen = isFullScreen
             )
         }
 

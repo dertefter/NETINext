@@ -1,6 +1,7 @@
 package com.dertefter.neticlient.presentation.content
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import com.dertefter.data.dto.auth.AuthStatus
@@ -54,7 +56,8 @@ fun TabUI(
             navController = navController,
             navigationItems
         )
-    }
+    },
+    isFullScreen: Boolean
 ){
 
     var isAuthNotifyVisible by rememberSaveable(authStatusCiu.toString(), authStatusYourNeti.toString()) {
@@ -78,16 +81,25 @@ fun TabUI(
                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 .fillMaxSize())
             {
-                MainNavigationRail(
-                    navController = navController,
-                    currentDestination = currentDestination,
-                    navigationItems = navigationItems,
+                AnimatedVisibility(
+                    visible = !isFullScreen
+                ) {
+                    MainNavigationRail(
+                        navController = navController,
+                        currentDestination = currentDestination,
+                        navigationItems = navigationItems,
+                    )
+                }
+
+                val leftPadding by animateDpAsState(
+                    if (isFullScreen) 0.dp else paddingValues.calculateLeftPadding(LocalLayoutDirection.current)
                 )
+
                 navHost(
                     Modifier
                         .consumeWindowInsets(
                             WindowInsets(
-                                left = paddingValues.calculateLeftPadding(LocalLayoutDirection.current),
+                                left = leftPadding,
                             )
                         )
                         .weight(1f)
