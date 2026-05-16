@@ -5,7 +5,10 @@
 # NETI Next
 
 <a href="https://play.google.com/store/apps/details?id=com.dertefter.neticlient">
-  <img src="https://img.shields.io/badge/Google_Play-095943?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play" height="60">
+  <img src="https://github.com/dertefter/some_stuff_for_me/blob/master/com.dertefter.neticlient_downloads.svg" alt="Google Play" height="60">
+</a>
+<a href="https://play.google.com/store/apps/details?id=com.dertefter.neticlient">
+  <img src="https://github.com/dertefter/some_stuff_for_me/blob/master/com.dertefter.neticlient_rating.svg" alt="Google Play" height="60">
 </a>
 <a href="https://t.me/neticlient">
   <img src="https://img.shields.io/badge/Telegram-26A6E1?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" height="60">
