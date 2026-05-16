@@ -10,11 +10,11 @@
 <a href="https://play.google.com/store/apps/details?id=com.dertefter.neticlient">
   <img src="https://github.com/dertefter/some_stuff_for_me/blob/master/com.dertefter.neticlient_rating.svg" alt="Google Play" height="60">
 </a>
-<a href="https://t.me/neticlient">
-  <img src="https://img.shields.io/badge/Telegram-26A6E1?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" height="60">
-</a>
 <a href="https://www.rustore.ru/catalog/app/com.dertefter.neticlient">
   <img src="https://img.shields.io/badge/RuStore-005BFF?style=for-the-badge&logo=rustore&logoColor=white" alt="RuStore" height="60">
+</a>
+<a href="https://t.me/neticlient">
+  <img src="https://img.shields.io/badge/Telegram-26A6E1?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" height="60">
 </a>
 <a href="README-ENG.md">
   <img src="https://img.shields.io/badge/English-blue?style=for-the-badge" alt="English" height="60">
