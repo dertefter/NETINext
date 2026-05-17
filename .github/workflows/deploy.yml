@@ -41,7 +41,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: com.dertefter.neticlient
 
-          releaseFiles: |
-            app/build/outputs/bundle/release/app-release.aab
-            app_wearable/build/outputs/bundle/release/app_wearable-release.aab
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab,app_wearable/build/outputs/bundle/release/app_wearable-release.aab
           track: internal # internal, alpha, beta, production
