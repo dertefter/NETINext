@@ -1,0 +1,42 @@
+name: Deploy to Google Play
+
+on:
+  push:
+    tags:
+      - 'v*' # Запуск при пуше тегов вроде v1.0, v2.1.4
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # Декодируем файл подписи из GitHub Secrets обратно в .jks файл
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
+
+      # Собираем подписанный Android App Bundle (AAB)
+      - name: Build & Sign Release AAB
+        run: ./gradlew bundleRelease
+        env:
+          ANDROID_KEYSTORE_FILE: release.jks
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      # Публикуем в Google Play через готовый экшен
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonRaw: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
+          packageName: com.dertefter.neticlient
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: internal # Варианты: internal, alpha, beta, production
