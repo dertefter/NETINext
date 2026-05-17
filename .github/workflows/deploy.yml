@@ -35,11 +35,18 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload to Google Play
+      - name: Upload Mobile to Google Play
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: com.dertefter.neticlient
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: internal # internal, alpha, beta, production
 
-          releaseFiles: app/build/outputs/bundle/release/app-release.aab,app_wearable/build/outputs/bundle/release/app_wearable-release.aab
-          track: production # internal, alpha, beta, production
+      - name: Upload Wearable to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
+          packageName: com.dertefter.neticlient
+          releaseFiles: app_wearable/build/outputs/bundle/release/app_wearable-release.aab
+          track: wear:internal # internal, alpha, beta, production
