@@ -1,6 +1,5 @@
 package com.dertefter.home.presentation
 
-import com.dertefter.data.dto.schedule.GroupDto
 import java.time.LocalDate
 import java.time.LocalTime
 

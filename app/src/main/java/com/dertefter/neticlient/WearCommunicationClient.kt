@@ -1,7 +1,6 @@
 package com.dertefter.neticlient
 
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable

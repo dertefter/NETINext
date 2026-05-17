@@ -2,11 +2,9 @@ package com.dertefter.data.repository
 
 import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
-import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.ScheduleDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
-import com.dertefter.data.dto.user.UserInfoDto
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

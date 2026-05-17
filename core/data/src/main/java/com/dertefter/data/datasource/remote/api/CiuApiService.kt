@@ -4,7 +4,6 @@ import com.dertefter.data.dto.docs.DocumentRequestItem
 import com.dertefter.data.dto.share_score.ShareScoreResponse
 import okhttp3.ResponseBody
 import retrofit2.http.Field
-import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST

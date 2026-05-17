@@ -5,7 +5,7 @@ import okhttp3.CookieJar
 import okhttp3.HttpUrl
 
 
-class SessionCookieJar () : CookieJar {
+class SessionCookieJar : CookieJar {
 
     private val cookieStore = mutableMapOf<String, MutableList<Cookie>>()
 

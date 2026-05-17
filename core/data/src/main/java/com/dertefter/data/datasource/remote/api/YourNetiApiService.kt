@@ -9,7 +9,6 @@ import com.dertefter.data.dto.messsages.RemoveMessageFromTrashRequest
 import com.dertefter.data.dto.messsages.UnreadMessageRequest
 import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.user.UserInfoDto
-import okhttp3.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -39,21 +38,21 @@ interface YourNetiApiService {
     @PUT("student/modify_data/app/update_message_deleted_status")
     suspend fun moveMessageToTrash(
         @Body body: MoveMessageToTrashRequest
-    ): Unit
+    )
 
     @PUT("student/modify_data/app/update_message_deleted_status")
     suspend fun removeMessageFromTrash(
         @Body body: RemoveMessageFromTrashRequest
-    ): Unit
+    )
 
     @PUT("student/modify_data/app/update_message_read_status")
     suspend fun readMessage(
         @Body body: ReadMessageRequest
-    ): Unit
+    )
 
     @PUT("student/modify_data/app/update_message_read_status")
     suspend fun unreadMessage(
         @Body body: UnreadMessageRequest
-    ): Unit
+    )
 
 }

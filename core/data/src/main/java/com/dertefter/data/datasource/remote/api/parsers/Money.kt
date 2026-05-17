@@ -1,7 +1,6 @@
 package com.dertefter.data.datasource.remote.api.parsers
 
 import com.dertefter.data.dto.money.MoneyItemDto
-import com.dertefter.data.dto.schedule.GroupDto
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element

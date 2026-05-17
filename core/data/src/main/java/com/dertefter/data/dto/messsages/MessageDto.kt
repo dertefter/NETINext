@@ -1,6 +1,5 @@
 package com.dertefter.data.dto.messsages
 
-import android.util.Log
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.LocalDateTime

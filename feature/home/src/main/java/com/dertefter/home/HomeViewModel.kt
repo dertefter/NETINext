@@ -48,6 +48,7 @@ class HomeViewModel @Inject constructor(
     getNewsUseCase: GetNewsUseCase,
     getCachedPromoUseCase: GetCachedPromoUseCase,
     getCurrentGroupUseCase: GetCurrentGroupUseCase,
+    getIsTgShowUseCase: GetIsTgShowUseCase,
     private val getScheduleUseCase: GetScheduleUseCase,
     private val updatePromoUseCase: UpdatePromoUseCase,
     private val updateScheduleUseCase: UpdateScheduleUseCase,
@@ -55,7 +56,6 @@ class HomeViewModel @Inject constructor(
     private val openSearchGroupUseCase: OpenSearchGroupUseCase,
     private val navigateToNewsDetailUseCase: NavigateToNewsDetailUseCase,
     private val openLessonDetailUseCase: OpenLessonDetailUseCase,
-    private val getIsTgShowUseCase: GetIsTgShowUseCase,
     private val setIsTgShowUseCase: SetIsTgShowUseCase
 ) : ViewModel() {
 
@@ -70,7 +70,7 @@ class HomeViewModel @Inject constructor(
 
     private val _scheduleError: MutableStateFlow<AppError?> = MutableStateFlow(null)
 
-    private val _isTgShow = getIsTgShowUseCase().map { it != false }
+    private val _isTgShow = getIsTgShowUseCase()
 
 
     val promo = getCachedPromoUseCase().map { it ?: emptyList() }

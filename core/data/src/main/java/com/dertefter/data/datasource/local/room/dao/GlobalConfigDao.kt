@@ -1,10 +1,11 @@
 package com.dertefter.data.datasource.local.room.dao
 
-import com.dertefter.data.datasource.remote.PreferredRemoteSource
-import androidx.room.*
-import com.dertefter.data.datasource.local.room.converter.Converters
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
-import com.dertefter.data.dto.news.PromoItem
+import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 

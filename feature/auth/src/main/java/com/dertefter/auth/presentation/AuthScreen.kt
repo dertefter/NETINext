@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dertefter.auth.R
 import com.dertefter.design.components.appbar.AppToolbar
-import com.dertefter.design.components.auth.SavedAccountCard
 import com.dertefter.design.components.buttons.AppNavigationIcon
 import com.dertefter.design.components.text_fields.TextFieldItem
 import com.dertefter.design.icons.Icons

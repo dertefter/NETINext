@@ -1,11 +1,10 @@
 package com.dertefter.data.repository
 
+import androidx.paging.PagingData
 import com.dertefter.data.dto.news.NewsDetailDto
 import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
-import com.dertefter.data.dto.user.UserInfoDto
 import kotlinx.coroutines.flow.Flow
-import androidx.paging.PagingData
 
 interface NewsRepository {
 

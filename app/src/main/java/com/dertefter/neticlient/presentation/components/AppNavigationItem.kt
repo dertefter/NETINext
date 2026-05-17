@@ -1,6 +1,5 @@
 package com.dertefter.neticlient.presentation.components
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem

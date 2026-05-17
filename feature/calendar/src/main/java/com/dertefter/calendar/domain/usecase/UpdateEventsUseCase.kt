@@ -1,9 +1,6 @@
 package com.dertefter.calendar.domain.usecase
 
 import com.dertefter.data.dto.schedule.EventDto
-import com.dertefter.data.dto.schedule.GroupDto
-import com.dertefter.data.dto.schedule.ScheduleDto
-import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.repository.ScheduleRepository
 import javax.inject.Inject
 

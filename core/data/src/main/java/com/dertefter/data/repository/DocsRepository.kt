@@ -1,12 +1,9 @@
 package com.dertefter.data.repository
 
-import androidx.lifecycle.viewModelScope
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.docs.DocumentOptionItem
 import com.dertefter.data.dto.docs.DocumentRequestItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 interface DocsRepository {
 

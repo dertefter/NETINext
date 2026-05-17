@@ -8,7 +8,6 @@ import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.repository.AuthRepository
 import com.dertefter.data.repository.GroupsRepository
 import com.dertefter.data.repository.ScheduleRepository
-import com.dertefter.data.repository.SettingsRepository
 import com.dertefter.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

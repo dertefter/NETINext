@@ -1,7 +1,5 @@
 package com.dertefter.data.repository
 
-import com.dertefter.data.common.AppError
-import com.dertefter.data.common.AppException
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.remote.RemoteDataSource
 import com.dertefter.data.dto.messsages.MessageDto

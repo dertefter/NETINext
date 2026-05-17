@@ -7,7 +7,6 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dertefter.design.theme.isFold
-import com.dertefter.design.theme.isTab
 import com.dertefter.messages.presentation.Event
 import com.dertefter.messages.presentation.MessagesScreenFold
 import com.dertefter.messages.presentation.MessagesScreenPhone

@@ -1,14 +1,13 @@
 package com.dertefter.data.repository
 
-import android.util.Log
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.AppException
 import com.dertefter.data.common.toAppError
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.remote.RemoteDataSource
+import com.dertefter.data.di.ApplicationScope
 import com.dertefter.data.dto.auth.AuthCreditions
 import com.dertefter.data.dto.auth.AuthStatus
-import com.dertefter.data.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow

@@ -310,7 +310,6 @@ class CiuRemoteDataSourceImpl @Inject constructor(
     override suspend fun cancelDocument(docId: String): Result<Unit> {
         return runCatching {
             ciuApiService.cancelDocument(docId)
-            Unit
         }
     }
 
