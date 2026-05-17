@@ -19,12 +19,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # Декодируем файл подписи из GitHub Secrets обратно в .jks файл
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
 
-      # Собираем подписанный Android App Bundle (AAB)
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build & Sign Release AAB
         run: ./gradlew bundleRelease
         env:
@@ -33,7 +34,6 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      # Публикуем в Google Play через готовый экшен
       - name: Upload to Google Play
         uses: r0adkll/upload-google-play@v1
         with:
