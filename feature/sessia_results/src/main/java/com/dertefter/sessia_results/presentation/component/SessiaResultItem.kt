@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
@@ -181,11 +180,6 @@ fun SessiaResultItem(
 
             Box(
             modifier = Modifier
-                .shadow(
-                    elevation = 3.dp,
-                    shape = MaterialShapes.Cookie7Sided.toShape(ectsShapeAngle),
-                    spotColor = bgColor
-                )
                 .clip(MaterialShapes.Cookie7Sided.toShape(ectsShapeAngle))
                 .background(bgColor)
                 .size(ectsShapeSize)
