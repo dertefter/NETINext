@@ -1,9 +1,7 @@
 package com.dertefter.messages.presentation
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -65,45 +63,33 @@ fun MessagesScreenPhone(
 
     Scaffold(
         topBar = {
-            Column {
-                AppToolbar(
-                    scrollBehavior = scrollBehavior,
-                    title = if (uiState.filterMode is FilterMode.DELETED) {
-                        stringResource(R.string.messages_archive)
-                    } else {
-                        stringResource(R.string.messages_title)
-                    },
-                    actions = {
-                        AppNavigationIcon(
-                            icon = if (uiState.filterMode is FilterMode.DELETED) {
-                                Icons.Close
+
+            AppToolbar(
+                scrollBehavior = scrollBehavior,
+                title = if (uiState.filterMode is FilterMode.DELETED) {
+                    stringResource(R.string.messages_archive)
+                } else {
+                    stringResource(R.string.messages_title)
+                },
+                actions = {
+                    AppNavigationIcon(
+                        icon = if (uiState.filterMode is FilterMode.DELETED) {
+                            Icons.Close
+                        } else {
+                            Icons.Archive
+                        }, onClick = {
+                            if (uiState.filterMode is FilterMode.DELETED) {
+                                onEvent(
+                                    Event.OnUpdateFilterMode(FilterMode.ALL)
+                                )
                             } else {
-                                Icons.Archive
-                            }, onClick = {
-                                if (uiState.filterMode is FilterMode.DELETED) {
-                                    onEvent(
-                                        Event.OnUpdateFilterMode(FilterMode.ALL)
-                                    )
-                                } else {
-                                    onEvent(
-                                        Event.OnUpdateFilterMode(FilterMode.DELETED)
-                                    )
-                                }
+                                onEvent(
+                                    Event.OnUpdateFilterMode(FilterMode.DELETED)
+                                )
+                            }
 
-                            })
-                    })
-
-                AnimatedVisibility(
-                    visible = !uiState.isAlertSkipped,
-                    modifier = Modifier
-                        .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding),
-                ) {
-                    MessagesInfoAlertCard(
-                        onClose = { onEvent(Event.OnSkipAlert) }
-                    )
-                }
-
-            }
+                        })
+                })
 
         },
     ) { contentPadding ->
@@ -155,6 +141,16 @@ fun MessagesScreenPhone(
                 contentPadding = contentPadding,
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
+
+                if (!uiState.isAlertSkipped){
+                    item{
+                        MessagesInfoAlertCard(
+                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.defaultScreenPadding),
+                            onClose = { onEvent(Event.OnSkipAlert) }
+                        )
+                    }
+                }
+
                 if (uiState.filterMode != FilterMode.DELETED) {
                     item {
                         LazyRow(
