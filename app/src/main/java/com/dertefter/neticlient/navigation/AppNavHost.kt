@@ -14,6 +14,7 @@ import androidx.navigation.toRoute
 import com.dertefter.auth.AuthRoute
 import com.dertefter.calendar.CalendarRoute
 import com.dertefter.contact_info.ContactInfoRoute
+import com.dertefter.control_weeks.ControlWeeksRoute
 import com.dertefter.doc_detail.DocDetailRoute
 import com.dertefter.docs.DocsRoute
 import com.dertefter.home.HomeRoute
@@ -127,6 +128,7 @@ fun RouteContent(route: Routes) {
             imageUrls = route.imageUrls,
             viewPosition = route.viewPosition
         )
+        is Routes.ControlWeeks -> ControlWeeksRoute()
         else -> {}
     }
 }
@@ -245,6 +247,11 @@ fun NavGraphBuilder.graph() {
 
     composable<Routes.ImageViewer> {
         val args = it.toRoute<Routes.ImageViewer>()
+        RouteContent(args)
+    }
+
+    composable<Routes.ControlWeeks> {
+        val args = it.toRoute<Routes.ControlWeeks>()
         RouteContent(args)
     }
 

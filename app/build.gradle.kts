@@ -97,6 +97,7 @@ dependencies {
     implementation(project(":feature:share_score"))
     implementation(project(":feature:swap_lks"))
     implementation(project(":feature:image_viewer"))
+    implementation(project(":feature:control_weeks"))
 
     implementation(libs.core.ktx)
     implementation(libs.core.splashscreen)

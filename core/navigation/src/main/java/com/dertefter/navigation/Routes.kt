@@ -84,6 +84,9 @@ sealed interface Routes {
     data object Messages : Routes
 
     @Serializable
+    data object ControlWeeks : Routes
+
+    @Serializable
     data class MessagesDetail(
         val idMessage: Long,
         val idStudent: Long? = null,
