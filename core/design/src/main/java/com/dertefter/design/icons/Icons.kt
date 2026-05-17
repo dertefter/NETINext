@@ -3,13 +3,13 @@ package com.dertefter.design.icons
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.transition.Visibility
 import com.dertefter.design.R
-import org.intellij.lang.annotations.Language
 
 @Suppress("unused")
 object Icons {
 
+    val AppIcon: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.app_icon)
     val Policy: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_policy)
 

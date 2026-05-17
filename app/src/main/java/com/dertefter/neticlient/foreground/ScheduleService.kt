@@ -187,7 +187,7 @@ class ScheduleService : Service() {
         )
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.app_icon)
+            .setSmallIcon(com.dertefter.design.R.drawable.app_icon)
             .setPriority(if (progress != -1) NotificationCompat.PRIORITY_HIGH else NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
@@ -210,8 +210,7 @@ class ScheduleService : Service() {
 
     private fun formatTargetDate(targetDate: LocalDate, startTime: String?): String {
         val nowDate = LocalDate.now()
-        val diff = ChronoUnit.DAYS.between(nowDate, targetDate)
-        val primaryLine: String? = when (diff) {
+        val primaryLine: String? = when (val diff = ChronoUnit.DAYS.between(nowDate, targetDate)) {
             0L -> getString(R.string.app_pretty_date_today)
             1L -> getString(R.string.app_pretty_date_tomorrow)
             2L -> getString(R.string.app_pretty_date_after_tomorrow)
