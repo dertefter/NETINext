@@ -3,7 +3,7 @@ name: Deploy to Google Play
 on:
   push:
     tags:
-      - 'v*' # Запуск при пуше тегов вроде v1.0, v2.1.4
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -22,6 +22,7 @@ jobs:
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app_wearable/release.jks
 
       - name: Make gradlew executable
         run: chmod +x gradlew
@@ -39,5 +40,8 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: com.dertefter.neticlient
-          releaseFiles: app/build/outputs/bundle/release/app-release.aab
-          track: internal # Варианты: internal, alpha, beta, production
+
+          releaseFiles: |
+            app/build/outputs/bundle/release/app-release.aab
+            app_wearable/build/outputs/bundle/release/app_wearable-release.aab
+          track: internal # internal, alpha, beta, production
