@@ -13,6 +13,9 @@ object Icons {
     val Policy: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_policy)
 
+    val EventAvailable: ImageVector
+        @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_event_available)
+
     val GitHub: ImageVector
         @Composable get() = ImageVector.vectorResource(id = R.drawable.ic_github)
     val Language: ImageVector
