@@ -7,6 +7,7 @@ import com.dertefter.data.datasource.remote.api.BaseApiService
 import com.dertefter.data.datasource.remote.api.CiuApiService
 import com.dertefter.data.datasource.remote.api.Login2ApiService
 import com.dertefter.data.datasource.remote.api.parsers.parseContactInfo
+import com.dertefter.data.datasource.remote.api.parsers.parseControlWeeks
 import com.dertefter.data.datasource.remote.api.parsers.parseDocCancelable
 import com.dertefter.data.datasource.remote.api.parsers.parseDocsList
 import com.dertefter.data.datasource.remote.api.parsers.parseDocsOptionsList
@@ -29,6 +30,7 @@ import com.dertefter.data.datasource.remote.api.parsers.parseShareScoreLink
 import com.dertefter.data.datasource.remote.api.parsers.parseWeekHeader
 import com.dertefter.data.datasource.remote.api.parsers.verifyAuth
 import com.dertefter.data.dto.auth.Login2FormParamsAuth
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.docs.DocumentOptionItem
 import com.dertefter.data.dto.docs.DocumentRequestItem
@@ -227,6 +229,13 @@ class CiuRemoteDataSourceImpl @Inject constructor(
             parseSessiaResults(response.string())
         }
 
+    }
+
+    override suspend fun getControlWeeks(): Result<List<ControlWeekDto>> {
+        return runCatching {
+            val response = ciuApiService.getControlWeeks()
+            parseControlWeeks(response.string())
+        }
     }
 
     override suspend fun updateShareScoreLink(generateNew: Boolean): Result<String> {

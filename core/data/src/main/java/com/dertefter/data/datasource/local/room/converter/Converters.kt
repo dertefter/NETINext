@@ -2,6 +2,7 @@ package com.dertefter.data.datasource.local.room.converter
 
 import androidx.room.TypeConverter
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
@@ -161,4 +162,20 @@ class Converters {
         val type = object : TypeToken<List<DocsItemDto>>() {}.type
         return gson.fromJson(value, type)
     }
+
+    @TypeConverter
+    fun fromControlWeekDtoList(value: List<ControlWeekDto>?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toControlWeekDtoList(value: String?): List<ControlWeekDto>? {
+        val type = object : TypeToken<List<ControlWeekDto>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromControlWeekDto(value: ControlWeekDto?): String? = gson.toJson(value)
+
+    @TypeConverter
+    fun toControlWeekDto(value: String?): ControlWeekDto? =
+        gson.fromJson(value, ControlWeekDto::class.java)
 }

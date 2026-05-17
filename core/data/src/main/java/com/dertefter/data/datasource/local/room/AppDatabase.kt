@@ -35,7 +35,7 @@ import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
         MoneyEntity::class,
         SessiaScheduleEntity::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = false
 )
 

@@ -2,6 +2,7 @@ package com.dertefter.data.datasource.local.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
@@ -18,6 +19,7 @@ data class AccountEntity(
     val currentGroup: GroupDto? = null,
     val weekBounds: List<WeekBoundsDto>? = null,
     val sessiaResults: List<SessiaResultDto>? = null,
+    val controlWeeks: List<ControlWeekDto>? = null,
     val groupHistory: List<GroupDto> = emptyList(),
     val shareScoreLink: String? = null,
     val moneyYears: List<String>? = null,

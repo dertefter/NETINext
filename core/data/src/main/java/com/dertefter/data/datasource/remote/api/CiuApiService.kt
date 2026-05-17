@@ -143,6 +143,9 @@ interface CiuApiService {
     @GET("student_study/student_info/progress")
     suspend fun getSessiaResults(): ResponseBody
 
+    @GET("student_study/student_info/task")
+    suspend fun getControlWeeks(): ResponseBody
+
     @FormUrlEncoded
     @POST("student_study/student_info/link_progress")
     suspend fun generateShareScoreLink(

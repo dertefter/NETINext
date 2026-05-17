@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.remote
 
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.docs.DocumentOptionItem
 import com.dertefter.data.dto.docs.DocumentRequestItem
@@ -208,6 +209,10 @@ class RemoteDataSourceImpl @Inject constructor(
             return ciuRemoteDataSource.getSessiaResults()
         }
 
+    }
+
+    override suspend fun getControlWeeks(): Result<List<ControlWeekDto>> {
+        return ciuRemoteDataSource.getControlWeeks()
     }
 
     override suspend fun updateShareScoreLink(generateNew: Boolean): Result<String> {

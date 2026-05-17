@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.remote
 
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.docs.DocumentOptionItem
 import com.dertefter.data.dto.docs.DocumentRequestItem
@@ -80,6 +81,8 @@ interface RemoteDataSource  {
     suspend fun getSearchPersonResults(q: String): Result<List<PersonShortDto>>
 
     suspend fun getSessiaResults(): Result<List<SessiaResultDto>>
+
+    suspend fun getControlWeeks(): Result<List<ControlWeekDto>>
 
     suspend fun updateShareScoreLink(generateNew: Boolean): Result<String>
 

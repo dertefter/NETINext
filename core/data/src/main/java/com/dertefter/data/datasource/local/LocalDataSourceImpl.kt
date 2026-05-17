@@ -16,6 +16,7 @@ import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
 import com.dertefter.data.datasource.local.room.entity.toEntity
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
@@ -272,6 +273,18 @@ class LocalDataSourceImpl @Inject constructor(
         val login = getCurrentLoginValue()
         val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
         accountDao.insertAccount(account.copy(sessiaResults = sessiaResults))
+    }
+
+    override fun getControlWeeks(): Flow<List<ControlWeekDto>?> {
+        return getCurrentLogin().flatMapLatest { login ->
+            accountDao.getAccount(login ?: GUEST_LOGIN).map { it?.controlWeeks }
+        }
+    }
+
+    override suspend fun saveControlWeeks(sessiaResults: List<ControlWeekDto>) {
+        val login = getCurrentLoginValue()
+        val account = accountDao.getAccount(login).first() ?: AccountEntity(login = login)
+        accountDao.insertAccount(account.copy(controlWeeks = sessiaResults))
     }
 
     override fun getShareScoreLink(): Flow<String?> {

@@ -4,6 +4,7 @@ import com.dertefter.data.datasource.local.room.entity.NewsEntity
 import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.auth.AuthCreditions
+import com.dertefter.data.dto.control_weeks.ControlWeekDto
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
 import com.dertefter.data.dto.money.MoneyItemDto
@@ -104,6 +105,10 @@ interface LocalDataSource {
     fun getSessiaResults(): Flow<List<SessiaResultDto>?>
 
     suspend fun saveSessiaResults(sessiaResults: List<SessiaResultDto>)
+
+    fun getControlWeeks(): Flow<List<ControlWeekDto>?>
+
+    suspend fun saveControlWeeks(sessiaResults: List<ControlWeekDto>)
 
     fun getShareScoreLink(): Flow<String?>
 
