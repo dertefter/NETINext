@@ -11,7 +11,6 @@ import com.dertefter.data.dto.settings.ThemeStyle
 @Entity(tableName = "global_config")
 data class GlobalConfigEntity(
     @PrimaryKey val id: Int = 0,
-    val currentLogin: String? = null,
     val preferredRemoteSource: PreferredRemoteSource = PreferredRemoteSource.AUTO,
     val themeColor: Long? = null,
     val themeStyle: ThemeStyle = ThemeStyle.TonalSpot,

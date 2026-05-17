@@ -44,7 +44,8 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 class LocalDataSourceImpl @Inject constructor(
     private val appDatabase: AppDatabase,
-    private val encryptedAuthStorage: EncryptedAuthStorage
+    private val encryptedAuthStorage: EncryptedAuthStorage,
+    private val datastoreManager: DatastoreManager
 ) : LocalDataSource {
 
     private val accountDao = appDatabase.accountDao()
@@ -86,13 +87,12 @@ class LocalDataSourceImpl @Inject constructor(
 
     private val GUEST_LOGIN = ""
 
-    private suspend fun getCurrentLoginValue(): String = globalConfigDao.getCurrentLogin().first() ?: GUEST_LOGIN
+    private suspend fun getCurrentLoginValue(): String = datastoreManager.getCurrentLogin().first() ?: GUEST_LOGIN
 
-    override fun getCurrentLogin(): Flow<String?> = globalConfigDao.getCurrentLogin()
+    override fun getCurrentLogin(): Flow<String?> = datastoreManager.getCurrentLogin()
 
     override suspend fun switchToLogin(login: String) {
-        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
-        globalConfigDao.insertConfig(currentConfig.copy(currentLogin = login))
+        datastoreManager.setCurrentLogin(login)
         if (login.isNotEmpty()) {
             val account = accountDao.getAccount(login).first()
             if (account == null) {
@@ -102,8 +102,7 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun logout() {
-        val currentConfig = globalConfigDao.getConfig().first() ?: GlobalConfigEntity()
-        globalConfigDao.insertConfig(currentConfig.copy(currentLogin = null))
+        datastoreManager.setCurrentLogin(null)
     }
 
     override fun getContactInfo(): Flow<ContactInfoDto?> {

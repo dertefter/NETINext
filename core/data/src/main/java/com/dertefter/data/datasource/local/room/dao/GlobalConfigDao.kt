@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GlobalConfigDao {
-    @Query("SELECT currentLogin FROM global_config WHERE id = 0")
-    fun getCurrentLogin(): Flow<String?>
 
     @Query("SELECT preferredRemoteSource FROM global_config WHERE id = 0")
     fun getPreferredRemoteSource(): Flow<PreferredRemoteSource?>
@@ -52,9 +50,6 @@ interface GlobalConfigDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertConfig(config: GlobalConfigEntity)
-
-    @Query("UPDATE global_config SET currentLogin = :login WHERE id = 0")
-    suspend fun updateCurrentLogin(login: String?)
 
     @Query("UPDATE global_config SET preferredRemoteSource = :p WHERE id = 0")
     suspend fun updatePreferredRemoteSource(p: PreferredRemoteSource)

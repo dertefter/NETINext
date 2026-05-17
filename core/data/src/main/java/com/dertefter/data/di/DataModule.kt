@@ -2,6 +2,7 @@ package com.dertefter.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.dertefter.data.datasource.local.DatastoreManager
 import com.dertefter.data.datasource.local.EncryptedAuthStorage
 import com.dertefter.data.datasource.local.LocalDataSource
 import com.dertefter.data.datasource.local.LocalDataSourceImpl
@@ -62,10 +63,12 @@ object DataModule {
     @Singleton
     fun provideLocalDataSource(
         appDatabase: AppDatabase,
-        encryptedAuthStorage: EncryptedAuthStorage
+        encryptedAuthStorage: EncryptedAuthStorage,
+        datastoreManager: DatastoreManager
     ): LocalDataSource = LocalDataSourceImpl(
         appDatabase,
-        encryptedAuthStorage
+        encryptedAuthStorage,
+        datastoreManager
     )
 
     @Singleton
