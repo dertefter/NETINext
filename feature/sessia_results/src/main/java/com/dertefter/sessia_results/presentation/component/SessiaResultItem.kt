@@ -99,7 +99,8 @@ fun SessiaResultItem(
             .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(MaterialTheme.spacing.large)
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalAlignment = Alignment.CenterVertically
     ){
         Column(
             Modifier
