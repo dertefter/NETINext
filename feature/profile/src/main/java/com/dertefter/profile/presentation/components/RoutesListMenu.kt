@@ -31,6 +31,7 @@ fun RoutesListMenu(
                 Routes.SessiaResults -> Icons.School
                 Routes.Money -> Icons.Payments
                 Routes.Docs -> Icons.Docs
+                Routes.ControlWeeks -> Icons.EventAvailable
                 else -> Icons.ArrowDropUp
             }
             val text = when (route){
@@ -38,6 +39,7 @@ fun RoutesListMenu(
                 Routes.SessiaResults -> stringResource(R.string.profile_sessia_results)
                 Routes.Money -> stringResource(R.string.profile_money)
                 Routes.Docs -> stringResource(R.string.profile_docs)
+                Routes.ControlWeeks -> stringResource(R.string.profile_control_weeks)
                 else -> ""
             }
 

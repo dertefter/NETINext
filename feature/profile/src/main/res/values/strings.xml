@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="profile_title">Profile</string>
-    <string name="profile_person_search">Staff Search</string>
+    <string name="profile_person_search">Staff search</string>
     <string name="profile_sessia_results">Exam results</string>
-    <string name="profile_money">Scholarships and Payments</string>
-    <string name="profile_docs">Document Requests</string>
+    <string name="profile_money">Scholarships and payments</string>
+    <string name="profile_docs">Document requests</string>
+    <string name="profile_control_weeks">Control weeks</string>
 </resources>
