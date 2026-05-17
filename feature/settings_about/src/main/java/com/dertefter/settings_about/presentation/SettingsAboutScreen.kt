@@ -60,9 +60,6 @@ fun SettingsAboutScreen(
     }
     val versionName = packageInfo?.versionName ?: ""
 
-
-    val ossTitle = stringResource(R.string.settings_about_oss_licenses)
-
     fun openUrl(url: String) {
         try {
             val intent = Intent(Intent.ACTION_VIEW, url.toUri())
