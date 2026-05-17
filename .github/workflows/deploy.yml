@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*' # Запуск при пуше тегов вроде v1.0, v2.1.4
+  workflow_dispatch:
 
 jobs:
   deploy:
