@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="control_weeks_title">Контрольные недели</string>
+    <string name="control_weeks_semester_format">%1$s семестр</string>
+    <string name="control_weeks_no_control_weeks_data">Нет данных о контрольных неделях</string>
+</resources>
