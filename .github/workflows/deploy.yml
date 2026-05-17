@@ -41,6 +41,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: com.dertefter.neticlient
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          status: draft
           tracks: internal # internal, alpha, beta, production
 
       - name: Upload Wearable to Google Play
@@ -49,4 +50,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: com.dertefter.neticlient
           releaseFiles: app_wearable/build/outputs/bundle/release/app_wearable-release.aab
+          status: draft
           tracks: wear:internal # internal, alpha, beta, production
