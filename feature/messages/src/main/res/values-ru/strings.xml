@@ -18,4 +18,6 @@
     <string name="messages_info_alert_description">Здесь вы можете ознакомиться с сообщениями от преподавателей и служб. Для работы с корпоративной почтой перейдите </string>
     <string name="messages_info_alert_link">" по ссылке"</string>
     <string name="messages_info_alert_dismiss">Понятно</string>
+    <string name="messages_today">Сегодня</string>
+    <string name="messages_yesterday">Вчера</string>
 </resources>

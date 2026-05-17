@@ -21,8 +21,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImagePainter
@@ -30,8 +32,10 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.imageLoader
 import com.dertefter.design.icons.Icons
+import com.dertefter.design.theme.AppTheme
 import com.dertefter.design.theme.circleShape
 import com.dertefter.design.theme.spacing
+import com.dertefter.messages.R
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -51,12 +55,15 @@ fun MessageCard(
 
     ){
 
-    val formattedDate = remember(date) {
+    val today = stringResource(R.string.messages_today)
+    val yesterday = stringResource(R.string.messages_yesterday)
+
+    val formattedDate = remember(date, today, yesterday) {
         val now = LocalDate.now()
         val messageDate = date.toLocalDate()
         when {
-            messageDate == now -> "Сегодня"
-            messageDate == now.minusDays(1) -> "Вчера"
+            messageDate == now -> today
+            messageDate == now.minusDays(1) -> yesterday
             messageDate.year == now.year -> {
                 date.format(DateTimeFormatter.ofPattern("d MMM", Locale.getDefault()))
             }
@@ -76,7 +83,13 @@ fun MessageCard(
     val bgColor = if (isRead) {
         MaterialTheme.colorScheme.surfaceContainer
     } else {
-        MaterialTheme.colorScheme.surfaceContainerHighest
+        MaterialTheme.colorScheme.primaryContainer
+    }
+
+    val contentColor = if (isRead) {
+        MaterialTheme.colorScheme.onBackground
+    } else {
+        MaterialTheme.colorScheme.onPrimaryContainer
     }
 
 
@@ -142,13 +155,15 @@ fun MessageCard(
                     fontWeight = FontWeight(fontWeight),
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(1f),
+                    color = contentColor
                 )
 
                 Text(
                     text = formattedDate,
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight(fontWeight),
+                    color = contentColor
                 )
 
             }
@@ -158,8 +173,39 @@ fun MessageCard(
                 maxLines = 1,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight(fontWeight),
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                color = contentColor
             )
         }
+    }
+}
+
+@Preview
+@Composable
+fun MessageCardUnreadPreview() {
+    AppTheme {
+        MessageCard(
+            name = "Техподдержка",
+            message = "Ваше обращение №12345 было рассмотрено. Пожалуйста, ознакомьтесь с результатом в личном кабинете.",
+            avatarUrl = null,
+            date = LocalDateTime.now(),
+            isRead = false,
+            onClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MessageCardReadPreview() {
+    AppTheme {
+        MessageCard(
+            name = "Система оповещения",
+            message = "Завтра в 10:00 состоится плановое обслуживание серверов. Возможны кратковременные перебои в работе.",
+            avatarUrl = null,
+            date = LocalDateTime.now().minusDays(2),
+            isRead = true,
+            onClick = {}
+        )
     }
 }
