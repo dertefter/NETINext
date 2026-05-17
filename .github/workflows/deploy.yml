@@ -5,6 +5,17 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      manual_track:
+        description: 'Выберите трек для ручной публикации'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
 
 jobs:
   deploy:
@@ -27,6 +38,32 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      - name: Determine Google Play Track
+        id: determine_track
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MOBILE="${{ inputs.manual_track }}"
+            WEAR="wear:${{ inputs.manual_track }}"
+          else
+            TAG="${{ github.ref_name }}"
+            if [[ "$TAG" == *"-alpha"* ]]; then
+              MOBILE="alpha"
+              WEAR="wear:alpha"
+            elif [[ "$TAG" == *"-beta"* ]]; then
+              MOBILE="beta"
+              WEAR="wear:beta"
+            else
+              MOBILE="production"
+              WEAR="wear:production"
+            fi
+          fi
+          
+          echo "mobile_track=$MOBILE" >> $GITHUB_OUTPUT
+          echo "wear_track=$WEAR" >> $GITHUB_OUTPUT
+          
+          echo "Determined mobile track: $MOBILE"
+          echo "Determined wearable track: $WEAR"
+
       - name: Build & Sign Release AAB
         run: ./gradlew bundleRelease
         env:
@@ -42,7 +79,7 @@ jobs:
           packageName: com.dertefter.neticlient
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
           status: draft
-          tracks: internal # internal, alpha, beta, production
+          tracks: ${{ steps.determine_track.outputs.mobile_track }}
 
       - name: Upload Wearable to Google Play
         uses: r0adkll/upload-google-play@v1
@@ -51,4 +88,4 @@ jobs:
           packageName: com.dertefter.neticlient
           releaseFiles: app_wearable/build/outputs/bundle/release/app_wearable-release.aab
           status: draft
-          tracks: wear:internal # internal, alpha, beta, production
+          tracks: ${{ steps.determine_track.outputs.wear_track }}
