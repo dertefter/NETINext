@@ -25,7 +25,7 @@ class SettingsNotificationsViewModel @Inject constructor(
     private val isNotificationEnabled = getNotificationStatusUseCase()
         
     val uiState: StateFlow<UiState> = isNotificationEnabled.map {
-        UiState(it == true)
+        UiState(it)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),

@@ -1,47 +1,43 @@
 package com.dertefter.data.datasource.local
 
-import com.dertefter.data.datasource.remote.PreferredRemoteSource
+
+import androidx.paging.PagingSource
+import androidx.room.withTransaction
 import com.dertefter.data.datasource.local.room.AppDatabase
 import com.dertefter.data.datasource.local.room.entity.AccountEntity
 import com.dertefter.data.datasource.local.room.entity.GlobalConfigEntity
 import com.dertefter.data.datasource.local.room.entity.MessageEntity
+import com.dertefter.data.datasource.local.room.entity.MoneyEntity
+import com.dertefter.data.datasource.local.room.entity.NewsEntity
+import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
 import com.dertefter.data.datasource.local.room.entity.PersonEntity
 import com.dertefter.data.datasource.local.room.entity.ScheduleEntity
 import com.dertefter.data.datasource.local.room.entity.SessiaScheduleEntity
+import com.dertefter.data.datasource.local.room.entity.toEntity
+import com.dertefter.data.datasource.remote.PreferredRemoteSource
 import com.dertefter.data.dto.auth.AuthCreditions
 import com.dertefter.data.dto.docs.DocsItemDto
 import com.dertefter.data.dto.messsages.MessageDto
+import com.dertefter.data.dto.money.MoneyItemDto
+import com.dertefter.data.dto.news.NewsItem
 import com.dertefter.data.dto.news.PromoItem
 import com.dertefter.data.dto.person.PersonDetailDto
 import com.dertefter.data.dto.schedule.EventDto
 import com.dertefter.data.dto.schedule.GroupDto
 import com.dertefter.data.dto.schedule.TimeSlotDto
 import com.dertefter.data.dto.schedule.WeekBoundsDto
-import com.dertefter.data.dto.sessia_results.SessiaResultDto
 import com.dertefter.data.dto.schedule.asLowercase
+import com.dertefter.data.dto.sessia_results.SessiaResultDto
+import com.dertefter.data.dto.settings.ThemeStyle
 import com.dertefter.data.dto.user.ContactInfoDto
 import com.dertefter.data.dto.user.LksDto
 import com.dertefter.data.dto.user.UserInfoDto
-import com.dertefter.data.dto.settings.ThemeStyle
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-
-
-import com.dertefter.data.datasource.local.room.entity.MoneyEntity
-import com.dertefter.data.datasource.local.room.entity.NewsEntity
-import com.dertefter.data.datasource.local.room.entity.NewsRemoteKey
-import com.dertefter.data.datasource.local.room.entity.toEntity
-import androidx.paging.PagingSource
-import androidx.room.withTransaction
-import com.dertefter.data.dto.news.NewsItem
-import com.dertefter.data.datasource.local.room.dao.NewsDao
-import com.dertefter.data.datasource.local.room.dao.NewsRemoteKeyDao
-import com.dertefter.data.dto.money.MoneyItemDto
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -308,8 +304,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(themeColor = color))
     }
 
-    override fun getThemeStyle(): Flow<ThemeStyle?> {
-        return globalConfigDao.getThemeStyle()
+    override fun getThemeStyle(): Flow<ThemeStyle> {
+        return globalConfigDao.getThemeStyle().map { it ?: ThemeStyle.TonalSpot }
     }
 
     override suspend fun saveThemeStyle(themeStyle: ThemeStyle) {
@@ -317,8 +313,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(themeStyle = themeStyle))
     }
 
-    override fun getNewColorSpecVersion(): Flow<Boolean?> {
-        return globalConfigDao.getNewColorSpecVersion()
+    override fun getNewColorSpecVersion(): Flow<Boolean> {
+        return globalConfigDao.getNewColorSpecVersion().map { it ?: true }
     }
 
     override suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean) {
@@ -326,8 +322,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(newColorSpecVersion = newColorSpecVersion))
     }
 
-    override fun getIsShapeCut(): Flow<Boolean?> {
-        return globalConfigDao.getIsShapeCut()
+    override fun getIsShapeCut(): Flow<Boolean> {
+        return globalConfigDao.getIsShapeCut().map { it ?: false }
     }
 
     override suspend fun saveIsShapeCut(isCut: Boolean) {
@@ -335,8 +331,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(isShapeCut = isCut))
     }
 
-    override fun getIsNotificationEnabled(): Flow<Boolean?> {
-        return globalConfigDao.getIsNotificationEnabled()
+    override fun getIsNotificationEnabled(): Flow<Boolean> {
+        return globalConfigDao.getIsNotificationEnabled().map { it ?: false }
     }
 
     override suspend fun saveIsNotificationEnabled(isEnabled: Boolean) {
@@ -344,8 +340,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(isNotificationEnabled = isEnabled))
     }
 
-    override fun getIsMessagesAlertSkipped(): Flow<Boolean?> {
-        return globalConfigDao.getIsMessagesAlertSkipped()
+    override fun getIsMessagesAlertSkipped(): Flow<Boolean> {
+        return globalConfigDao.getIsMessagesAlertSkipped().map { it ?: false }
     }
 
     override suspend fun saveIsMessagesAlertSkipped(isSkipped: Boolean) {
@@ -353,8 +349,8 @@ class LocalDataSourceImpl @Inject constructor(
         globalConfigDao.insertConfig(currentConfig.copy(isMessagesAlertSkipped = isSkipped))
     }
 
-    override fun getIsTgLinkShow(): Flow<Boolean?> {
-        return globalConfigDao.getIsTgLinkShow()
+    override fun getIsTgLinkShow(): Flow<Boolean> {
+        return globalConfigDao.getIsTgLinkShow().map { it ?: true }
     }
 
     override suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean) {

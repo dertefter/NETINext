@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetIsShapeCutUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) {
-    operator fun invoke(): Flow<Boolean?> = settingsRepository.isShapeCut
+    operator fun invoke(): Flow<Boolean> = settingsRepository.isShapeCut
 }

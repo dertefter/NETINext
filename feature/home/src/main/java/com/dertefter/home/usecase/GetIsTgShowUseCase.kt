@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetIsTgShowUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) {
-    operator fun invoke(): Flow<Boolean?> {
+    operator fun invoke(): Flow<Boolean> {
         return settingsRepository.isTgLinkShow
     }
 }

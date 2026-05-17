@@ -15,28 +15,28 @@ interface SettingsRepository {
 
     suspend fun saveThemeColor(color: Long?)
 
-    val oldColorSpecVersion: Flow<Boolean?>
+    val oldColorSpecVersion: Flow<Boolean>
 
     suspend fun saveOldColorSpecVersion(oldColorSpecVersion: Boolean)
 
-    val themeStyle: Flow<ThemeStyle?>
+    val themeStyle: Flow<ThemeStyle>
 
     suspend fun saveThemeStyle(themeStyle: ThemeStyle)
 
-    val isShapeCut: Flow<Boolean?>
+    val isShapeCut: Flow<Boolean>
 
     suspend fun saveIsShapeCut(isCut: Boolean)
 
-    val isNotificationEnabled: Flow<Boolean?>
+    val isNotificationEnabled: Flow<Boolean>
 
     suspend fun saveNotificationEnabled(isEnabled: Boolean)
 
 
-    val isMessagesAlertSkipped: Flow<Boolean?>
+    val isMessagesAlertSkipped: Flow<Boolean>
 
     suspend fun saveIsMessagesAlertSkipped(isMessagesAlertSkipped: Boolean)
 
-    val isTgLinkShow: Flow<Boolean?>
+    val isTgLinkShow: Flow<Boolean>
 
     suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean)
 

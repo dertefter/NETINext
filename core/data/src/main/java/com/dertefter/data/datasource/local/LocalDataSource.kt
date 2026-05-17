@@ -117,27 +117,27 @@ interface LocalDataSource {
 
     suspend fun saveThemeColor(color: Long?)
 
-    fun getThemeStyle(): Flow<ThemeStyle?>
+    fun getThemeStyle(): Flow<ThemeStyle>
 
     suspend fun saveThemeStyle(themeStyle: ThemeStyle)
 
-    fun getNewColorSpecVersion(): Flow<Boolean?>
+    fun getNewColorSpecVersion(): Flow<Boolean>
 
     suspend fun saveNewColorSpecVersion(newColorSpecVersion: Boolean)
 
-    fun getIsShapeCut(): Flow<Boolean?>
+    fun getIsShapeCut(): Flow<Boolean>
 
     suspend fun saveIsShapeCut(isCut: Boolean)
 
-    fun getIsNotificationEnabled(): Flow<Boolean?>
+    fun getIsNotificationEnabled(): Flow<Boolean>
 
     suspend fun saveIsNotificationEnabled(isEnabled: Boolean)
 
-    fun getIsMessagesAlertSkipped(): Flow<Boolean?>
+    fun getIsMessagesAlertSkipped(): Flow<Boolean>
 
     suspend fun saveIsMessagesAlertSkipped(isSkipped: Boolean)
 
-    fun getIsTgLinkShow(): Flow<Boolean?>
+    fun getIsTgLinkShow(): Flow<Boolean>
 
     suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean)
 

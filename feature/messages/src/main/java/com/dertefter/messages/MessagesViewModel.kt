@@ -65,7 +65,7 @@ class MessagesViewModel @Inject constructor(
             filterModes = listOf(FilterMode.ALL, FilterMode.UNREAD)
                     + messages.map { FilterMode.TAB(it.senderType) }.distinct(),
             filterMode = filterMode,
-            isAlertSkipped = isAlertSkipped == true
+            isAlertSkipped = isAlertSkipped
         )
     }.stateIn(
         scope = viewModelScope,

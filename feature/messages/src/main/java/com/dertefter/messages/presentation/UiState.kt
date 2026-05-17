@@ -10,5 +10,5 @@ data class UiState(
     val isWarning: Boolean = false,
     val filterModes: List<FilterMode> = emptyList(),
     val filterMode: FilterMode = FilterMode.ALL,
-    val isAlertSkipped: Boolean = true
+    val isAlertSkipped: Boolean = false
 )

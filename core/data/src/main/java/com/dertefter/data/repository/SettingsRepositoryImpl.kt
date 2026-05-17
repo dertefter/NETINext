@@ -34,37 +34,37 @@ class SettingsRepositoryImpl @Inject constructor(
         localDataSource.saveThemeColor(color)
     }
 
-    override val oldColorSpecVersion: Flow<Boolean?> = localDataSource.getNewColorSpecVersion()
+    override val oldColorSpecVersion: Flow<Boolean> = localDataSource.getNewColorSpecVersion()
 
     override suspend fun saveOldColorSpecVersion(oldColorSpecVersion: Boolean) {
         localDataSource.saveNewColorSpecVersion(oldColorSpecVersion)
     }
 
-    override val themeStyle: Flow<ThemeStyle?> = localDataSource.getThemeStyle()
+    override val themeStyle: Flow<ThemeStyle> = localDataSource.getThemeStyle()
 
     override suspend fun saveThemeStyle(themeStyle: ThemeStyle) {
         localDataSource.saveThemeStyle(themeStyle)
     }
 
-    override val isShapeCut: Flow<Boolean?> = localDataSource.getIsShapeCut()
+    override val isShapeCut: Flow<Boolean> = localDataSource.getIsShapeCut()
 
     override suspend fun saveIsShapeCut(isCut: Boolean) {
         localDataSource.saveIsShapeCut(isCut)
     }
 
-    override val isNotificationEnabled: Flow<Boolean?> = localDataSource.getIsNotificationEnabled()
+    override val isNotificationEnabled: Flow<Boolean> = localDataSource.getIsNotificationEnabled()
 
     override suspend fun saveNotificationEnabled(isEnabled: Boolean) {
         localDataSource.saveIsNotificationEnabled(isEnabled)
     }
 
-    override val isMessagesAlertSkipped: Flow<Boolean?> = localDataSource.getIsMessagesAlertSkipped()
+    override val isMessagesAlertSkipped: Flow<Boolean> = localDataSource.getIsMessagesAlertSkipped()
 
     override suspend fun saveIsMessagesAlertSkipped(isMessagesAlertSkipped: Boolean) {
         localDataSource.saveIsMessagesAlertSkipped(isMessagesAlertSkipped)
     }
 
-    override val isTgLinkShow: Flow<Boolean?> = localDataSource.getIsTgLinkShow()
+    override val isTgLinkShow: Flow<Boolean> = localDataSource.getIsTgLinkShow()
 
     override suspend fun saveIsTgLinkShow(isTgLinkShow: Boolean) {
         localDataSource.saveIsTgLinkShow(isTgLinkShow)

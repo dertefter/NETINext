@@ -8,5 +8,5 @@ import javax.inject.Inject
 class GetThemeStyleUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) {
-    operator fun invoke(): Flow<ThemeStyle?> = settingsRepository.themeStyle
+    operator fun invoke(): Flow<ThemeStyle> = settingsRepository.themeStyle
 }

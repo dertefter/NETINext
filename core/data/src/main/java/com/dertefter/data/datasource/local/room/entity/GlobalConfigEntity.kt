@@ -14,13 +14,13 @@ data class GlobalConfigEntity(
     val currentLogin: String? = null,
     val preferredRemoteSource: PreferredRemoteSource = PreferredRemoteSource.AUTO,
     val themeColor: Long? = null,
-    val themeStyle: ThemeStyle? = null,
-    val newColorSpecVersion: Boolean? = null,
-    val isShapeCut: Boolean? = null,
-    val isNotificationEnabled: Boolean? = null,
+    val themeStyle: ThemeStyle = ThemeStyle.TonalSpot,
+    val newColorSpecVersion: Boolean = true,
+    val isShapeCut: Boolean = false,
+    val isNotificationEnabled: Boolean = false,
     val promoList: List<PromoItem>? = null,
     val eventList: List<EventDto>? = null,
     val weekHeader: String? = null,
-    val isMessagesAlertSkipped: Boolean? = null,
-    val isTgLinkShow: Boolean? = null
+    val isMessagesAlertSkipped: Boolean = false,
+    val isTgLinkShow: Boolean = true
 )

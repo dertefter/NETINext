@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetOldColorSpecVersionUseCase @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) {
-    operator fun invoke(): Flow<Boolean?> = settingsRepository.oldColorSpecVersion
+    operator fun invoke(): Flow<Boolean> = settingsRepository.oldColorSpecVersion
 }
