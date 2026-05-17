@@ -23,8 +23,8 @@ android {
         applicationId = "com.dertefter.neticlient"
         minSdk = 29
         targetSdk = 37
-        versionCode = 43
-        versionName = "5.0.6.1"
+        versionCode = 44
+        versionName = "5.0.6.2"
     }
 
     compileOptions {
