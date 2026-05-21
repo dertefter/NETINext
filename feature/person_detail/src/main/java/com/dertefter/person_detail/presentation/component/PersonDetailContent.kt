@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
@@ -65,7 +66,7 @@ fun PersonDetailContent(
         modifier = modifier
             .fillMaxSize()
             .wrapContentWidth(Alignment.CenterHorizontally)
-            .widthIn(max = 400.dp)
+            .widthIn(max = 480.dp)
             .padding(horizontal = MaterialTheme.spacing.defaultScreenPadding)
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         contentPadding = contentPadding,
@@ -129,11 +130,13 @@ fun PersonDetailContent(
                 Text(
                     text = personDetail.name ?: "",
                     modifier = Modifier.padding(top = MaterialTheme.spacing.small),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center
                 )
                 personDetail.post?.let {
                     Text(
                         text = it,
+                        textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.labelLargeEmphasized
                     )
                 }
