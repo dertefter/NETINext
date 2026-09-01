@@ -1,5 +1,6 @@
 package com.dertefter.data.datasource.remote.api.parsers
 
+import android.util.Log
 import com.dertefter.data.dto.person.PersonShortDto
 import com.dertefter.data.dto.schedule.LessonDto
 import com.dertefter.data.dto.schedule.ScheduleDto
@@ -25,8 +26,9 @@ fun parseSchedule(
     val firstDayDateString = parseFirstDayDateString(scheduleFirstWeekRespHtml)
 
     val monthValue = firstDayDateString.split(".")[1].toIntOrNull()
+
     val years = doc.select("span.schedule__title-content").first()?.text()?.split(" ")?.first()?.split("/")!!
-    val year = if (monthValue in 9..12) years[0] else years[1]
+    val year = if (monthValue in 6..12) years[0] else years[1]
     val combinedDate = "$firstDayDateString.$year"
     val firstDayLocalDate = LocalDate.parse(combinedDate, formatter)
 
