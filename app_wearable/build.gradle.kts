@@ -14,9 +14,9 @@ android {
     defaultConfig {
         applicationId = "com.dertefter.neticlient"
         minSdk = 30
-        targetSdk = 36
-        versionCode = 50003
-        versionName = "5.1.1"
+        targetSdk = 37
+        versionCode = 50005
+        versionName = "5.1.2"
 
     }
 
