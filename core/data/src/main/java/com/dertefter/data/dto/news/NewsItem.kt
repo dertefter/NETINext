@@ -1,5 +1,8 @@
 package com.dertefter.data.dto.news
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NewsItem(
     val id: String,
     val type: String,

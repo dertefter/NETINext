@@ -40,13 +40,12 @@ dependencies {
     implementation(libs.androidx.datastore.core)
     implementation(libs.encryptedprefs)
     ksp(libs.hilt.compiler)
-
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
     ksp(libs.room.compiler)
-
     implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)

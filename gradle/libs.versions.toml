@@ -18,9 +18,10 @@ materialKolor = "5.0.1"
 okhttpUrlconnection = "5.5.0"
 palette = "1.0.0"
 retrofit = "3.0.0"
+retrofitKotlinxSerializationConverter = "1.0.0"
 room = "2.8.4"
 encryptedprefs = "1.1.1"
-agp = "9.3.2"
+agp = "9.4.0"
 kotlin = "2.4.10"
 ksp = "2.3.11"
 junit = "4.13.2"
@@ -76,6 +77,7 @@ material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "m
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttpUrlconnection" }
 okhttp-java-net-cookiejar = { module = "com.squareup.okhttp3:okhttp-java-net-cookiejar", version.ref = "okhttpUrlconnection" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationConverter" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }

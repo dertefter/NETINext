@@ -1,5 +1,8 @@
 package com.dertefter.data.dto.docs
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class DocumentRequestItem(
     val is_avail: String?,
     val need_appl: String?,

@@ -1,5 +1,6 @@
 package com.dertefter.data.repository
 
+import android.util.Log
 import com.dertefter.data.common.AppError
 import com.dertefter.data.common.AppException
 import com.dertefter.data.common.toAppError
@@ -50,6 +51,7 @@ class AuthRepositoryImpl @Inject constructor(
             saveAuthCreds(login, password)
             authorizeYourNeti(login, password, updateStatusOnSuccessOnly).getOrThrow()
         }.onFailure {
+            Log.e("zzzzzzzzzzzzzz", it.stackTraceToString())
             if (removeAccountOnFail) { removeFromAccountHistory(login) }
             if (logoutOnFail) { logout() }
         }

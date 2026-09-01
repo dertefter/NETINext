@@ -3,6 +3,9 @@ package com.dertefter.data.dto.schedule
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class EventDto(
     val title: String,
     val url: String?,

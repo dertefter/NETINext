@@ -2,6 +2,9 @@ package com.dertefter.data.dto.person
 
 
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class PersonDetailDto(
     val personId: Long,
     val name: String?,

@@ -1,5 +1,8 @@
 package com.dertefter.data.dto.user
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ContactInfoDto(
     val name: String?,
     val surname: String?,

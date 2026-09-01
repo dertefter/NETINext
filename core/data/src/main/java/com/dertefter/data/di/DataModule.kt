@@ -22,14 +22,16 @@ import com.dertefter.data.datasource.remote.api.CiuApiService
 import com.dertefter.data.datasource.remote.api.Login2ApiService
 import com.dertefter.data.datasource.remote.api.YourNetiApiService
 import com.google.gson.Gson
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -124,8 +126,10 @@ object DataModule {
     @Provides
     @Singleton
     fun provideLogin2ApiService(@Named("login_2") client: OkHttpClient): Login2ApiService {
+        val json = Json { ignoreUnknownKeys = true }
+        val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder().baseUrl("https://login2.nstu.ru/").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(json.asConverterFactory(contentType)).build()
         return retrofit.create(Login2ApiService::class.java)
     }
 
@@ -133,24 +137,30 @@ object DataModule {
     @Provides
     @Singleton
     fun provideBaseApiService(@Named("base") client: OkHttpClient): BaseApiService {
+        val json = Json { ignoreUnknownKeys = true }
+        val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder().baseUrl("https://nstu.ru/").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(json.asConverterFactory(contentType)).build()
         return retrofit.create(BaseApiService::class.java)
     }
 
     @Provides
     @Singleton
     fun provideYourNetiApiService(@Named("your_neti") client: OkHttpClient): YourNetiApiService {
+        val json = Json { ignoreUnknownKeys = true }
+        val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder().baseUrl("https://api.ciu.nstu.ru/v2.0/").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(json.asConverterFactory(contentType)).build()
         return retrofit.create(YourNetiApiService::class.java)
     }
 
     @Provides
     @Singleton
     fun provideCiuApiService(@Named("ciu") client: OkHttpClient): CiuApiService {
+        val json = Json { ignoreUnknownKeys = true }
+        val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder().baseUrl("https://ciu.nstu.ru/").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(json.asConverterFactory(contentType)).build()
         return retrofit.create(CiuApiService::class.java)
     }
 

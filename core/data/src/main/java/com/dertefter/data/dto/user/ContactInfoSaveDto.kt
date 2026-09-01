@@ -1,5 +1,8 @@
 package com.dertefter.data.dto.user
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ContactInfoSaveDto(
     val save: String = "1",
     val what: String = "0",
