@@ -21,16 +21,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    # ВАЖНО: Даем права на запись контента, чтобы скрипт мог создать релиз на GitHub
     permissions:
       contents: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -96,7 +95,7 @@ jobs:
           tracks: ${{ steps.determine_track.outputs.wear_track }}
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
